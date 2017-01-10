@@ -28,7 +28,7 @@
     "zendframework/zend-config": "^2.6",
     "zendframework/zend-stdlib": "^3",
     "google/apiclient": "2.0",
-    "avz-cmf/zaboy-installer": "^2.1",
+    "rolluncom/installer": "^2.1",
     "mindplay/jsonfreeze": "0.3.3.x-dev",
     "opis/closure": "^2.1.0",
     "psr/log": "^1.0"
@@ -47,8 +47,8 @@
     }
   },
   "scripts": {
-    "lib-install": "zaboy\\installer\\Command::install",
-    "lib-uninstall": "zaboy\\installer\\Command::uninstall",
-    "lib-reinstall": "zaboy\\installer\\Command::reinstall"
+    "lib-install": "rolluncom\\installer\\Command::install",
+    "lib-uninstall": "rolluncom\\installer\\Command::uninstall",
+    "lib-reinstall": "rolluncom\\installer\\Command::reinstall"
   }
 }
