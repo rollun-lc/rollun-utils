@@ -1,10 +1,10 @@
 <?php
 
-namespace rolluncom\test\utils\Php;
+namespace rollun\test\utils\Php;
 
-use rolluncom\utils\Json\Coder as JsonCoder;
-use rolluncom\utils\Json\Exception as JsonException;
-use rolluncom\test\utils\Json\SerializerTestAbstract;
+use rollun\utils\Json\Coder as JsonCoder;
+use rollun\utils\Json\Exception as JsonException;
+use rollun\test\utils\Json\SerializerTestAbstract;
 
 class CoderTest extends SerializerTestAbstract
 {

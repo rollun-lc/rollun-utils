@@ -1,6 +1,6 @@
 <?php
 
-namespace rolluncom\utils\utils\HtmlParser;
+namespace rollun\utils\utils\HtmlParser;
 
 /**
  * Website: http://sourceforge.net/projects/simplehtmldom/

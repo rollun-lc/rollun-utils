@@ -4,55 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b9f3b6a6ea0ebd1e5ddfbb66420130ba",
-    "content-hash": "d792f61a6819d35d1588fecd481338b8",
+    "hash": "415e75fdb71afea87dab1b83f4eb4d59",
+    "content-hash": "7057e4e4d311164c0d759ac76fb7e82a",
     "packages": [
-        {
-            "name": "avz-cmf/zaboy-installer",
-            "version": "v2.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/avz-cmf/zaboy-installer.git",
-                "reference": "b19f5b17354e9fd719e34a54b7213e9743061e76"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/avz-cmf/zaboy-installer/zipball/b19f5b17354e9fd719e34a54b7213e9743061e76",
-                "reference": "b19f5b17354e9fd719e34a54b7213e9743061e76",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.1",
-                "composer/composer": "^1.0",
-                "php": "^5.6 || ^7.0",
-                "zendframework/zend-servicemanager": "^3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "zaboy\\installer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "avz-cmf",
-                    "email": "email@example.com"
-                },
-                {
-                    "name": "victorynox",
-                    "email": "it.proffesor02@gmail.com"
-                }
-            ],
-            "description": "Installer lib for create and automated install specific app/lib pref",
-            "time": "2017-01-10 11:28:53"
-        },
         {
             "name": "composer/ca-bundle",
             "version": "1.0.6",
@@ -1216,6 +1170,57 @@
                 "psr-3"
             ],
             "time": "2016-10-10 12:19:37"
+        },
+        {
+            "name": "rollun-com/rollun-installer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rollun-com/rollun-installer.git",
+                "reference": "f18945e9d008ed58f100f449bfa0592d622f71b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rollun-com/rollun-installer/zipball/f18945e9d008ed58f100f449bfa0592d622f71b1",
+                "reference": "f18945e9d008ed58f100f449bfa0592d622f71b1",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1",
+                "composer/composer": "^1.0",
+                "php": "^5.6 || ^7.0",
+                "psr/http-message": "^1.0",
+                "zendframework/zend-config": "^2.6",
+                "zendframework/zend-diactoros": "^1.1",
+                "zendframework/zend-servicemanager": "^3.0",
+                "zendframework/zend-stdlib": "^3",
+                "zendframework/zend-stratigility": "^1.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "rollun\\installer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "avz-cmf",
+                    "email": "email@example.com"
+                },
+                {
+                    "name": "victorynox",
+                    "email": "it.proffesor02@gmail.com"
+                }
+            ],
+            "description": "Installer",
+            "time": "2017-01-11 09:44:07"
         },
         {
             "name": "seld/cli-prompt",
@@ -3107,6 +3112,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "rollun-com/rollun-installer": 20,
         "mindplay/jsonfreeze": 20
     },
     "prefer-stable": false,

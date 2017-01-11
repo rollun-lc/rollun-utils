@@ -1,9 +1,9 @@
 <?php
 
-namespace rolluncom\test\utils\Php;
+namespace rollun\test\utils\Php;
 
-use rolluncom\utils\Json\Exception as JsonException;
-use rolluncom\utils\Php\Serializer as PhpSerializer;
+use rollun\utils\Json\Exception as JsonException;
+use rollun\utils\Php\Serializer as PhpSerializer;
 
 abstract class SerializerTestAbstract extends \PHPUnit_Framework_TestCase
 {

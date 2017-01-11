@@ -7,10 +7,10 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
-namespace rolluncom\utils\Json\Plugin;
+namespace rollun\utils\Json\Plugin;
 
 use mindplay\jsonfreeze\JsonSerializer;
-use rolluncom\utils\Json\Exception as JsonException;
+use rollun\utils\Json\Exception as JsonException;
 
 /**
  *

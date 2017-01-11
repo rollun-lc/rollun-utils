@@ -1,8 +1,8 @@
 <?php
 
-namespace rolluncom\test\utils\Json;
+namespace rollun\test\utils\Json;
 
-use rolluncom\utils\Json\Exception as JsonException;
+use rollun\utils\Json\Exception as JsonException;
 
 abstract class SerializerTestAbstract extends \PHPUnit_Framework_TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace rolluncom\test\utils\Json;
+namespace rollun\test\utils\Json;
 
-use rolluncom\utils\Json\Exception as JsonException;
-use rolluncom\utils\Json\Serializer as JsonSerializer;
-use rolluncom\test\utils\Json\SerializerTestAbstract;
+use rollun\utils\Json\Exception as JsonException;
+use rollun\utils\Json\Serializer as JsonSerializer;
+use rollun\test\utils\Json\SerializerTestAbstract;
 
 class SerializerTest extends SerializerTestAbstract
 {

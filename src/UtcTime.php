@@ -1,6 +1,6 @@
 <?php
 
-namespace rolluncom\utils;
+namespace rollun\utils;
 
 class UtcTime
 {

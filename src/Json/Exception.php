@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
-namespace rolluncom\utils\Json;
+namespace rollun\utils\Json;
 
 /**
  * Exception class

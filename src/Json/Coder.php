@@ -7,9 +7,9 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
-namespace rolluncom\utils\Json;
+namespace rollun\utils\Json;
 
-use rolluncom\utils\Json\Exception as JsonException;
+use rollun\utils\Json\Exception as JsonException;
 
 /**
  * Not use for object

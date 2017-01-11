@@ -1,9 +1,9 @@
 <?php
 
-namespace rolluncom\test\utils\Php;
+namespace rollun\test\utils\Php;
 
-use rolluncom\test\utils\Php\SerializerTestAbstract;
-use rolluncom\utils\Php\Serializer as PhpSerializer;
+use rollun\test\utils\Php\SerializerTestAbstract;
+use rollun\utils\Php\Serializer as PhpSerializer;
 
 class SerializerTest extends SerializerTestAbstract
 {

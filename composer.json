@@ -1,5 +1,5 @@
 {
-  "name": "rollun-com/utils",
+  "name": "rollun-com/rollun-utils",
   "description": "Utils for middleware and pipes",
   "type": "library",
   "license": "GPL-3.0",
@@ -28,7 +28,7 @@
     "zendframework/zend-config": "^2.6",
     "zendframework/zend-stdlib": "^3",
     "google/apiclient": "2.0",
-    "rolluncom/installer": "^2.1",
+    "rollun-com/rollun-installer": "dev-master",
     "mindplay/jsonfreeze": "0.3.3.x-dev",
     "opis/closure": "^2.1.0",
     "psr/log": "^1.0"
@@ -38,17 +38,17 @@
   },
   "autoload": {
     "psr-4": {
-      "rolluncom\\utils\\": "src/"
+      "rollun\\utils\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "rolluncom\\test\\utils\\": "tests/src"
+      "rollun\\test\\utils\\": "tests/src"
     }
   },
   "scripts": {
-    "lib-install": "rolluncom\\installer\\Command::install",
-    "lib-uninstall": "rolluncom\\installer\\Command::uninstall",
-    "lib-reinstall": "rolluncom\\installer\\Command::reinstall"
+    "lib-install": "rollun\\installer\\Command::install",
+    "lib-uninstall": "rollun\\installer\\Command::uninstall",
+    "lib-reinstall": "rollun\\installer\\Command::reinstall"
   }
 }

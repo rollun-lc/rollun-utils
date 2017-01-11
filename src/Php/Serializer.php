@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
-namespace rolluncom\utils\Php;
+namespace rollun\utils\Php;
 
 use Opis\Closure\SerializableClosure;
 
