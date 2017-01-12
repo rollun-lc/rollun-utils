@@ -11,15 +11,20 @@ class UtcTime
 
     /**
      *
-     * @param type $precision
+     * @param $precision
      * @return int|double
      */
-
     public static function getUtcTimestamp($precision = self::WITHOUT_MICROSECONDS)
     {
         return round(microtime(1) - date('Z'), $precision);
     }
 
+    /**
+     * @param $format
+     * @param $time
+     * @param \DateTimeZone $timeZone
+     * @return int
+     */
     public static function utcTimestampByDate($format, $time, \DateTimeZone $timeZone)
     {
         $dataTime = \DateTime::createFromFormat($format, $time, $timeZone);

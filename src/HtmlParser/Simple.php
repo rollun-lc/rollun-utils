@@ -16,6 +16,10 @@ class Simple extends simple_html_dom
      */
     public $dom;
 
+    /**
+     * Simple constructor.
+     * @param null $str
+     */
     public function __construct($str = null)
     {
         $lowercase = true;
@@ -33,6 +37,10 @@ class Simple extends simple_html_dom
         $this->load($str, $lowercase, $stripRN);
     }
 
+    /**
+     * @param $input
+     * @return string
+     */
     public function fromCamelCase($input)
     {
         preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
@@ -43,6 +51,11 @@ class Simple extends simple_html_dom
         return implode('_', $ret);
     }
 
+    /**
+     * @param $name
+     * @param array $params
+     * @return mixed
+     */
     public function __call($name, array $params)
     {
         $dashesName = $this->fromCamelCase($name);

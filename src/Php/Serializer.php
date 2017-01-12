@@ -21,6 +21,10 @@ use Opis\Closure\SerializableClosure;
 class Serializer
 {
 
+    /**
+     * @param $value
+     * @return string
+     */
     public static function phpSerialize($value)
     {
 
@@ -36,6 +40,10 @@ class Serializer
         return serialize($value);
     }
 
+    /**
+     * @param $serializedValue
+     * @return mixed
+     */
     public static function phpUnserialize($serializedValue)
     {
         return unserialize($serializedValue);

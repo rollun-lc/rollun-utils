@@ -21,6 +21,10 @@ use rollun\utils\Json\Exception as JsonException;
 class ExceptionSerializer
 {
 
+    /**
+     * @param \Exception $exception
+     * @return array
+     */
     public static function exceptionSerialize(\Exception $exception)
     {
         $data = array(
@@ -34,6 +38,10 @@ class ExceptionSerializer
         return $data;
     }
 
+    /**
+     * @param $data
+     * @return \Exception|\RuntimeException
+     */
     public static function exceptionUnserialize($data)
     {
 
@@ -59,18 +67,30 @@ class ExceptionSerializer
         return $exc;
     }
 
+    /**
+     * @param $value
+     * @param $serializer
+     */
     public static function defineExceptionSerializer($value, $serializer)
     {
         $objectClasses = static::getClassesFromObject($value)['class'];
         self::define($objectClasses, $serializer);
     }
 
+    /**
+     * @param $serializedValue
+     * @param $serializer
+     */
     public static function defineExceptionUnserializer($serializedValue, $serializer)
     {
         $objectClasses = static::getClassesFromString($serializedValue);
         self::define($objectClasses, $serializer);
     }
 
+    /**
+     * @param $objectClasses
+     * @param $serializer
+     */
     protected static function define($objectClasses, $serializer)
     {
         foreach ($objectClasses as $className) {
@@ -120,6 +140,12 @@ class ExceptionSerializer
         return $types;
     }
 
+    /**
+     * @param $subject
+     * @param array $typesAndObjects
+     * @return array
+     * @throws JsonException
+     */
     protected static function getClassesFromObject($subject, $typesAndObjects = ['class' => [], 'objects' => []])
     {
         if (is_scalar($subject) || is_resource($subject) || empty($subject) || $subject instanceof \Closure) {
