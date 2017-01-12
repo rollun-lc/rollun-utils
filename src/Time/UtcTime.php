@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\utils;
+namespace rollun\utils\Time;
 
 class UtcTime
 {
@@ -20,4 +20,9 @@ class UtcTime
         return round(microtime(1) - date('Z'), $precision);
     }
 
+    public static function utcTimestampByDate($format, $time, \DateTimeZone $timeZone)
+    {
+        $dataTime = \DateTime::createFromFormat($format, $time, $timeZone);
+        return $dataTime->getTimestamp();
+    }
 }
