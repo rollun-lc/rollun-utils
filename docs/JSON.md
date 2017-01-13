@@ -4,12 +4,12 @@
 Coder и Serializer имею похожий функционал, но отличаются способом сериализации объектов.
 
 ###JSON CODER
-[Coder.php](https://github.com/avz-cmf/zaboy/blob/master/src/utils/Json/Coder.php/).
+[Coder.php](https://github.com/rollun-com/rollun-utils/blob/master/src/Json/Coder.php/).
 В основном используется для сериализации простых типов и массивов.
 JSON представление stdClass объекта декодируется в массив.
 
 ###JSON SERIALIZER
-[Serializer.php](https://github.com/avz-cmf/zaboy/blob/master/src/utils/Json/Serializer.php/).
+[Serializer.php](https://github.com/rollun-com/rollun-utils/blob/master/src/Json/Serializer.php/).
 В основном используется для сериализации простых объектов, Но может сериализовывать простые типы.
 JSON представление stdClass объекта декодируется в массив.
 
@@ -17,13 +17,13 @@ JSON представление stdClass объекта декодируется
 JSON CODER при попытке кодировать объет выбрасывает исключение..
 
 Подробнее видно в тестах:
-[CoderTest.php](https://github.com/avz-cmf/zaboy/blob/master/src/utils/Json/Coder.php/),
-[SerializerTest.php](https://github.com/avz-cmf/zaboy/blob/master/src/utils/Json/Coder.php/).
+[CoderTest.php](https://github.com/rollun-com/rollun-utils/blob/master/src/Json/Coder.php/),
+[SerializerTest.php](https://github.com/rollun-com/rollun-utils/blob/master/src/Json/Coder.php/).
 
 ##Сериализация Exception объектов
 JSON CODER не может кодировать Exception.
 JSON SERIALIZER может кодировать и восстанавливать сложные объекты, если написать плагин для поддержки объектов определенного типа.
-Пример - Exception. [Serializer.php](https://github.com/avz-cmf/zaboy/blob/master/src/utils/Json/Serializer.php/).
+Пример - Exception. [Serializer.php](https://github.com/rollun-com/rollun-utils/blob/master/src/Json/Serializer.php/).
 
 ````PHP
     public static function jsonSerialize($value)
@@ -32,8 +32,9 @@ JSON SERIALIZER может кодировать и восстанавливат�
         $serializer->defineSerialization('Exception', [get_class(), 'serializeException'], [get_class(), 'unserializeException']);
     ....
     }
-JSON SERIALIZER поддерживает вложенные Exception.
 ````
+Так же JSON SERIALIZER поддерживает кастомные Exception, вложенные Exception, а так же вложенные кастомные поля.
+Для обработки кастомных Exception, предполагается начилие их класса в autoload.
 
 ##Выводы
 ####JSON CODER следует использовать для сериализации данных. Не следует использовать для работы с объектами.

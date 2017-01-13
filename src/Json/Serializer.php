@@ -23,6 +23,11 @@ use rollun\utils\Json\Exception as JsonException;
 class Serializer
 {
 
+    /**
+     * @param $value
+     * @return string
+     * @throws Exception
+     */
     public static function jsonSerialize($value)
     {
         if (is_resource($value) || $value instanceof \Closure) {
@@ -38,6 +43,10 @@ class Serializer
         return $serializedValue;
     }
 
+    /**
+     * @param $serializedValue
+     * @return mixed
+     */
     public static function jsonUnserialize($serializedValue)
     {
         $serializer = new JsonSerializer();
