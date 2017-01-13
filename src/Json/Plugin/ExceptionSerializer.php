@@ -11,6 +11,7 @@ namespace rollun\utils\Json\Plugin;
 
 use mindplay\jsonfreeze\JsonSerializer;
 use rollun\utils\Json\Exception as JsonException;
+use rollun\utils\Json\Serializer;
 
 /**
  *
@@ -21,27 +22,28 @@ use rollun\utils\Json\Exception as JsonException;
 class ExceptionSerializer
 {
 
-    /**
-     * @param \Exception $exception
-     * @return array
-     */
     public static function exceptionSerialize(\Exception $exception)
     {
         $data = array(
             JsonSerializer::TYPE => get_class($exception),
-            "message" => $exception->getMessage(),
-            "code" => $exception->getCode(),
+            /*"message" => $exception->getMessage(),*/
+            /*"code" => $exception->getCode(),*/
             "line" => $exception->getLine(),
             "file" => $exception->getFile(),
             "prev" => $exception->getPrevious(),
         );
+        $refClassExc = new \ReflectionClass($exception);
+        /** @var \ReflectionProperty $property */
+        foreach ($refClassExc->getProperties() as $property) {
+            if (!in_array($property->getName(), array_keys($data))) {
+                $property->setAccessible(true);
+                $data[$property->getName()] = Serializer::jsonSerialize($property->getValue($exception));
+                $property->setAccessible(false);
+            }
+        }
         return $data;
     }
 
-    /**
-     * @param $data
-     * @return \Exception|\RuntimeException
-     */
     public static function exceptionUnserialize($data)
     {
 
@@ -51,7 +53,7 @@ class ExceptionSerializer
             $exc = new $data[JsonSerializer::TYPE]($data["message"], $data["code"], $prev);
         } catch (\Exception $exc) {
             $exc = new \RuntimeException('Can not Unserialize Exception '
-                    . $data[JsonSerializer::TYPE], 0, $exc
+                . $data[JsonSerializer::TYPE], 0, $exc
             );
         }
 
@@ -64,88 +66,25 @@ class ExceptionSerializer
             $refProperty->setValue($exc, $data[$refProperty->getName()]);
             $refProperty->setAccessible(false);
         }
+        $refClassExc = new \ReflectionClass($data['#type']);
+        foreach ($refClassExc->getProperties() as $refProperty) {
+            if (!in_array($refProperty->getName(), $propArray) &&
+                in_array($refProperty->getName(), array_keys($data))
+            ) {
+                $refProperty->setAccessible(true);
+                $refProperty->setValue($exc, Serializer::jsonUnserialize($data[$refProperty->getName()]));
+                $refProperty->setAccessible(false);
+            }
+        }
         return $exc;
     }
 
-    /**
-     * @param $value
-     * @param $serializer
-     */
     public static function defineExceptionSerializer($value, $serializer)
     {
         $objectClasses = static::getClassesFromObject($value)['class'];
         self::define($objectClasses, $serializer);
     }
 
-    /**
-     * @param $serializedValue
-     * @param $serializer
-     */
-    public static function defineExceptionUnserializer($serializedValue, $serializer)
-    {
-        $objectClasses = static::getClassesFromString($serializedValue);
-        self::define($objectClasses, $serializer);
-    }
-
-    /**
-     * @param $objectClasses
-     * @param $serializer
-     */
-    protected static function define($objectClasses, $serializer)
-    {
-        foreach ($objectClasses as $className) {
-
-            if (is_a($className, 'Exception', true)) {
-                $serializer->defineSerialization(
-                        $className
-                        , [get_class(), 'exceptionSerialize']
-                        , [get_class(), 'exceptionUnserialize']
-                );
-            }
-        }
-    }
-
-    /**
-     * Extract types of serialized objects
-     *
-     * in:
-     * <code>
-     * '[1,{ "#type": "Exception", "message": "Exception",  "string": "",  "code": 404,  "previous":
-     * {"#type": "zaboy\\utils\\Json\\Exception", "message": "JsonException"}},"a",{"#type": "stdClass"}]'
-     * </code>
-     *
-     * out:
-     * <code>
-     * out:['Exception', 'zaboy\utils\Json\Exception', 'stdClass']
-     * </code>
-     *
-     *
-     * @param string  $subject
-     * @return array
-     */
-    protected static function getClassesFromString($subject)
-    {
-        $pattern = '/"#type": "([\w\x5c]+)"/';
-        $match = array();
-        $types = array();
-
-        if (preg_match_all($pattern, $subject, $match)) {
-            if (count($match) > 1) {
-                foreach ($match[1] as $type) {
-                    $types[] = preg_replace('|([\x5c]+)|s', '\\', $type);
-                }
-            }
-        }
-
-        return $types;
-    }
-
-    /**
-     * @param $subject
-     * @param array $typesAndObjects
-     * @return array
-     * @throws JsonException
-     */
     protected static function getClassesFromObject($subject, $typesAndObjects = ['class' => [], 'objects' => []])
     {
         if (is_scalar($subject) || is_resource($subject) || empty($subject) || $subject instanceof \Closure) {
@@ -214,6 +153,61 @@ class ExceptionSerializer
             }
         }
         return $props_arr;
+    }
+
+    protected static function define($objectClasses, $serializer)
+    {
+        foreach ($objectClasses as $className) {
+
+            if (is_a($className, 'Exception', true)) {
+                $serializer->defineSerialization(
+                    $className
+                    , [get_class(), 'exceptionSerialize']
+                    , [get_class(), 'exceptionUnserialize']
+                );
+            }
+        }
+    }
+
+    public static function defineExceptionUnserializer($serializedValue, $serializer)
+    {
+        $objectClasses = static::getClassesFromString($serializedValue);
+        self::define($objectClasses, $serializer);
+    }
+
+    /**
+     * Extract types of serialized objects
+     *
+     * in:
+     * <code>
+     * '[1,{ "#type": "Exception", "message": "Exception",  "string": "",  "code": 404,  "previous":
+     * {"#type": "zaboy\\utils\\Json\\Exception", "message": "JsonException"}},"a",{"#type": "stdClass"}]'
+     * </code>
+     *
+     * out:
+     * <code>
+     * out:['Exception', 'zaboy\utils\Json\Exception', 'stdClass']
+     * </code>
+     *
+     *
+     * @param string $subject
+     * @return array
+     */
+    protected static function getClassesFromString($subject)
+    {
+        $pattern = '/"#type": "([\w\x5c]+)"/';
+        $match = array();
+        $types = array();
+
+        if (preg_match_all($pattern, $subject, $match)) {
+            if (count($match) > 1) {
+                foreach ($match[1] as $type) {
+                    $types[] = preg_replace('|([\x5c]+)|s', '\\', $type);
+                }
+            }
+        }
+
+        return $types;
     }
 
 }
