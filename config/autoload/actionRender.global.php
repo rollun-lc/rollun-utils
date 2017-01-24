@@ -18,10 +18,12 @@ return [
             ResponseRendererFactory::class
         ],
         'invokables' => [
+
+        ],
+        'factories' => [
             \rollun\skeleton\ActionRender\Renderer\Html\HtmlRendererAction::class =>
                 \rollun\skeleton\ActionRender\Renderer\Html\HtmlRendererFactory::class
         ],
-        'factories' => [],
     ],
     AbstractMiddlewarePipeFactoryAbstract::KEY_AMP => [
         'htmlReturner' => [
