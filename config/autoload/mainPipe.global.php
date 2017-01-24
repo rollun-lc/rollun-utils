@@ -6,26 +6,47 @@
  * Time: 17:41
  */
 
-use rollun\utils\MainPipe\Factory\MainPipeFactoryAbstract;
-use rollun\utils\MainPipe\ResponseReturnerFactory;
+use rollun\utils\ActionRender\Factory\AbstractMiddlewarePipeFactoryAbstract;
+use rollun\utils\ActionRender\Factory\ActionRenderFactory;
+use rollun\utils\ActionRender\Renderer\ResponseRendererFactory;
 
 return [
     'dependencies' => [
+        'abstract_factories' => [
+            AbstractMiddlewarePipeFactoryAbstract::class,
+            ActionRenderFactory::class,
+            ResponseRendererFactory::class
+        ],
         'invokables' => [
+            \rollun\skeleton\ActionRender\Renderer\Html\HtmlRendererAction::class =>
+                \rollun\skeleton\ActionRender\Renderer\Html\HtmlRendererFactory::class
         ],
-        'factories' => [
-        ],
+        'factories' => [],
     ],
-    MainPipeFactoryAbstract::KEY_MAIN_PIPE => [
-        /*'home' => [
+    AbstractMiddlewarePipeFactoryAbstract::KEY_AMP => [
+        'htmlReturner' => [
             'middlewares' => [
+                \rollun\skeleton\ActionRender\Renderer\Html\HtmlParamResolver::class,
+                \rollun\skeleton\ActionRender\Renderer\Html\HtmlRendererAction::class
             ]
-        ]*/
-    ],
-    ResponseReturnerFactory::KEY_RESPONSE_RETURNER => [
-        ResponseReturnerFactory::KEY_ACCEPT_TYPE_PATTERN => [
-            //pattern => middleware
         ]
+    ],
+    ResponseRendererFactory::KEY_RESPONSE_RENDERER => [
+        'simpleHtmlJsonRenderer' => [
+            ResponseRendererFactory::KEY_ACCEPT_TYPE_PATTERN => [
+                //pattern => middleware-Service-Name
+                '/application\/json/' => \rollun\skeleton\ActionRender\Renderer\Json\JsonRendererAction::class,
+                '/text\/html/' => 'htmlReturner'
+            ]
+        ]
+    ],
+    ActionRenderFactory::KEY_ACTION_RENDER => [
+        /*'home' => [
+            // ActionRenderFactory::KEY_AR_MIDDLEWARE => 'ActionRenderMiddleware'
+            ActionRenderFactory::KEY_AR_MIDDLEWARE => [
+                ActionRenderFactory::KEY_ACTION => '',
+                ActionRenderFactory::KEY_RENDER => 'simpleHtmlJsonRenderer'
+            ]
+        ],*/
     ]
-
 ];

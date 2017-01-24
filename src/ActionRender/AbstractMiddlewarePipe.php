@@ -6,11 +6,11 @@
  * Time: 15:26
  */
 
-namespace rollun\utils\MainPipe;
+namespace rollun\utils\ActionRender;
 
 use Zend\Stratigility\MiddlewarePipe;
 
-class MainPipe extends MiddlewarePipe
+class AbstractMiddlewarePipe extends MiddlewarePipe
 {
     /**
      * MainPipe constructor.

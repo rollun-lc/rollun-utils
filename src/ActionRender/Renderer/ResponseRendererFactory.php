@@ -6,7 +6,7 @@
  * Time: 17:52
  */
 
-namespace rollun\utils\MainPipe;
+namespace rollun\utils\ActionRender\Renderer;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -14,12 +14,12 @@ use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ResponseReturnerFactory implements FactoryInterface
+class ResponseRendererFactory implements AbstractFactoryInterface
 {
-
-    const KEY_RESPONSE_RETURNER = 'responseReturner';
+    const KEY_RESPONSE_RENDERER = 'responseRenderer';
 
     const KEY_ACCEPT_TYPE_PATTERN = 'acceptTypesPattern';
 
@@ -37,24 +37,36 @@ class ResponseReturnerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $dynamicResponseReturner = function (Request $request,Response $response, callable $next = null) use ($container) {
+        $config = $container->get('config')[static::KEY_RESPONSE_RENDERER][$requestedName];
+        $dynamicResponseReturner = function (Request $request, Response $response, callable $next = null) use ($container, $config) {
             $accept = $request->getHeaderLine('Accept');
-            $config = $container->get('config');
-            $config = isset($config[static::KEY_RESPONSE_RETURNER]) ? $config[static::KEY_RESPONSE_RETURNER] : null;
-            if(!isset($config)) {
-                throw new \Exception("ResponseReturner config not found");
-            }
             foreach ($config[static::KEY_ACCEPT_TYPE_PATTERN] as $acceptTypePattern => $responseMiddleware) {
                 if (preg_match($acceptTypePattern, $accept)) {
-                    if(!$container->has($responseMiddleware)) {
+                    if (!$container->has($responseMiddleware)) {
                         throw new ServiceNotFoundException("$responseMiddleware not found!");
                     }
                     $responseMiddleware = $container->get($responseMiddleware);
                     return $responseMiddleware($request, $response, $next);
                 }
             }
-            throw new ServiceNotFoundException("ResponseReturner not found!");
+            throw new ServiceNotFoundException("ResponseRenderer not found!");
         };
         return $dynamicResponseReturner;
+    }
+
+    /**
+     * Can the factory create an instance for the service?
+     *
+     * @param  ContainerInterface $container
+     * @param  string $requestedName
+     * @return bool
+     */
+    public function canCreate(ContainerInterface $container, $requestedName)
+    {
+        $config = $container->get('config');
+        if (isset($config[static::KEY_RESPONSE_RENDERER][$requestedName][static::KEY_ACCEPT_TYPE_PATTERN])) {
+            return true;
+        }
+        return false;
     }
 }
