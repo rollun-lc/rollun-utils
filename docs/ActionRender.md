@@ -77,7 +77,7 @@
     'simpleHtmlJsonRenderer' => [
         ResponseRendererFactory::KEY_ACCEPT_TYPE_PATTERN => [
             //pattern => middleware
-            '/application\/json/' => \rollun\skeleton\ActionRender\Renderer\Json\JsonRendererAction::class,
+            '/application\/json/' => \rollun\utills\ActionRender\Renderer\Json\JsonRendererAction::class,
             '/text\/html/' => 'htmlReturner'
         ]
     ] 

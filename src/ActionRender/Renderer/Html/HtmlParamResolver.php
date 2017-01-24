@@ -6,7 +6,7 @@
  * Time: 18:11
  */
 
-namespace rollun\skeleton\ActionRender\Renderer\Html;
+namespace rollun\utills\ActionRender\Renderer\Html;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

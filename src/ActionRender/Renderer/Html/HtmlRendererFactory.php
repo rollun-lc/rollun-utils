@@ -6,7 +6,7 @@
  * Time: 12:27
  */
 
-namespace rollun\skeleton\ActionRender\Renderer\Html;
+namespace rollun\utills\ActionRender\Renderer\Html;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
