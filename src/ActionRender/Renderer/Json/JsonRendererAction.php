@@ -6,7 +6,7 @@
  * Time: 18:06
  */
 
-namespace rollun\utills\ActionRender\Renderer\Json;
+namespace rollun\utils\ActionRender\Renderer\Json;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

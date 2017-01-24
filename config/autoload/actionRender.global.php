@@ -21,15 +21,15 @@ return [
 
         ],
         'factories' => [
-            \rollun\utills\ActionRender\Renderer\Html\HtmlRendererAction::class =>
-                \rollun\utills\ActionRender\Renderer\Html\HtmlRendererFactory::class
+            \rollun\utils\ActionRender\Renderer\Html\HtmlRendererAction::class =>
+                \rollun\utils\ActionRender\Renderer\Html\HtmlRendererFactory::class
         ],
     ],
     AbstractMiddlewarePipeFactoryAbstract::KEY_AMP => [
         'htmlReturner' => [
             'middlewares' => [
-                \rollun\utills\ActionRender\Renderer\Html\HtmlParamResolver::class,
-                \rollun\utills\ActionRender\Renderer\Html\HtmlRendererAction::class
+                \rollun\utils\ActionRender\Renderer\Html\HtmlParamResolver::class,
+                \rollun\utils\ActionRender\Renderer\Html\HtmlRendererAction::class
             ]
         ]
     ],
@@ -37,7 +37,7 @@ return [
         'simpleHtmlJsonRenderer' => [
             ResponseRendererFactory::KEY_ACCEPT_TYPE_PATTERN => [
                 //pattern => middleware-Service-Name
-                '/application\/json/' => \rollun\utills\ActionRender\Renderer\Json\JsonRendererAction::class,
+                '/application\/json/' => \rollun\utils\ActionRender\Renderer\Json\JsonRendererAction::class,
                 '/text\/html/' => 'htmlReturner'
             ]
         ]
