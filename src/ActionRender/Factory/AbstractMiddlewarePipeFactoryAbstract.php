@@ -46,6 +46,8 @@ class AbstractMiddlewarePipeFactoryAbstract implements AbstractFactoryInterface
         foreach ($middlewares as $key => $middleware) {
             if ($container->has($middleware)) {
                 $this->middlewares[$key] = $container->get($middleware);
+            } else {
+                throw new ServiceNotFoundException("$middleware not found in Container");
             }
         }
 

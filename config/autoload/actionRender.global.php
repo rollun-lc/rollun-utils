@@ -18,7 +18,8 @@ return [
             ResponseRendererFactory::class
         ],
         'invokables' => [
-
+            \rollun\utils\ActionRender\Renderer\Html\HtmlParamResolver::class =>
+                \rollun\utils\ActionRender\Renderer\Html\HtmlParamResolver::class
         ],
         'factories' => [
             \rollun\utils\ActionRender\Renderer\Html\HtmlRendererAction::class =>
