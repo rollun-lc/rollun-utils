@@ -19,7 +19,9 @@ return [
         ],
         'invokables' => [
             \rollun\utils\ActionRender\Renderer\Html\HtmlParamResolver::class =>
-                \rollun\utils\ActionRender\Renderer\Html\HtmlParamResolver::class
+                \rollun\utils\ActionRender\Renderer\Html\HtmlParamResolver::class,
+            \rollun\utils\ActionRender\Renderer\Json\JsonRendererAction::class =>
+                \rollun\utils\ActionRender\Renderer\Json\JsonRendererAction::class,
         ],
         'factories' => [
             \rollun\utils\ActionRender\Renderer\Html\HtmlRendererAction::class =>
