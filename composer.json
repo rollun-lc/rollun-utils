@@ -29,7 +29,7 @@
     "zendframework/zend-stdlib": "^3",
     "zendframework/zend-db": "2.8.2",
     "rollun-com/rollun-installer": "^1.0",
-    "mindplay/jsonfreeze": "0.3.3.x-dev",
+    "mindplay/jsonfreeze": "0.3.3",
     "opis/closure": "^2.1.0",
     "psr/log": "^1.0"
   },
