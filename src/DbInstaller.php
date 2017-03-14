@@ -19,7 +19,13 @@ class DbInstaller extends InstallerAbstract
      */
     public function install()
     {
-        $config = [];
+        $config = [
+        'services' => [
+                'abstract_factories' => [
+                    AdapterAbstractServiceFactory::class,
+                ],
+            ]
+        ];
         if ($this->consoleIO->askConfirmation("you want to add a configuration to connect to the database itself(else we generate it ourselves) ?", false)) {
             do {
                 $this->consoleIO->write("You mast create config for db adapter, with adapter name 'db'.");
@@ -60,6 +66,17 @@ class DbInstaller extends InstallerAbstract
         return $config;
     }
 
+    public function isInstall()
+    {
+
+        $config = $this->container->get('config');
+        //return false;
+        $result = isset($config['services']['abstract_factories']) &&
+            $this->container->has('db') &&
+            in_array(AdapterAbstractServiceFactory::class, $config['services']['abstract_factories']) &&
+        return $result;
+    }
+    
     /**
      * Clean all installation
      * @return void
