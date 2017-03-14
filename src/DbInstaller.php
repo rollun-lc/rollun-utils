@@ -9,6 +9,7 @@
 namespace rollun\utils;
 
 use rollun\installer\Install\InstallerAbstract;
+use Zend\Db\Adapter\AdapterAbstractServiceFactory;
 
 class DbInstaller extends InstallerAbstract
 {
@@ -73,7 +74,7 @@ class DbInstaller extends InstallerAbstract
         //return false;
         $result = isset($config['services']['abstract_factories']) &&
             $this->container->has('db') &&
-            in_array(AdapterAbstractServiceFactory::class, $config['services']['abstract_factories']) &&
+            in_array(AdapterAbstractServiceFactory::class, $config['services']['abstract_factories']);
         return $result;
     }
     
