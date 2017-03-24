@@ -21,7 +21,7 @@ class DbInstaller extends InstallerAbstract
     public function install()
     {
         $config = [
-        'services' => [
+        'dependencies' => [
                 'abstract_factories' => [
                     AdapterAbstractServiceFactory::class,
                 ],
@@ -72,9 +72,9 @@ class DbInstaller extends InstallerAbstract
 
         $config = $this->container->get('config');
         //return false;
-        $result = isset($config['services']['abstract_factories']) &&
+        $result = isset($config['dependencies']['abstract_factories']) &&
             $this->container->has('db') &&
-            in_array(AdapterAbstractServiceFactory::class, $config['services']['abstract_factories']);
+            in_array(AdapterAbstractServiceFactory::class, $config['dependencies']['abstract_factories']);
         return $result;
     }
     
