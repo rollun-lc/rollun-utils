@@ -31,7 +31,7 @@ class DbInstaller extends InstallerAbstract
                 ]
             ]
         ];
-        if ($this->consoleIO->askConfirmation("Do you want to start the process of generating a config file?", false)) {
+        if ($this->consoleIO->askConfirmation("Do you want to start the process of generating a DB config file?", false)) {
             $drivers = ['IbmDb2', 'Mysqli', 'Oci8', 'Pgsql', 'Sqlsrv', 'Pdo_Mysql', 'Pdo_Sqlite', 'Pdo_Pgsql'];
             $index = $this->consoleIO->select("", $drivers, 5);
 
