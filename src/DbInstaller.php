@@ -10,6 +10,7 @@ namespace rollun\utils;
 
 use rollun\installer\Install\InstallerAbstract;
 use Zend\Db\Adapter\AdapterAbstractServiceFactory;
+use Zend\Db\Adapter\AdapterInterface;
 
 class DbInstaller extends InstallerAbstract
 {
@@ -25,17 +26,12 @@ class DbInstaller extends InstallerAbstract
                 'abstract_factories' => [
                     AdapterAbstractServiceFactory::class,
                 ],
+                'aliases' => [
+                    'db' => AdapterInterface::class,
+                ]
             ]
         ];
-        if ($this->consoleIO->askConfirmation("you want to add a configuration to connect to the database itself(else we generate it ourselves) ?", false)) {
-            do {
-                $this->consoleIO->write("You mast create config for db adapter, with adapter name 'db'.");
-                $answer = $this->consoleIO->askConfirmation("Is the config file created?");
-                if (!$answer || !$this->container->has('db')) {
-                    $this->consoleIO->write("You not create correct config for adapter.");
-                }
-            } while (!$answer || !$this->container->has('db'));
-        } else {
+        if ($this->consoleIO->askConfirmation("Do you want to start the process of generating a config file?", false)) {
             $drivers = ['IbmDb2', 'Mysqli', 'Oci8', 'Pgsql', 'Sqlsrv', 'Pdo_Mysql', 'Pdo_Sqlite', 'Pdo_Pgsql'];
             $index = $this->consoleIO->select("", $drivers, 5);
 
@@ -55,7 +51,7 @@ class DbInstaller extends InstallerAbstract
 
             $config['db'] = [
                 'adapters' => [
-                    'db' => [
+                    AdapterInterface::class => [
                         'driver' => $drivers[$index],
                         'database' => $dbName,
                         'username' => $dbUser,
@@ -63,6 +59,14 @@ class DbInstaller extends InstallerAbstract
                     ]
                 ]
             ];
+        } else {
+            //do {
+                $this->consoleIO->write("You must create config for db adapter, with adapter name 'db'.");
+                $answer = $this->consoleIO->askConfirmation("Is the config file created?");
+                /*if (!$answer || !$this->container->has('db')) {
+                    $this->consoleIO->write("You not create correct config for adapter.");
+                }*/
+            //} while (!$answer || !$this->container->has('db'));
         }
         return $config;
     }
