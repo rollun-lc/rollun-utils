@@ -432,6 +432,34 @@ if (!is_null($this->nodes)) {
 return $ret;
 }
 
+function individualText()
+{
+    if (isset($this->_[HDOM_INFO_INNER]))
+        return $this->_[HDOM_INFO_INNER];
+    switch ($this->nodetype) {
+        case HDOM_TYPE_TEXT: return $this->dom->restore_noise($this->_[HDOM_INFO_TEXT]);
+        case HDOM_TYPE_COMMENT: return '';
+        case HDOM_TYPE_UNKNOWN: return '';
+    }
+    if (strcasecmp($this->tag, 'script') === 0)
+        return '';
+    if (strcasecmp($this->tag, 'style') === 0)
+        return '';
+
+    $ret = '';
+    // In rare cases, (always node type 1 or HDOM_TYPE_ELEMENT - observed for some span tags, and some p tags) $this->nodes is set to NULL.
+    // NOTE: This indicates that there is a problem where it's set to NULL without a clear happening.
+    // WHY is this happening?
+    if (!is_null($this->nodes)) {
+        foreach ($this->nodes as $n) {
+            if($n->tag == "text") {
+                $ret .= $this->convert_text($n->text());
+            }
+        }
+    }
+    return $ret;
+}
+
 function xmltext()
 {
 $ret = $this->innertext();
