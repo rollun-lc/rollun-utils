@@ -56,7 +56,7 @@ class IdGenerator
     {
         $id = [];
         $idCharSetArray = str_split($this->idCharSet);
-        $charArrayCount = count($idCharSetArray);
+        $charArrayCount = count($idCharSetArray) - 1;
         for ($i = 0; $i < $this->length; $i++) {
             $id[$i] = $idCharSetArray[random_int(0, $charArrayCount)];
         }
