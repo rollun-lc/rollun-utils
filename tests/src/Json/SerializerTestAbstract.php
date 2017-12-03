@@ -4,7 +4,7 @@ namespace rollun\test\utils\Json;
 
 use rollun\utils\Json\Exception as JsonException;
 
-abstract class SerializerTestAbstract extends \PHPUnit_Framework_TestCase
+abstract class SerializerTestAbstract extends \PHPUnit\Framework\TestCase
 {
 
     /**

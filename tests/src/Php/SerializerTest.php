@@ -69,7 +69,7 @@ class SerializerTest extends SerializerTestAbstract
      */
     public function testSerialize_ResourceType($in)
     {
-        $this->setExpectedException(\LogicException::class);
+        $this->expectException(\LogicException::class);
         parent::serialize($in);
     }
 
