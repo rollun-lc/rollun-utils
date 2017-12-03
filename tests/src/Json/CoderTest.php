@@ -54,7 +54,7 @@ class CoderTest extends SerializerTestAbstract
      */
     public function testSerialize_ObjectType($in, $jsonString, $out = null)
     {
-        $this->setExpectedException(JsonException::class);
+        $this->expectException(JsonException::class);
         parent::serialize($in, $jsonString, $out);
     }
 
@@ -63,7 +63,7 @@ class CoderTest extends SerializerTestAbstract
      */
     public function testSerialize_ClosureType($in, $jsonString, $out = null)
     {
-        $this->setExpectedException(JsonException::class);
+        $this->expectException(JsonException::class);
         parent::serialize($in, $jsonString, $out);
     }
 
@@ -72,7 +72,7 @@ class CoderTest extends SerializerTestAbstract
      */
     public function testSerialize_ResourceType($in, $jsonString, $out = null)
     {
-        $this->setExpectedException(JsonException::class);
+        $this->expectException(JsonException::class);
         parent::serialize($in, $jsonString, $out);
     }
 

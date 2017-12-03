@@ -5,7 +5,7 @@ namespace rollun\test\utils\Php;
 use rollun\utils\Json\Exception as JsonException;
 use rollun\utils\Php\Serializer as PhpSerializer;
 
-abstract class SerializerTestAbstract extends \PHPUnit_Framework_TestCase
+abstract class SerializerTestAbstract extends \PHPUnit\Framework\TestCase
 {
 
     public function provider_ScalarType()
@@ -60,10 +60,10 @@ abstract class SerializerTestAbstract extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                (object)[]  // new \stdClass();
+                (object) []  // new \stdClass();
             ),
             array(
-                (object)['prop' => 1]  //$stdClass = new \stdClass(); $stdClass->prop = 1
+                (object) ['prop' => 1]  //$stdClass = new \stdClass(); $stdClass->prop = 1
             ),
             array(
                 new \Exception('Exception', 1, null)
@@ -83,7 +83,7 @@ abstract class SerializerTestAbstract extends \PHPUnit_Framework_TestCase
                     $obj->prop = $val;
                     return $obj;
                 }
-            , ''
+                , ''
             )
         );
     }
