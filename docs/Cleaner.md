@@ -19,3 +19,17 @@ Cleaner удаляет этот элемент из списка путем вы
         $zendFileValidator = new ZendValidatorFileSize($maxSizeInBytes);
         //make CleaningValidatorInterface from ZendValidatorInterface
         $cleaningValidator = new ZendValidatorAdapter($zendFileValidator);
+
+### Если нет подходящего Zend Validatora?
+Создайте свой валидатор из анонимной функции илю любого колейбла без объявления новых классов.  
+Используйте `rollun\utils\Cleaner\CleaningValidator\CallableValidator`
+
+        $callable = function ($filename) {
+            return filesize($filename) <= $this->maxSizeInBytes;
+        };
+        //make CallableValidator from function
+        $callableValidator = new CallableValidator($callable);
+        
+
+
+
