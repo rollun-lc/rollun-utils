@@ -59,7 +59,7 @@ class CleanRuner
         $this->run($cleaningValidator);
     }
 
-    protected function run(CleaningValidatorInterface $cleaningValidator)
+    public function run(CleaningValidatorInterface $cleaningValidator)
     {
         $cleanableList = new FilesList($this->fullPath);
         $cleaner = new Cleaner($cleanableList, $cleaningValidator);
