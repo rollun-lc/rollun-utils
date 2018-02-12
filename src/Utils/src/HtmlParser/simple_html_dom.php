@@ -206,6 +206,7 @@ class simple_html_dom_node
 
         $string .= " HDOM_INNER_INFO: '";
         if (isset($node->_[HDOM_INFO_INNER])) {
+            /** @noinspection PhpUndefinedVariableInspection */
             $string .= $node->_[HDOM_INFO_INNER] . "'";
         } else {
             $string .= ' NULL ';
