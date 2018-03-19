@@ -2,7 +2,11 @@
 
 namespace rollun\utils\Time;
 
-class UtcTime
+/**
+ * Class UtcTime
+ * @package rollun\utils\Time
+ */
+abstract class UtcTime
 {
 
     const WITHOUT_MICROSECONDS = 0;
