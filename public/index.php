@@ -17,5 +17,17 @@ call_user_func(function () {
     /** @var \Interop\Container\ContainerInterface $container */
     $container = require 'config/container.php';
 
-    $uri = $_SERVER["REQUEST_URI"];
+    //localhost:8080/{module-name}/{example-name}
+    $path = $_SERVER["REQUEST_URI"];
+    if(preg_match('/(?<module>[\w]+)\/(?<example>[\w\W]+)/', $path, $match)) {
+        $module =  $match["module"];
+        $example =  $match["example"];
+        $scriptPath = "src/{$module}/src/Example/{$example}.php";
+        $scriptPath = str_replace("/", DIRECTORY_SEPARATOR, $scriptPath);
+        if(file_exists($scriptPath)){
+            include $scriptPath;
+        }else {
+            throw new InvalidArgumentException("Not found example $example in module $module");
+        }
+    }
 });

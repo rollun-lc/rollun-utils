@@ -31,7 +31,8 @@
     "zendframework/zend-http": "^2.5",
     "rollun-com/rollun-installer": "^4.0",
     "mindplay/jsonfreeze": "0.3.3",
-    "opis/closure": "^2.1.0"
+    "opis/closure": "^2.1.0",
+    "facebook/webdriver": "^1.5"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.0.8 || ^5.7.15",
@@ -43,6 +44,7 @@
       "rollun\\utils\\": "src/Utils/src",
       "rollun\\utils\\HtmlParser\\": "src/HtmlParser/src",
       "rollun\\utils\\Cleaner\\": "src/Cleaner/src",
+      "rollun\\utils\\WebDriver\\": "src/WebDriver/src",
       "rollun\\Downloader\\": "src/Downloader/src"
     }
   },
