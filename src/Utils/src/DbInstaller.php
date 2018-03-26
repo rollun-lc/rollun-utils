@@ -22,7 +22,7 @@ class DbInstaller extends InstallerAbstract
     public function install()
     {
         $config = [
-        'dependencies' => [
+            'dependencies' => [
                 'abstract_factories' => [
                     AdapterAbstractServiceFactory::class,
                 ],
@@ -49,10 +49,16 @@ class DbInstaller extends InstallerAbstract
             } while ($dbUser == null);
             $dbPass = $this->consoleIO->askAndHideAnswer("Set database password:");
 
+            $dbHost = $this->consoleIO->ask("Set database host(localhost by default):");
+            if (is_null($dbHost)) {
+                $dbHost = "localhost";
+            }
+
             $config['db'] = [
                 'adapters' => [
                     AdapterInterface::class => [
                         'driver' => $drivers[$index],
+                        "host" => $dbHost,
                         'database' => $dbName,
                         'username' => $dbUser,
                         'password' => $dbPass
@@ -61,11 +67,11 @@ class DbInstaller extends InstallerAbstract
             ];
         } else {
             //do {
-                $this->consoleIO->write("You must create config for db adapter, with adapter name 'db'.");
-                $answer = $this->consoleIO->askConfirmation("Is the config file created?");
-                /*if (!$answer || !$this->container->has('db')) {
-                    $this->consoleIO->write("You not create correct config for adapter.");
-                }*/
+            $this->consoleIO->write("You must create config for db adapter, with adapter name 'db'.");
+            $answer = $this->consoleIO->askConfirmation("Is the config file created?");
+            /*if (!$answer || !$this->container->has('db')) {
+                $this->consoleIO->write("You not create correct config for adapter.");
+            }*/
             //} while (!$answer || !$this->container->has('db'));
         }
         return $config;
@@ -81,7 +87,7 @@ class DbInstaller extends InstallerAbstract
             in_array(AdapterAbstractServiceFactory::class, $config['dependencies']['abstract_factories']);
         return $result;
     }
-    
+
     /**
      * Clean all installation
      * @return void
