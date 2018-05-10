@@ -63,7 +63,7 @@ class CleanRuner
     {
         $cleanableList = new FilesList($this->fullPath);
         $cleaner = new Cleaner($cleanableList, $cleaningValidator);
-        $cleaner->cleaneList();
+        $cleaner->cleanList();
     }
 
     /**

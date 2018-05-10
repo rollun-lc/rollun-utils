@@ -5,5 +5,5 @@ namespace rollun\utils\Cleaner;
 interface CleanerInterface
 {
 
-    public function cleaneList($data = null);
+    public function cleanList($data = null);
 }

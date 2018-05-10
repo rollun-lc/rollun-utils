@@ -25,7 +25,7 @@ class Cleaner implements CleanerInterface
         $this->cleaningValidator = $cleaningValidator;
     }
 
-    public function cleaneList($data = null)
+    public function cleanList($data = null)
     {
         foreach ($this->cleanableList as $item) {
             if (!$this->cleaningValidator->isValid($item)) {
