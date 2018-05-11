@@ -40,6 +40,7 @@
   },
   "autoload": {
     "psr-4": {
+      "rollun\\tableGateway\\": "src/TableGateway/src",
       "rollun\\utils\\": "src/Utils/src",
       "rollun\\utils\\HtmlParser\\": "src/HtmlParser/src",
       "rollun\\utils\\Cleaner\\": "src/Cleaner/src",
