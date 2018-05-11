@@ -1,6 +1,6 @@
 {
   "name": "rollun-com/rollun-utils",
-  "description": "Utils for middleware and pipes",
+  "description": "Utils rollun library",
   "type": "library",
   "license": "GPL-3.0",
   "keywords": [
@@ -24,6 +24,7 @@
     "nicolab/php-ftp-client": "^1.4",
     "zendframework/zend-db": "2.8.2",
     "zendframework/zend-http": "^2.5",
+    "rollun-com/rollun-logger": "dev-master",
     "rollun-com/rollun-installer": "^4.0",
     "mindplay/jsonfreeze": "0.3.3",
     "opis/closure": "^2.1.0",
