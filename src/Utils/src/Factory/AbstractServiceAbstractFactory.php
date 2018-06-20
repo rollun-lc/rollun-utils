@@ -23,6 +23,8 @@ class AbstractServiceAbstractFactory extends AbstractAbstractFactory
 
     const TYPE_SERVICE = "service";
 
+    const TYPE_SERVICES_LIST = "services_list";
+
     const TYPE_SIMPLE = "simple";
 
     const KEY_VALUE = "value";
@@ -49,6 +51,13 @@ class AbstractServiceAbstractFactory extends AbstractAbstractFactory
      *                       "my name1",
      *                       "my name2",
      *                       "my name3",
+     *                  ],
+     *              ], "data" => [ // need set up, because expected array value
+     *                  "type" => "services_list",
+     *                  "value" => [
+     *                       "my_service1",
+     *                       "my_service2",
+     *                       "my_service3",
      *                  ],
      *              ],
      *          ],
@@ -127,12 +136,14 @@ class AbstractServiceAbstractFactory extends AbstractAbstractFactory
         switch (true) {
             case is_array($dependency):
                 switch ($dependency[static::KEY_TYPE]) {
+                    case static::TYPE_SERVICES_LIST:
+                        return array_map(function($dependency) use ($container){
+                            return $container->get($dependency);
+                        },$dependency[static::KEY_VALUE]);
                     case static::TYPE_SERVICE:
                         return $container->get($dependency[static::KEY_VALUE]);
-                        break;
                     case static::TYPE_SIMPLE:
                         return $dependency[static::KEY_VALUE];
-                        break;
                     default:
                         throw new ServiceNotCreatedException("Dependency type dosn't set.");
                 }
