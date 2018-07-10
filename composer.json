@@ -28,7 +28,9 @@
     "rollun-com/rollun-installer": "^4.0",
     "mindplay/jsonfreeze": "0.3.3",
     "opis/closure": "^2.1.0",
-    "facebook/webdriver": "^1.5"
+    "facebook/webdriver": "^1.5",
+    "zendframework/zend-cache": "^2.8",
+    "zendframework/zend-mail": "^2.10"
   },
   "require-dev": {
     "zendframework/zend-component-installer": "^1.0",
