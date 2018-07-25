@@ -10,6 +10,7 @@ use Zend\Cache\Storage\StorageInterface;
 use Zend\Log\Writer\AbstractWriter;
 use Zend\Mail;
 use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Mime;
 use Zend\Mime\Part as MimePart;
 
 /**
@@ -41,7 +42,7 @@ class MailWriter extends AbstractWriter
      * @param null $name
      * @param null $fromMail
      */
-    public function __construct($options, $emails = null, $name= null, $fromMail = null)
+    public function __construct($options, $emails = null, $name = null, $fromMail = null)
     {
         if ($options instanceof Traversable) {
             $options = iterator_to_array($options);
@@ -73,7 +74,7 @@ class MailWriter extends AbstractWriter
         $textPart->type = "text/plain";
         $parts[] = $textPart;
 
-        if(isset($event["context"]["html"])) {
+        if (isset($event["context"]["html"])) {
             $htmlPart = new MimePart($event["context"]["html"]);
             $htmlPart->type = "text/html";
             $parts[] = $htmlPart;
@@ -81,8 +82,13 @@ class MailWriter extends AbstractWriter
 
         $images = $event["context"]["png"] ?? [];
         foreach ($images as $image) {
-            $imagePart = new MimePart(base64_decode($image));
+            $tmpFileName = tempnam("/tmp", "autobuy_image");
+            file_put_contents($tmpFileName, base64_decode($image));
+            $imagePart = new MimePart(fopen($tmpFileName, "r"));
             $imagePart->type = "image/png";
+            $imagePart->filename = "ScreenShoot.png";
+            $imagePart->disposition = Mime::DISPOSITION_ATTACHMENT;
+            $imagePart->encoding = Mime::ENCODING_BASE64;
             $parts[] = $imagePart;
         }
 
@@ -90,7 +96,7 @@ class MailWriter extends AbstractWriter
         $body->setParts($parts);
         $mail->setBody($body);
 
-        $subject= $event["context"]["subject"];
+        $subject = $event["context"]["subject"];
 
         $mail->setFrom($this->fromMail, $this->name);
         $mail->setSubject($subject);
@@ -105,5 +111,7 @@ class MailWriter extends AbstractWriter
         ]);
         $transport->setOptions($options);
         $transport->send($mail);
+
+
     }
 }
