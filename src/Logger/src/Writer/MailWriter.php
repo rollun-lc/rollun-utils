@@ -9,6 +9,8 @@ use Traversable;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\Log\Writer\AbstractWriter;
 use Zend\Mail;
+use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Part as MimePart;
 
 /**
  * Class MailWriter
@@ -64,11 +66,31 @@ class MailWriter extends AbstractWriter
     protected function doWrite(array $event)
     {
         $mail = new Mail\Message();
+        $parts = [];
+
+        $message = $event["message"];
+        $textPart = new MimePart($message);
+        $textPart->type = "text/plain";
+        $parts[] = $textPart;
+
+        if(isset($event["context"]["html"])) {
+            $htmlPart = new MimePart($event["context"]["html"]);
+            $htmlPart->type = "text/html";
+            $parts[] = $htmlPart;
+        }
+
+        $images = $event["context"]["png"] ?? [];
+        foreach ($images as $image) {
+            $imagePart = new MimePart($image);
+            $imagePart->type = "image/png";
+            $parts[] = $imagePart;
+        }
+
+        $body = new MimeMessage();
+        $body->setParts($parts);
+        $mail->setBody($body);
 
         $subject= $event["context"]["subject"];
-        $message = $event["message"];
-
-        $mail->setBody($message);
 
         $mail->setFrom($this->fromMail, $this->name);
         $mail->setSubject($subject);
