@@ -81,7 +81,7 @@ class MailWriter extends AbstractWriter
 
         $images = $event["context"]["png"] ?? [];
         foreach ($images as $image) {
-            $imagePart = new MimePart($image);
+            $imagePart = new MimePart(base64_decode($image));
             $imagePart->type = "image/png";
             $parts[] = $imagePart;
         }
