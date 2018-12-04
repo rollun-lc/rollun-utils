@@ -64,7 +64,7 @@ class DbInstaller extends InstallerAbstract
     {
         try {
             $config = $this->container->get("config");
-            $adapters = isset($config["db"]["adapters"]) ? $config["db"]["adapters"] : [];
+            $adapters = $config["db"]["adapters"] ?? $config["db"] ?? [];
             if (!$isAll) {
                 $adapters = array_filter($adapters, function ($adapter) {
                     return (isset($adapter[static::class]) && $adapter[static::class]);
