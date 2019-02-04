@@ -34,7 +34,7 @@ class AbstractServiceAbstractFactory extends AbstractAbstractFactory
     /**
      * Create an object
      *
-     * [
+     * AbstractServiceAbstractFactory::KEY => [
      *      "myService" => [
      *          "class" => MyClass::class,
      *          "dependencies" => [
