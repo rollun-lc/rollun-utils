@@ -30,7 +30,8 @@
     "opis/closure": "^2.1.0",
     "facebook/webdriver": "^1.5",
     "zendframework/zend-cache": "^2.8",
-    "zendframework/zend-mail": "^2.10"
+    "zendframework/zend-mail": "^2.10",
+    "ext-json": "*"
   },
   "require-dev": {
     "zendframework/zend-component-installer": "^1.0",
@@ -49,6 +50,7 @@
       "rollun\\utils\\HtmlParser\\": "src/HtmlParser/src",
       "rollun\\utils\\Cleaner\\": "src/Cleaner/src",
       "rollun\\utils\\WebDriver\\": "src/WebDriver/src",
+      "rollun\\tracer\\": "src/Tracer/src",
       "rollun\\Downloader\\": "src/Downloader/src"
     }
   },
