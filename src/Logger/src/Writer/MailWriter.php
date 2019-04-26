@@ -8,10 +8,13 @@ use rollun\dic\InsideConstruct;
 use Traversable;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\Log\Writer\AbstractWriter;
-use Zend\Mail;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Mime;
 use Zend\Mime\Part as MimePart;
+
 
 /**
  * Class MailWriter
@@ -20,42 +23,41 @@ use Zend\Mime\Part as MimePart;
 class MailWriter extends AbstractWriter
 {
     /**
-     * @var string[]
+     * @var mixed|null
      */
-    protected $emails;
-
+    private $email;
     /**
-     * @var string
+     * @var null
      */
-    protected $name;
-
+    private $pass;
     /**
-     * @var string
+     * @var null
      */
-    protected $fromMail;
+    private $toEmails;
 
 
     /**
      * MailWriter constructor.
      * @param $options
-     * @param null $emails
-     * @param null $name
-     * @param null $fromMail
+     * @param null $email
+     * @param null $pass
+     * @param null $toEmails
      */
-    public function __construct($options, $emails = null, $name = null, $fromMail = null)
+    public function __construct($options, $email = null, $pass = null, $toEmails = null)
     {
         if ($options instanceof Traversable) {
             $options = iterator_to_array($options);
         }
         if (is_array($options)) {
             parent::__construct($options);
-            $emails = $options["emails"];
-            $name = $options["name"];
-            $fromMail = $options["fromMail"];
-        }
-        $this->emails = $emails;
-        $this->name = $name;
-        $this->fromMail = $fromMail;
+            $email = $options['name'];
+            $pass = $options['pass'];
+            $toEmails = $options['toEmails'];
+        };
+
+        $this->email = $email;
+        $this->pass = $pass;
+        $this->toEmails = $toEmails;
     }
 
     /**
@@ -66,51 +68,64 @@ class MailWriter extends AbstractWriter
      */
     protected function doWrite(array $event)
     {
-        $mail = new Mail\Message();
+
         $parts = [];
 
-        $message = $event["message"];
+        $message = $event['message'];
         $textPart = new MimePart($message);
-        $textPart->type = "text/plain";
+        $textPart->type = 'text/plain';
         $parts[] = $textPart;
 
-        if (isset($event["context"]["html"])) {
-            $htmlPart = new MimePart($event["context"]["html"]);
-            $htmlPart->type = "text/html";
+        if (isset($event['context']['html'])) {
+            $htmlPart = new MimePart($event['context']['html']);
+            $htmlPart->type = 'text/html';
             $parts[] = $htmlPart;
         }
 
-        $images = $event["context"]["png"] ?? [];
+        $images = $event['context']['png'] ?? [];
         foreach ($images as $image) {
-            $tmpFileName = tempnam("/tmp", "autobuy_image");
+            $tmpFileName = tempnam(sys_get_temp_dir(), 'image');
             file_put_contents($tmpFileName, base64_decode($image));
-            $imagePart = new MimePart(fopen($tmpFileName, "r"));
-            $imagePart->type = "image/png";
-            $imagePart->filename = "ScreenShoot.png";
+            $imagePart = new MimePart(fopen($tmpFileName, 'r'));
+            $imagePart->type = 'image/png';
+            $imagePart->filename = 'ScreenShoot.png';
             $imagePart->disposition = Mime::DISPOSITION_ATTACHMENT;
             $imagePart->encoding = Mime::ENCODING_BASE64;
             $parts[] = $imagePart;
         }
 
+        // Setup SMTP transport using PLAIN authentication
+        $transport = new SmtpTransport();
+        $options = new SmtpOptions(array(
+            'name' => 'gmail',
+            'host' => 'smtp.gmail.com',
+            'port' => '465',
+            'connection_class' => 'plain',
+            'connection_config' => array(
+                'username' => $this->email,
+                'password' => $this->pass,
+                'ssl' => 'ssl',
+            ),
+        ));
+        $transport->setOptions($options);
+
+        $message = new Message();
+
+        $message->setSubject('Log writer');
+        $message->addFrom($this->email);
+
+        foreach ($this->toEmails as $email) {
+            $message->addTo($email);
+        }
+
         $body = new MimeMessage();
         $body->setParts($parts);
-        $mail->setBody($body);
+        $message->setBody($body);
 
-        $subject = $event["context"]["subject"];
+        $contentTypeHeader = $message->getHeaders()->get('Content-Type');
+        $contentTypeHeader->setType('multipart/related');
 
-        $mail->setFrom($this->fromMail, $this->name);
-        $mail->setSubject($subject);
-        foreach ($this->emails as $email) {
-            $mail->addTo($email);
-        }
-        $transport = new Mail\Transport\Smtp();
-        $options = new Mail\Transport\SmtpOptions([
-            'name' => 'aspmx.l.google.com',
-            'host' => 'aspmx.l.google.com',
-            'port' => 25,
-        ]);
-        $transport->setOptions($options);
-        $transport->send($mail);
+        $transport->send($message);
 
 
     }
