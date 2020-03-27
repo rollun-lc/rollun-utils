@@ -8,7 +8,7 @@ namespace rollun\utils;
  * Trait CallAttemptsTrait
  * @package rollun\utils
  *
- * @todo translete comments
+ * @todo need tests
  */
 trait CallAttemptsTrait
 {
