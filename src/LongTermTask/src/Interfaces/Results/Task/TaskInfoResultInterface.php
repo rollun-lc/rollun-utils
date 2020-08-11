@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\callback\LongTermTask\Interfaces\Results\Task;
+namespace rollun\LongTermTask\Interfaces\Results\Task;
 
-use rollun\callback\LongTermTask\Interfaces\Results\ResultInterface;
+use rollun\LongTermTask\Interfaces\Results\ResultInterface;
 
 /**
  * Interface TaskInterface

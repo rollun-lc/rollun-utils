@@ -1,11 +1,11 @@
 <?php
 
-namespace rollun\callback\LongTermTask\Interfaces;
+namespace rollun\LongTermTask\Interfaces;
 
-use rollun\callback\LongTermTask\Interfaces\Results\Task\CreateTaskResultInterface;
-use rollun\callback\LongTermTask\Interfaces\Results\Task\DeletedTaskResultInterface;
-use rollun\callback\LongTermTask\Interfaces\Results\Task\TaskInfoResultInterface;
-use rollun\callback\LongTermTask\Interfaces\Results\Task\TaskTypeInfoResultInterface;
+use rollun\LongTermTask\Interfaces\Results\Task\CreateTaskResultInterface;
+use rollun\LongTermTask\Interfaces\Results\Task\DeletedTaskResultInterface;
+use rollun\LongTermTask\Interfaces\Results\Task\TaskInfoResultInterface;
+use rollun\LongTermTask\Interfaces\Results\Task\TaskTypeInfoResultInterface;
 
 interface TaskCollectionInterface
 {

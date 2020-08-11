@@ -1,7 +1,7 @@
 <?php
 
 
-namespace rollun\callback\LongTermTask\Interfaces;
+namespace rollun\LongTermTask\Interfaces;
 
 
 interface TaskListableInterface extends TaskCollectionInterface

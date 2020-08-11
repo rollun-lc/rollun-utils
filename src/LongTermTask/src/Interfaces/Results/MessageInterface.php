@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\callback\LongTermTask\Interfaces\Results;
+namespace rollun\LongTermTask\Interfaces\Results;
 
 /**
  * Interface MessageInterface

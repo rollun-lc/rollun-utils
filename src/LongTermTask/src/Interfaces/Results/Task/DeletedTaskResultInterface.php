@@ -1,12 +1,12 @@
 <?php
 
 
-namespace rollun\callback\LongTermTask\Interfaces\Results\Task;
+namespace rollun\LongTermTask\Interfaces\Results\Task;
 
 
 /**
  * Interface CreateTaskResultInterface
- * @package rollun\callback\LongTermTask\Interfaces\Results\Task
+ * @package rollun\LongTermTask\Interfaces\Results\Task
  */
 interface DeletedTaskResultInterface extends TaskInfoResultInterface
 {
@@ -15,6 +15,5 @@ interface DeletedTaskResultInterface extends TaskInfoResultInterface
      * @return int
      */
     public function getData();
-
 
 }
