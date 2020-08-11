@@ -20,7 +20,7 @@ trait CallAttemptsTrait
      * @param array $itemData
      * @param bool $createIfAbsent
      *
-     * @return array
+     * @return mixed
      *
      * @throws \Throwable
      * @todo move to utils
