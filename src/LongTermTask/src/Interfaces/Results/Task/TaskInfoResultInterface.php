@@ -13,36 +13,7 @@ use rollun\LongTermTask\Interfaces\Results\ResultInterface;
 interface TaskInfoResultInterface extends ResultInterface
 {
     /**
-     * Get task id
-     *
-     * @return string
+     * @return TaskInfoInterface
      */
-    public function getId(): string;
-
-    /**
-     * @return string
-     */
-    public function getType(): string;
-
-    /**
-     * Get task current status
-     *
-     * @return string
-     */
-    public function getStatus(): string;
-
-    /**
-     * Get task current stage
-     *
-     * @return string
-     */
-    public function getStage(): string;
-
-    /**
-     *
-     * Get datetimewhen task was start
-     *
-     * @return \DateTime|null UTC DateTime in result
-     */
-    public function getStartTime(): ?\DateTime;
+    public function getData();
 }

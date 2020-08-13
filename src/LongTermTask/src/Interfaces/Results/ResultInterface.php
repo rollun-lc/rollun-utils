@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace rollun\LongTermTask\Interfaces\Results;
 
-
 /**
  * Interface ResultInterface
  *
@@ -26,7 +25,8 @@ interface ResultInterface
     public function getMessages(): ?array;
 
     /**
-     * Return true if messages is null
+     * Return false if there are at least one message with level 'error'
+     *
      * @return bool
      */
     public function isSuccess(): bool;
