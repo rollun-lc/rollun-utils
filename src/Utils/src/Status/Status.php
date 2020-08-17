@@ -13,7 +13,7 @@ class Status implements StatusInterface
     /**
      * @var string
      */
-    protected $state = self::STATE_PENDING;
+    protected $state = StatusInterface::STATE_PENDING;
 
     /**
      * @inheritDoc
@@ -26,17 +26,9 @@ class Status implements StatusInterface
     /**
      * @inheritDoc
      */
-    public function setState(string $state): void
-    {
-        $this->state = $state;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function isPending(): bool
     {
-        return $this->getState() == self::STATE_PENDING;
+        return $this->getState() == StatusInterface::STATE_PENDING;
     }
 
     /**
@@ -44,7 +36,15 @@ class Status implements StatusInterface
      */
     public function isFulfilled(): bool
     {
-        return $this->getState() == self::STATE_FULFILLED;
+        return $this->getState() == StatusInterface::STATE_FULFILLED;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toFulfilled(): void
+    {
+        $this->state = StatusInterface::STATE_FULFILLED;
     }
 
     /**
@@ -52,7 +52,15 @@ class Status implements StatusInterface
      */
     public function isRejected(): bool
     {
-        return $this->getState() == self::STATE_REJECTED;
+        return $this->getState() == StatusInterface::STATE_REJECTED;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toReject(): void
+    {
+        $this->state = StatusInterface::STATE_REJECTED;
     }
 
     /**
