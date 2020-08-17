@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\LongTermTask\Interfaces\Results\Task;
+namespace rollun\utils\Status;
 
 use rollun\utils\Results\ResultInterface;
 
 /**
- * Interface TaskInterface
+ * Interface StatusResultInterface
  *
  * @author r.ratsun <r.ratsun.rollun@gmail.com>
  */
-interface TaskInfoResultInterface extends ResultInterface
+interface StatusResultInterface extends ResultInterface
 {
     /**
-     * @return TaskInfoInterface
+     * @return StatusInterface
      */
     public function getData();
 }

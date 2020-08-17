@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace rollun\LongTermTask\Interfaces\Results\Task;
 
-use rollun\utils\Interfaces\Results\ResultInterface;
+use rollun\utils\Results\ResultInterface;
 
 /**
  * Interface TaskTypeInfoResultInterface

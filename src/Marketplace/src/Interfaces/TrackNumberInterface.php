@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace rollun\Marketplace\Interfaces;
 
-use rollun\utils\Interfaces\Results\ResultInterface;
+use rollun\utils\Results\ResultInterface;
+use rollun\utils\Status\StatusResultInterface;
 
 /**
  * interface TrackNumberInterface
@@ -32,7 +33,7 @@ interface TrackNumberInterface
      * @param \DateTime $shippingDate UTC only
      * @param array     $orderItems
      *
-     * @return ResultInterface
+     * @return StatusResultInterface
      */
-    public function updateTrackNumber(string $orderId, string $trackNumber, string $carrier, string $shippingMethod, \DateTime $shippingDate, array $orderItems): ResultInterface;
+    public function updateTrackNumber(string $orderId, string $trackNumber, string $carrier, string $shippingMethod, \DateTime $shippingDate, array $orderItems): StatusResultInterface;
 }
