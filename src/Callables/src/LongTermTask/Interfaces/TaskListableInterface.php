@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\LongTermTask\Interfaces;
+namespace rollun\Callables\LongTermTask\Interfaces;
 
 /**
  * Interface TaskListableInterface

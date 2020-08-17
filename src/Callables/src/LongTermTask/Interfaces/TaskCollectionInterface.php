@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\LongTermTask\Interfaces;
+namespace rollun\Callables\LongTermTask\Interfaces;
 
-use rollun\utils\Results\ResultInterface;
-use rollun\LongTermTask\Interfaces\Results\Task\TaskInfoResultInterface;
-use rollun\LongTermTask\Interfaces\Results\Task\TaskTypeInfoResultInterface;
+use rollun\Callables\LongTermTask\Interfaces\Results\Task\TaskInfoResultInterface;
+use rollun\Callables\LongTermTask\Interfaces\Results\Task\TaskTypeInfoResultInterface;
+use rollun\Callables\Results\ResultInterface;
 
 /**
  * Interface TaskCollectionInterface

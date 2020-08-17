@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Marketplace\Interfaces;
+namespace rollun\Callables\Marketplace\Interfaces;
 
-use rollun\utils\Results\ResultInterface;
-use rollun\utils\Status\StatusResultInterface;
+use rollun\Callables\Results\ResultInterface;
+use rollun\Callables\Status\Interfaces\StatusResultInterface;
 
 /**
  * interface TrackNumberInterface

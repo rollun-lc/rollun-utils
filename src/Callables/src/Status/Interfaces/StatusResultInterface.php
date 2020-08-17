@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\utils\Status;
+namespace rollun\Callables\Status\Interfaces;
 
-use rollun\utils\Results\ResultInterface;
+use rollun\Callables\Results\ResultInterface;
 
 /**
  * Interface StatusResultInterface

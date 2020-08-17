@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Marketplace\Interfaces\Results;
+namespace rollun\Callables\Marketplace\Interfaces\Results;
 
-use rollun\utils\Results\ResultInterface;
+use rollun\Callables\Results\ResultInterface;
 
 /**
  * Interface OrdersInfoResultInterface
