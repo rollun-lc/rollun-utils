@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace rollun\Callables\Marketplace\Interfaces;
 
 use rollun\Callables\Payload\Interfaces\PayloadResultInterface;
-use rollun\Callables\Results\ResultInterface;
+use rollun\Callables\Results\Interfaces\ResultInterface;
 use rollun\Callables\Status\Interfaces\StatusResultInterface;
 
 /**

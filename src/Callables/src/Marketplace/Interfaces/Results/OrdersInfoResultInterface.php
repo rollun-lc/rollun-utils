@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Marketplace\Interfaces\Results;
 
-use rollun\Callables\Results\ResultInterface;
+use rollun\Callables\Results\Interfaces\ResultInterface;
 
 /**
  * Interface OrdersInfoResultInterface

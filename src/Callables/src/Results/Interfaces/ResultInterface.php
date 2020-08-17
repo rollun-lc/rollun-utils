@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Results;
+namespace rollun\Callables\Results\Interfaces;
 
 /**
  * Interface ResultInterface

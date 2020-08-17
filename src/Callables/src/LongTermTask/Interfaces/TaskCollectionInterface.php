@@ -5,7 +5,7 @@ namespace rollun\Callables\LongTermTask\Interfaces;
 
 use rollun\Callables\LongTermTask\Interfaces\Results\Task\TaskInfoResultInterface;
 use rollun\Callables\LongTermTask\Interfaces\Results\Task\TaskTypeInfoResultInterface;
-use rollun\Callables\Results\ResultInterface;
+use rollun\Callables\Results\Interfaces\ResultInterface;
 
 /**
  * Interface TaskCollectionInterface
