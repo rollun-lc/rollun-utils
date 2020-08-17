@@ -29,7 +29,7 @@ interface TrackNumberInterface
      * @param string    $trackNumber
      * @param string    $carrier
      * @param string    $shippingMethod
-     * @param \DateTime $shippingDate
+     * @param \DateTime $shippingDate UTC only
      * @param array     $orderItems
      *
      * @return ResultInterface

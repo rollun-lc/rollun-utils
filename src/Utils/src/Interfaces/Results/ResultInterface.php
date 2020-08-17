@@ -25,7 +25,7 @@ interface ResultInterface
     public function getMessages(): ?array;
 
     /**
-     * Return false if there are at least one message with level 'error'
+     * Return false if there are at least one message with level 'error' or higher
      *
      * @return bool
      */

@@ -23,4 +23,11 @@ interface MessageInterface
      * @return string
      */
     public function getText(): string;
+
+    /**
+     * Get message context (like in a logger)
+     *
+     * @return array|null
+     */
+    public function getContext(): ?array;
 }
