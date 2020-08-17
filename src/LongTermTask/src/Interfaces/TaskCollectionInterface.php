@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace rollun\LongTermTask\Interfaces;
 
-use rollun\LongTermTask\Interfaces\Results\ResultInterface;
-use rollun\LongTermTask\Interfaces\Results\Task\CreateTaskResultInterface;
-use rollun\LongTermTask\Interfaces\Results\Task\DeletedTaskResultInterface;
+use rollun\utils\Interfaces\Results\ResultInterface;
 use rollun\LongTermTask\Interfaces\Results\Task\TaskInfoResultInterface;
 use rollun\LongTermTask\Interfaces\Results\Task\TaskTypeInfoResultInterface;
 
