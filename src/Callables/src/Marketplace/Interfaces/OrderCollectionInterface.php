@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Marketplace\Interfaces;
 
-use rollun\Marketplace\Interfaces\Results\OrderInfoResultInterface;
-use rollun\Marketplace\Interfaces\Results\OrdersInfoResultInterface;
+use rollun\Callables\Marketplace\Interfaces\Results\OrderInfoResultInterface;
+use rollun\Callables\Marketplace\Interfaces\Results\OrdersInfoResultInterface;
 
 /**
  * Interface OrderCollectionInterface
