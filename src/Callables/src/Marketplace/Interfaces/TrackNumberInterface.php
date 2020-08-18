@@ -15,14 +15,14 @@ use rollun\Callables\Status\Interfaces\StatusResultInterface;
 interface TrackNumberInterface
 {
     /**
-     * Is track number updated ?
+     * Is track number set ?
      *
      * @param string $orderId
      * @param string $trackNumber
      *
      * @return ResultInterface
      */
-    public function isTrackNumberUpdated(string $orderId, string $trackNumber): ResultInterface;
+    public function isTrackNumberSet(string $orderId, string $trackNumber): ResultInterface;
 
     /**
      * Update track number

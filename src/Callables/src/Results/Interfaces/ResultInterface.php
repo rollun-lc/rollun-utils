@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Results\Interfaces;
 
+use rollun\Callables\Status\Interfaces\StatusInterface;
+
 /**
  * Interface ResultInterface
  *
@@ -25,9 +27,9 @@ interface ResultInterface
     public function getMessages(): ?array;
 
     /**
-     * Return false if there are at least one message with level 'error' or higher
+     * Get current status
      *
-     * @return bool
+     * @return StatusInterface
      */
-    public function isSuccess(): bool;
+    public function getStatus(): StatusInterface;
 }
