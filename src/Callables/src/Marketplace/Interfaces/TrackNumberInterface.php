@@ -27,14 +27,14 @@ interface TrackNumberInterface
     /**
      * Update track number
      *
-     * @param string    $orderId
-     * @param string    $trackNumber
-     * @param string    $carrier
-     * @param string    $shippingMethod
-     * @param \DateTime $shippingDate UTC only
-     * @param array     $orderItems
+     * @param string      $orderId
+     * @param string      $trackNumber
+     * @param string      $carrier
+     * @param \DateTime   $shippingDate UTC only
+     * @param array       $orderItems
+     * @param string|null $shippingMethod
      *
      * @return StatusResultInterface|PayloadResultInterface
      */
-    public function updateTrackNumber(string $orderId, string $trackNumber, string $carrier, string $shippingMethod, \DateTime $shippingDate, array $orderItems);
+    public function updateTrackNumber(string $orderId, string $trackNumber, string $carrier, \DateTime $shippingDate, array $orderItems, string $shippingMethod = null);
 }
