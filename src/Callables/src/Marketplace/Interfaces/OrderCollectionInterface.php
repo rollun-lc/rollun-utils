@@ -13,8 +13,6 @@ use rollun\Callables\Marketplace\Interfaces\Results\OrdersInfoResultInterface;
  */
 interface OrderCollectionInterface
 {
-    const MAX_DAYS = PHP_INT_MAX - 1;
-
     /**
      * Get orders by number of days passed
      *
@@ -22,7 +20,7 @@ interface OrderCollectionInterface
      *
      * @return OrdersInfoResultInterface
      */
-    public function getOrdersByDaysPassed(int $days = self::MAX_DAYS): OrdersInfoResultInterface;
+    public function getOrdersByDaysPassed(int $days): OrdersInfoResultInterface;
 
     /**
      * Get order info by id
