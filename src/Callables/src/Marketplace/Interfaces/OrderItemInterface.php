@@ -32,11 +32,11 @@ interface OrderItemInterface
     public function getQuantity(): float;
 
     /**
-     * Get product amount
+     * Get product price
      *
      * @return PriceInterface
      */
-    public function getProductAmount(): PriceInterface;
+    public function getProductPrice(): PriceInterface;
 
     /**
      * Get shipping method
@@ -46,11 +46,11 @@ interface OrderItemInterface
     public function getShippingMethod(): string;
 
     /**
-     * Get shipping amount
+     * Get shipping price
      *
      * @return PriceInterface
      */
-    public function getShippingAmount(): PriceInterface;
+    public function getShippingPrice(): PriceInterface;
 
     /**
      * Get ship date

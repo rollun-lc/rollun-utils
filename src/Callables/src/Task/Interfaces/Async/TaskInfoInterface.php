@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\LongTermTask\Interfaces\Results\Task;
+namespace rollun\Callables\Task\Interfaces\Async;
+
+use rollun\Callables\Results\Interfaces\ResultInterface;
 
 /**
  * Interface TaskInfoInterface
@@ -42,4 +44,18 @@ interface TaskInfoInterface
      * @return \DateTime|null UTC DateTime in result
      */
     public function getStartTime(): ?\DateTime;
+
+    /**
+     * Get task type info
+     *
+     * @return TaskTypeInfoInterface
+     */
+    public function getTaskTypeInfo(): TaskTypeInfoInterface;
+
+    /**
+     * Get task result
+     *
+     * @return ResultInterface|null
+     */
+    public function getResult(): ?ResultInterface;
 }

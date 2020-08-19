@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\LongTermTask\Interfaces\Results\Task;
+namespace rollun\Callables\Task\Interfaces\Async\Results;
 
 use rollun\Callables\Results\Interfaces\ResultInterface;
+use rollun\Callables\Task\Interfaces\Async\TaskInfoInterface;
 
 /**
  * Interface TaskInterface

@@ -11,25 +11,25 @@ namespace rollun\Callables\Marketplace\Interfaces;
 interface ClientInterface
 {
     /**
-     * GEt client id
+     * Get client email
      *
      * @return string
      */
-    public function getId(): string;
+    public function getEmail(): string;
+
+    /**
+     * Get client id
+     *
+     * @return string|null
+     */
+    public function getId(): ?string;
 
     /**
      * Get client name
      *
-     * @return string
-     */
-    public function getName(): string;
-
-    /**
-     * Get client email
-     *
      * @return string|null
      */
-    public function getEmail(): ?string;
+    public function getName(): ?string;
 
     /**
      * Get client phone

@@ -18,6 +18,11 @@ interface ProductInterface
     public function getSku(): string;
 
     /**
+     * @return string|null
+     */
+    public function getMsin(): ?string;
+
+    /**
      * Get name
      *
      * @return string

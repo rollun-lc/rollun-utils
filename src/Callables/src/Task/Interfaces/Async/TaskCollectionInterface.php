@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\LongTermTask\Interfaces;
+namespace rollun\Callables\Task\Interfaces\Async;
 
-use rollun\Callables\LongTermTask\Interfaces\Results\Task\TaskInfoResultInterface;
-use rollun\Callables\LongTermTask\Interfaces\Results\Task\TaskTypeInfoResultInterface;
+use rollun\Callables\Task\Interfaces\TaskCollectionInterface as SyncTaskCollectionInterface;
+use rollun\Callables\Task\Interfaces\Async\Results\TaskInfoResultInterface;
 use rollun\Callables\Results\Interfaces\ResultInterface;
 
 /**
@@ -12,15 +12,8 @@ use rollun\Callables\Results\Interfaces\ResultInterface;
  *
  * @author r.ratsun <r.ratsun.rollun@gmail.com>
  */
-interface TaskCollectionInterface
+interface TaskCollectionInterface extends SyncTaskCollectionInterface
 {
-    /**
-     * Return tasks typeInfo in collection
-     *
-     * @return TaskTypeInfoResultInterface
-     */
-    public function getTaskTypeInfo(): TaskTypeInfoResultInterface;
-
     /**
      * Return concreted task info by id
      *
@@ -31,11 +24,11 @@ interface TaskCollectionInterface
     public function getTaskInfoById(string $taskId): TaskInfoResultInterface;
 
     /**
-     * Create new task, return id
+     * Create new task
      *
      * @param object $task
      *
-     * @return TaskInfoResultInterface|ResultInterface
+     * @return TaskInfoResultInterface
      */
     public function createTask(object $task): ResultInterface;
 
