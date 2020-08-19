@@ -35,9 +35,9 @@ interface TaskCollectionInterface
      *
      * @param object $task
      *
-     * @return TaskInfoResultInterface
+     * @return TaskInfoResultInterface|ResultInterface
      */
-    public function createTask(object $task): TaskInfoResultInterface;
+    public function createTask(object $task): ResultInterface;
 
     /**
      * Delete task

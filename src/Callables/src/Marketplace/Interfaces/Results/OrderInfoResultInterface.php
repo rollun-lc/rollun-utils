@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Marketplace\Interfaces\Results;
 
+use rollun\Callables\Marketplace\Interfaces\OrderInterface;
 use rollun\Callables\Results\Interfaces\ResultInterface;
 
 /**
@@ -15,7 +16,7 @@ interface OrderInfoResultInterface extends ResultInterface
     /**
      * Get order data
      *
-     * @return OrderInfoInterface|null
+     * @return OrderInterface|null
      */
     public function getData();
 }
