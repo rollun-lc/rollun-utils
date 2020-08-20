@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Payload\Interfaces;
+namespace rollun\Marketplace\Interfaces\Results;
 
 use rollun\Callables\Results\Interfaces\ResultInterface;
+use rollun\Marketplace\Interfaces\PayloadInterface;
 
 /**
  * Interface PayloadResultInterface

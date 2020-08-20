@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Marketplace\Interfaces;
+namespace rollun\Marketplace\Interfaces;
 
 /**
  * Interface PriceInterface

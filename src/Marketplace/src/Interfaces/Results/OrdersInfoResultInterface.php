@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Marketplace\Interfaces\Results;
+namespace rollun\Marketplace\Interfaces\Results;
 
-use rollun\Callables\Marketplace\Interfaces\OrderInterface;
 use rollun\Callables\Results\Interfaces\ResultInterface;
+use rollun\Marketplace\Interfaces\OrderInterface;
 
 /**
  * Interface OrdersInfoResultInterface

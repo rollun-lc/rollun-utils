@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Status\Interfaces;
+namespace rollun\Marketplace\Interfaces\Results;
 
 use rollun\Callables\Results\Interfaces\ResultInterface;
+use rollun\Callables\Status\Interfaces\Async\StatusInterface;
 
 /**
  * Interface StatusResultInterface

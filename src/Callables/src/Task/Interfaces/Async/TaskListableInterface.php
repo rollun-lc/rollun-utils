@@ -8,12 +8,12 @@ namespace rollun\Callables\Task\Interfaces\Async;
  *
  * @author r.ratsun <r.ratsun.rollun@gmail.com>
  */
-interface TaskListableInterface extends TaskCollectionInterface
+interface TaskListableInterface extends TaskInterface
 {
     /**
      * Return exists tasks id
      *
-     * @return array
+     * @return string[]
      */
     public function getTaskIdList(): array;
 }

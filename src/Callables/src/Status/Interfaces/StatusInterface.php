@@ -10,7 +10,6 @@ namespace rollun\Callables\Status\Interfaces;
  */
 interface StatusInterface
 {
-    const STATE_PENDING = 'pending';
     const STATE_FULFILLED = 'fulfilled';
     const STATE_REJECTED = 'rejected';
 
@@ -22,27 +21,12 @@ interface StatusInterface
     /**
      * @return bool
      */
-    public function isPending(): bool;
-
-    /**
-     * @return bool
-     */
     public function isRejected(): bool;
-
-    /**
-     * Switch state to reject
-     */
-    public function toReject(): void;
 
     /**
      * @return bool
      */
     public function isFulfilled(): bool;
-
-    /**
-     * Switch state to fulfilled
-     */
-    public function toFulfilled(): void;
 
     /**
      * @return string
