@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Task\Interfaces\Async;
 
-use rollun\Callables\Results\Interfaces\ResultInterface;
-
 /**
  * Interface TaskInfoInterface
  *
@@ -51,11 +49,4 @@ interface TaskInfoInterface
      * @return TaskTypeInfoInterface
      */
     public function getTaskTypeInfo(): TaskTypeInfoInterface;
-
-    /**
-     * Get task result
-     *
-     * @return ResultInterface|null
-     */
-    public function getResult(): ?ResultInterface;
 }
