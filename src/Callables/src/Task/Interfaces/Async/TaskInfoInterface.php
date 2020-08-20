@@ -18,11 +18,6 @@ interface TaskInfoInterface
     public function getId(): string;
 
     /**
-     * @return string
-     */
-    public function getType(): string;
-
-    /**
      * Get task current stage
      *
      * @return string

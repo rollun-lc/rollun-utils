@@ -11,7 +11,7 @@ namespace rollun\Callables\Results\Interfaces;
 interface MessageInterface
 {
     /**
-     * Get level og message
+     * Get level of message
      *
      * @return string
      */
