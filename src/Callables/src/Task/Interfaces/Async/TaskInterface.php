@@ -35,11 +35,11 @@ interface TaskInterface extends SyncTaskInterface
     /**
      * Create new task
      *
-     * @param object $task
+     * @param object $taskParam
      *
      * @return TaskInfoResultInterface
      */
-    public function runTask(object $task): ResultInterface;
+    public function runTask(object $taskParam): ResultInterface;
 
     /**
      * Delete task
