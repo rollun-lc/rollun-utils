@@ -11,6 +11,7 @@ use rollun\Callables\Task\Result\Message;
 use rollun\Callables\Task\ResultInterface;
 use rollun\Callables\TaskExample\Model\CreateTaskParameters;
 use rollun\Callables\TaskExample\Result as TaskExampleResult;
+use rollun\Callables\TaskExample\Result\Data\FileSummaryDelete;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryInfo;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryType;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryResult;
@@ -120,6 +121,24 @@ class FileSummary implements TaskInterface
      */
     public function deleteById(string $id): ResultInterface
     {
+        if (!file_exists($this->getFilePath((int)$id))) {
+            $result = new Result(new FileSummaryDelete(false), new Status(Status::STATE_REJECTED));
+            $result->addMessage(new Message('Error', 'No such task'));
+
+            return $result;
+        }
+
+        $data = $this->getFileData((int)$id);
+        if (empty($data['summary'])) {
+            $result = new Result(new FileSummaryDelete(false), new Status(Status::STATE_REJECTED));
+            $result->addMessage(new Message('Error', 'Task is running and can not be deleted'));
+
+            return $result;
+        }
+
+        unlink($this->getFilePath((int)$id));
+
+        return new Result(new FileSummaryDelete(true), new Status(Status::STATE_FULFILLED));
     }
 
     /**
