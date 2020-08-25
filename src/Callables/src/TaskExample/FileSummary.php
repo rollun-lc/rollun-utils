@@ -93,7 +93,7 @@ class FileSummary implements TaskInterface
             $data = $this->getFileData($n);
             if (empty($data['summary'])) {
                 $result = new Result(null, new Status(Status::STATE_REJECTED));
-                $result->addMessage(new Message('Error', 'Such task already exists'));
+                $result->addMessage(new Message('Error', 'Such task is already exists'));
 
                 return $result;
             }
@@ -105,7 +105,7 @@ class FileSummary implements TaskInterface
         $i = 1;
         while ($i <= $n) {
             $data['numbers'][] = $i;
-            $this->saveFile($i, $data);
+            $this->saveFile($n, $data);
             $i++;
         }
 
