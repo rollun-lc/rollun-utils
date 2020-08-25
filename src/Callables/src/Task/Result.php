@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace rollun\Callables\Task;
 
 use rollun\Callables\Task\Async\Result\TaskInfoInterface;
-use rollun\Callables\Task\Result\StatusInterface;
 use rollun\Callables\Task\Result\MessageInterface;
 
 /**
@@ -25,21 +24,14 @@ class Result implements ResultInterface
     protected $messages;
 
     /**
-     * @var StatusInterface
-     */
-    protected $status;
-
-    /**
      * Result constructor.
      *
-     * @param null|object     $data
-     * @param StatusInterface $status
-     * @param array           $messages
+     * @param null|object $data
+     * @param array       $messages
      */
-    public function __construct($data, StatusInterface $status, array $messages = [])
+    public function __construct($data, array $messages = [])
     {
         $this->data = $data;
-        $this->status = $status;
         $this->messages = $messages;
     }
 
@@ -62,16 +54,22 @@ class Result implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function getStatus(): StatusInterface
-    {
-        return $this->status;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function addMessage(MessageInterface $message): void
     {
         $this->messages[] = $message;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuccess(): bool
+    {
+        foreach ($this->getMessages() as $message) {
+            if ($message->getLevel() == 'Error') {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

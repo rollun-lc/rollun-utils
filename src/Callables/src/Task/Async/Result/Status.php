@@ -3,23 +3,32 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Task\Async\Result;
 
-use rollun\Callables\Task\Result\Status as SyncStatus;
-
 /**
  * Class Status
  *
  * @author r.ratsun <r.ratsun.rollun@gmail.com>
  */
-class Status extends SyncStatus implements StatusInterface
+class Status implements StatusInterface
 {
     /**
-     * Status constructor.
-     *
-     * @param string|null $state
+     * @var string
      */
-    public function __construct(string $state = null)
+    protected $state;
+
+    /**
+     * Status constructor.
+     */
+    public function __construct()
     {
-        $this->state = empty($state) ? StatusInterface::STATE_PENDING : $state;
+        $this->state = StatusInterface::STATE_PENDING;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getState(): string
+    {
+        return $this->state;
     }
 
     /**
@@ -33,6 +42,14 @@ class Status extends SyncStatus implements StatusInterface
     /**
      * @inheritDoc
      */
+    public function isRejected(): bool
+    {
+        return $this->getState() === StatusInterface::STATE_REJECTED;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function toReject(): void
     {
         $this->state = StatusInterface::STATE_REJECTED;
@@ -41,8 +58,24 @@ class Status extends SyncStatus implements StatusInterface
     /**
      * @inheritDoc
      */
+    public function isFulfilled(): bool
+    {
+        return $this->getState() === StatusInterface::STATE_FULFILLED;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function toFulfilled(): void
     {
         $this->state = StatusInterface::STATE_FULFILLED;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __toString(): string
+    {
+        return $this->getState();
     }
 }

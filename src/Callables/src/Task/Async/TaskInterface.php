@@ -24,15 +24,6 @@ interface TaskInterface extends SyncTaskInterface
     public function getTaskInfoById(string $taskId): TaskInfoInterface;
 
     /**
-     * Get concreted task result by id
-     *
-     * @param string $taskId
-     *
-     * @return ResultInterface
-     */
-    public function getTaskResultById(string $taskId): ResultInterface;
-
-    /**
      * Create new task
      *
      * @param object $taskParam

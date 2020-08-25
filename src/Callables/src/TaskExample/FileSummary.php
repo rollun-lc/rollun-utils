@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace rollun\Callables\TaskExample;
 
+use rollun\Callables\Task\Async\Result as AsyncResult;
 use rollun\Callables\Task\Async\Result\Status;
 use rollun\Callables\Task\Async\Result\TaskInfoInterface as ResultTaskInfoInterface;
 use rollun\Callables\Task\Async\TaskInterface;
@@ -31,10 +32,7 @@ class FileSummary implements TaskInterface
     public function getTaskInfoById(string $taskId): ResultTaskInfoInterface
     {
         if (!file_exists($this->getFilePath((int)$taskId))) {
-            $result = new TaskExampleResult(null, new Status(Status::STATE_REJECTED));
-            $result->addMessage(new Message('Error', 'No such task'));
-
-            return $result;
+            return new TaskExampleResult(null, [new Message('Error', 'No such task')]);
         }
 
         $data = $this->getFileData((int)$taskId);
@@ -50,33 +48,24 @@ class FileSummary implements TaskInterface
         $stages[] = 'done';
 
         if (!empty($data['summary'])) {
-            return new TaskExampleResult(new FileSummaryInfo($taskId, new FileSummaryType($stages), 'done'), new Status(Status::STATE_FULFILLED));
+            // prepare result
+            $result = new AsyncResult(new FileSummaryResult((int)$data['summary']), new Status());
+            $result->getStatus()->toFulfilled();
+
+            return new TaskExampleResult(new FileSummaryInfo($taskId, new FileSummaryType($stages), $result, 'done'));
         }
 
         // get current stage
-        $stage = 'writing ' . (array_pop($data['numbers']) + 1);
+        $numbers = $data['numbers'];
+        $stage = 'writing ' . (array_pop($numbers) + 1);
         if (!in_array($stage, $stages)) {
             $stage = 'summary calculating';
         }
 
-        return new TaskExampleResult(new FileSummaryInfo($taskId, new FileSummaryType($stages), $stage), new Status());
-    }
+        // prepare result
+        $result = new AsyncResult(new FileSummaryResult(array_sum($data['numbers'])), new Status());
 
-    /**
-     * @inheritDoc
-     */
-    public function getTaskResultById(string $taskId): ResultInterface
-    {
-        $data = $this->getFileData((int)$taskId);
-
-        if (empty($data['summary'])) {
-            $result = new Result(null, new Status(Status::STATE_REJECTED));
-            $result->addMessage(new Message('Error', 'No such task result'));
-
-            return $result;
-        }
-
-        return new Result(new FileSummaryResult((int)$data['summary']), new Status(Status::STATE_FULFILLED));
+        return new TaskExampleResult(new FileSummaryInfo($taskId, new FileSummaryType($stages), $result, $stage));
     }
 
     /**
@@ -90,19 +79,13 @@ class FileSummary implements TaskInterface
         $n = $taskParam->getN();
 
         if ($n < 1) {
-            $result = new Result(null, new Status(Status::STATE_REJECTED));
-            $result->addMessage(new Message('Error', 'n param should be more than 1'));
-
-            return $result;
+            return new Result(null, [new Message('Error', 'n param should be more than 1')]);
         }
 
         if (file_exists($this->getFilePath($n))) {
             $data = $this->getFileData($n);
             if (empty($data['summary'])) {
-                $result = new Result(null, new Status(Status::STATE_REJECTED));
-                $result->addMessage(new Message('Error', 'Such task is already exists'));
-
-                return $result;
+                return new Result(null, [new Message('Error', 'Such task is already exists')]);
             }
         }
 
@@ -129,23 +112,17 @@ class FileSummary implements TaskInterface
     public function deleteById(string $id): ResultInterface
     {
         if (!file_exists($this->getFilePath((int)$id))) {
-            $result = new Result(new FileSummaryDelete(false), new Status(Status::STATE_REJECTED));
-            $result->addMessage(new Message('Error', 'No such task'));
-
-            return $result;
+            return new Result(new FileSummaryDelete(false), [new Message('Error', 'No such task')]);
         }
 
         $data = $this->getFileData((int)$id);
         if (empty($data['summary'])) {
-            $result = new Result(new FileSummaryDelete(false), new Status(Status::STATE_REJECTED));
-            $result->addMessage(new Message('Error', 'Task is running and can not be deleted'));
-
-            return $result;
+            return new Result(new FileSummaryDelete(false), [new Message('Error', 'Task is running and can not be deleted')]);
         }
 
         unlink($this->getFilePath((int)$id));
 
-        return new Result(new FileSummaryDelete(true), new Status(Status::STATE_FULFILLED));
+        return new Result(new FileSummaryDelete(true));
     }
 
     /**
