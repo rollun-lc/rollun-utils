@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace rollun\Callables\TaskExample\Result\Data;
 
+use rollun\Callables\Task\ResultInterface;
 use rollun\Callables\Task\Async\Result\Data\TaskInfoInterface;
 use rollun\Callables\Task\Async\Result\Data\TaskTypeInfoInterface;
-use rollun\Callables\Task\Async\ResultInterface;
+use rollun\Callables\Task\Async\Result\StatusInterface;
 
 /**
  * Class FileSummaryInfo
@@ -25,6 +26,11 @@ class FileSummaryInfo implements TaskInfoInterface
     protected $stage;
 
     /**
+     * @var StatusInterface
+     */
+    protected $status;
+
+    /**
      * @var TaskTypeInfoInterface
      */
     protected $taskTypeInfo;
@@ -38,13 +44,15 @@ class FileSummaryInfo implements TaskInfoInterface
      * FileSummaryInfo constructor.
      *
      * @param string                $id
+     * @param StatusInterface       $status
      * @param TaskTypeInfoInterface $taskTypeInfo
      * @param ResultInterface       $result
      * @param string                $stage
      */
-    public function __construct(string $id, TaskTypeInfoInterface $taskTypeInfo, ResultInterface $result, string $stage = '')
+    public function __construct(string $id, StatusInterface $status, TaskTypeInfoInterface $taskTypeInfo, ResultInterface $result, string $stage = '')
     {
         $this->id = $id;
+        $this->status = $status;
         $this->taskTypeInfo = $taskTypeInfo;
         $this->result = $result;
         $this->stage = (empty($stage) && isset($taskTypeInfo->getAllStages()[0])) ? $taskTypeInfo->getAllStages()[0] : $stage;
@@ -76,6 +84,14 @@ class FileSummaryInfo implements TaskInfoInterface
         }
 
         $this->stage = $stage;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getStatus(): StatusInterface
+    {
+        return $this->status;
     }
 
     /**

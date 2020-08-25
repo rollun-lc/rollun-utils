@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Task\Async\Result\Data;
 
-use rollun\Callables\Task\Async\ResultInterface;
+use rollun\Callables\Task\ResultInterface;
+use rollun\Callables\Task\Async\Result\StatusInterface;
 
 /**
  * Interface TaskInfoInterface
@@ -32,6 +33,13 @@ interface TaskInfoInterface
      * @param string $stage
      */
     public function setStage(string $stage): void;
+
+    /**
+     * Get status
+     *
+     * @return StatusInterface
+     */
+    public function getStatus(): StatusInterface;
 
     /**
      * Get datetime when task was start

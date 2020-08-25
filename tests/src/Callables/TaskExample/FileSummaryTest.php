@@ -45,7 +45,7 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
         $result = (new FileSummary())->getTaskInfoById($n);
 
         $this->assertEquals($stage, $result->getData()->getStage());
-        $this->assertEquals($status, (string)$result->getData()->getResult()->getStatus());
+        $this->assertEquals($status, (string)$result->getData()->getStatus());
         $this->assertEquals($summary, $result->getData()->getResult()->getData()->getSummary());
     }
 

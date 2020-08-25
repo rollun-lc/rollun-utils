@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace rollun\Callables\TaskExample;
 
-use rollun\Callables\Task\Async\Result as AsyncResult;
 use rollun\Callables\Task\Async\Result\Status;
 use rollun\Callables\Task\Async\Result\TaskInfoInterface as ResultTaskInfoInterface;
 use rollun\Callables\Task\Async\TaskInterface;
@@ -48,11 +47,10 @@ class FileSummary implements TaskInterface
         $stages[] = 'done';
 
         if (!empty($data['summary'])) {
-            // prepare result
-            $result = new AsyncResult(new FileSummaryResult((int)$data['summary']), new Status());
-            $result->getStatus()->toFulfilled();
+            $resultData = new FileSummaryInfo($taskId, new Status(), new FileSummaryType($stages), new Result(new FileSummaryResult((int)$data['summary'])), 'done');
+            $resultData->getStatus()->toFulfilled();
 
-            return new TaskExampleResult(new FileSummaryInfo($taskId, new FileSummaryType($stages), $result, 'done'));
+            return new TaskExampleResult($resultData);
         }
 
         // get current stage
@@ -62,10 +60,9 @@ class FileSummary implements TaskInterface
             $stage = 'summary calculating';
         }
 
-        // prepare result
-        $result = new AsyncResult(new FileSummaryResult(array_sum($data['numbers'])), new Status());
+        $resultData = new FileSummaryInfo($taskId, new Status(), new FileSummaryType($stages), new Result(new FileSummaryResult(array_sum($data['numbers']))), $stage);
 
-        return new TaskExampleResult(new FileSummaryInfo($taskId, new FileSummaryType($stages), $result, $stage));
+        return new TaskExampleResult($resultData);
     }
 
     /**
