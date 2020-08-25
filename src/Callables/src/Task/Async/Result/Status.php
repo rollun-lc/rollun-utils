@@ -14,10 +14,12 @@ class Status extends SyncStatus implements StatusInterface
 {
     /**
      * Status constructor.
+     *
+     * @param string|null $state
      */
-    public function __construct()
+    public function __construct(string $state = null)
     {
-        $this->state = StatusInterface::STATE_PENDING;
+        $this->state = empty($state) ? StatusInterface::STATE_PENDING : $state;
     }
 
     /**
