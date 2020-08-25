@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Status\Interfaces\Async;
+namespace rollun\Callables\Task\Async\Result;
 
-use rollun\Callables\Status\Interfaces\StatusInterface as SyncStatusInterface;
+use rollun\Callables\Task\Result\StatusInterface as SyncStatusInterface;
 
 /**
  * Interface AsyncStatusInterface

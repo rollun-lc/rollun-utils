@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Task\Interfaces\Async;
+namespace rollun\Callables\Task\Async;
 
 /**
  * Interface TaskListableInterface

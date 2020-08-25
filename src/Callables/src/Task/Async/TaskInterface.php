@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Task\Interfaces\Async;
+namespace rollun\Callables\Task\Async;
 
-use rollun\Callables\Task\Interfaces\TaskInterface as SyncTaskInterface;
-use rollun\Callables\Task\Interfaces\Async\Results\TaskInfoResultInterface;
-use rollun\Callables\Results\Interfaces\ResultInterface;
+use rollun\Callables\Task\TaskInterface as SyncTaskInterface;
+use rollun\Callables\Task\Async\Result\TaskInfoInterface;
+use rollun\Callables\Task\ResultInterface;
 
 /**
  * Interface TaskInterface
@@ -19,9 +19,9 @@ interface TaskInterface extends SyncTaskInterface
      *
      * @param string $taskId
      *
-     * @return TaskInfoResultInterface
+     * @return TaskInfoInterface
      */
-    public function getTaskInfoById(string $taskId): TaskInfoResultInterface;
+    public function getTaskInfoById(string $taskId): TaskInfoInterface;
 
     /**
      * Get concreted task result by id
@@ -37,7 +37,7 @@ interface TaskInterface extends SyncTaskInterface
      *
      * @param object $taskParam
      *
-     * @return TaskInfoResultInterface
+     * @return TaskInfoInterface
      */
     public function runTask(object $taskParam): ResultInterface;
 

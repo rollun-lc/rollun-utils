@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Task\Interfaces;
-
-use rollun\Callables\Results\Interfaces\ResultInterface;
+namespace rollun\Callables\Task;
 
 /**
  * Interface TaskInterface

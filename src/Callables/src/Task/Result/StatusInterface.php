@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Status\Interfaces;
+namespace rollun\Callables\Task\Result;
 
 /**
  * Interface StatusInterface

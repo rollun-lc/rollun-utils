@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Task\Interfaces\Async;
+namespace rollun\Callables\Task\Async\Result\Data;
 
 /**
  * Interface TaskInfoInterface
@@ -23,6 +23,13 @@ interface TaskInfoInterface
      * @return string
      */
     public function getStage(): string;
+
+    /**
+     * Set task current stage
+     *
+     * @param string $stage
+     */
+    public function setStage(string $stage): void;
 
     /**
      * Get datetime when task was start

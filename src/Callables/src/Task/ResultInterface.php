@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Results\Interfaces;
+namespace rollun\Callables\Task;
 
-use rollun\Callables\Status\Interfaces\StatusInterface;
+use rollun\Callables\Task\Result\MessageInterface;
+use rollun\Callables\Task\Result\StatusInterface;
 
 /**
  * Interface ResultInterface
@@ -25,6 +26,13 @@ interface ResultInterface
      * @return MessageInterface[]|null
      */
     public function getMessages(): ?array;
+
+    /**
+     * Add message
+     *
+     * @param MessageInterface $message
+     */
+    public function addMessage(MessageInterface $message): void;
 
     /**
      * Get current status

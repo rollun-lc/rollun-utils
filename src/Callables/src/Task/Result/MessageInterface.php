@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Results\Interfaces;
+namespace rollun\Callables\Task\Result;
 
 /**
  * Interface MessageInterface
