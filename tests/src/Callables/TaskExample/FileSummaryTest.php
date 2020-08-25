@@ -38,7 +38,7 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
     public function testFileSummaryInfo(string $n, string $stage, string $status, int $wait)
     {
         // create task
-        exec("php bin/task-example/create.php $n >/dev/null 2>&1 &");
+        $this->createTask((int)$n);
 
         sleep($wait);
         $result = (new FileSummary())->getTaskInfoById($n);
@@ -68,14 +68,13 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
     public function testFileSummaryResult(string $n, int $wait, int $expectedSummary)
     {
         // create task
-        exec("php bin/task-example/create.php $n >/dev/null 2>&1 &");
+        $this->createTask((int)$n);
 
         sleep($wait);
         $result = (new FileSummary())->getTaskResultById($n);
 
         $this->assertEquals($expectedSummary, empty($result->getData()) ? 0 : $result->getData()->getSummary());
     }
-
 
     /**
      * Tests for error messages
@@ -86,8 +85,30 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals('No such task result', (new FileSummary())->getTaskResultById('122')->getMessages()[0]->getText());
 
-        exec("php bin/task-example/create.php 20 >/dev/null 2>&1 &");
+        $this->createTask(20);
         sleep(1);
         $this->assertEquals('Such task is already exists', (new FileSummary())->runTask(new CreateTaskParameters(20))->getMessages()[0]->getText());
+    }
+
+    /**
+     * Tests for delete method
+     */
+    public function testDelete()
+    {
+        $this->assertEquals('No such task', (new FileSummary())->deleteById('55')->getMessages()[0]->getText());
+
+        $this->assertEquals(false, (new FileSummary())->deleteById('55')->getData()->getIsDeleted());
+
+        $this->createTask(2);
+        sleep(3);
+        $this->assertEquals(true, (new FileSummary())->deleteById('2')->getData()->getIsDeleted());
+    }
+
+    /**
+     * @param int $n
+     */
+    protected function createTask(int $n)
+    {
+        exec("php bin/task-example/create.php $n >/dev/null 2>&1 &");
     }
 }
