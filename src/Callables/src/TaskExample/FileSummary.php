@@ -4,14 +4,16 @@ declare(strict_types=1);
 namespace rollun\Callables\TaskExample;
 
 use rollun\Callables\Task\Async\Result\Status;
-use rollun\Callables\Task\Async\Result\TaskInfoInterface;
+use rollun\Callables\Task\Async\Result\TaskInfoInterface as ResultTaskInfoInterface;
 use rollun\Callables\Task\Async\TaskInterface;
 use rollun\Callables\Task\Result;
 use rollun\Callables\Task\Result\Message;
 use rollun\Callables\Task\ResultInterface;
 use rollun\Callables\TaskExample\Model\CreateTaskParameters;
+use rollun\Callables\TaskExample\Result as TaskExampleResult;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryInfo;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryType;
+use rollun\Callables\TaskExample\Result\Data\FileSummaryResult;
 
 /**
  * Class FileSummary
@@ -25,8 +27,38 @@ class FileSummary implements TaskInterface
     /**
      * @inheritDoc
      */
-    public function getTaskInfoById(string $taskId): TaskInfoInterface
+    public function getTaskInfoById(string $taskId): ResultTaskInfoInterface
     {
+        if (!file_exists($this->getFilePath((int)$taskId))) {
+            $result = new TaskExampleResult(null, new Status(Status::STATE_REJECTED));
+            $result->addMessage(new Message('Error', 'No such task'));
+
+            return $result;
+        }
+
+        $data = $this->getFileData((int)$taskId);
+
+        // prepare all stages
+        $stages = [];
+        $i = 1;
+        while ($i <= (int)$taskId) {
+            $stages[] = 'writing ' . $i;
+            $i++;
+        }
+        $stages[] = 'summary calculating';
+        $stages[] = 'done';
+
+        if (!empty($data['summary'])) {
+            return new TaskExampleResult(new FileSummaryInfo($taskId, new FileSummaryType($stages), 'done'), new Status(Status::STATE_FULFILLED));
+        }
+
+        // get current stage
+        $stage = 'writing ' . (array_pop($data['numbers']) + 1);
+        if (!in_array($stage, $stages)) {
+            $stage = 'summary calculating';
+        }
+
+        return new TaskExampleResult(new FileSummaryInfo($taskId, new FileSummaryType($stages), $stage), new Status());
     }
 
     /**
@@ -34,6 +66,16 @@ class FileSummary implements TaskInterface
      */
     public function getTaskResultById(string $taskId): ResultInterface
     {
+        $data = $this->getFileData((int)$taskId);
+
+        if (empty($data['summary'])) {
+            $result = new Result(null, new Status(Status::STATE_REJECTED));
+            $result->addMessage(new Message('Error', 'No such task result'));
+
+            return $result;
+        }
+
+        return new Result(new FileSummaryResult((int)$data['summary']), new Status(Status::STATE_FULFILLED));
     }
 
     /**
@@ -49,8 +91,7 @@ class FileSummary implements TaskInterface
         if (file_exists($this->getFilePath($n))) {
             $data = $this->getFileData($n);
             if (empty($data['summary'])) {
-                $result = new Result(null, new Status());
-                $result->getStatus()->toReject();
+                $result = new Result(null, new Status(Status::STATE_REJECTED));
                 $result->addMessage(new Message('Error', 'Such task already exists'));
 
                 return $result;
@@ -71,7 +112,7 @@ class FileSummary implements TaskInterface
         $data['summary'] = array_sum($data['numbers']);
         $this->saveFile($n, $data);
 
-        return new Result(new FileSummaryInfo((string)$n, new FileSummaryType(), 'done'), new Status(Status::STATE_FULFILLED));
+        return $this->getTaskInfoById((string)$n);
     }
 
     /**

@@ -14,6 +14,21 @@ use rollun\Callables\Task\Async\Result\StatusInterface;
 class FileSummaryType implements TaskTypeInfoInterface
 {
     /**
+     * @var array
+     */
+    protected $stages;
+
+    /**
+     * FileSummaryType constructor.
+     *
+     * @param array $stages
+     */
+    public function __construct(array $stages)
+    {
+        $this->stages = $stages;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getType(): string
@@ -42,6 +57,6 @@ class FileSummaryType implements TaskTypeInfoInterface
      */
     public function getAllStages(): array
     {
-        return ['writing 0', 'writing 1', 'writing 2', 'summary calculating', 'done'];
+        return $this->stages;
     }
 }

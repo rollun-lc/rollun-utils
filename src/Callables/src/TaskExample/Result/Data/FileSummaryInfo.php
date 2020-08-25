@@ -33,12 +33,12 @@ class FileSummaryInfo implements TaskInfoInterface
      *
      * @param string                $id
      * @param TaskTypeInfoInterface $taskTypeInfo
-     * @param string|null           $stage
+     * @param string                $stage
      */
-    public function __construct(string $id, TaskTypeInfoInterface $taskTypeInfo, string $stage = null)
+    public function __construct(string $id, TaskTypeInfoInterface $taskTypeInfo, string $stage = '')
     {
         $this->id = $id;
-        $this->stage = (empty($stage) && isset($taskTypeInfo->getAllStages()[0])) ? $taskTypeInfo->getAllStages()[0] : '';
+        $this->stage = (empty($stage) && isset($taskTypeInfo->getAllStages()[0])) ? $taskTypeInfo->getAllStages()[0] : $stage;
         $this->taskTypeInfo = $taskTypeInfo;
     }
 
