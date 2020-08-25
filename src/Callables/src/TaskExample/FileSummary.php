@@ -89,6 +89,13 @@ class FileSummary implements TaskInterface
         // prepare n
         $n = $taskParam->getN();
 
+        if ($n < 1) {
+            $result = new Result(null, new Status(Status::STATE_REJECTED));
+            $result->addMessage(new Message('Error', 'n param should be more than 1'));
+
+            return $result;
+        }
+
         if (file_exists($this->getFilePath($n))) {
             $data = $this->getFileData($n);
             if (empty($data['summary'])) {

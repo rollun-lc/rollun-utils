@@ -85,6 +85,8 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals('No such task result', (new FileSummary())->getTaskResultById('122')->getMessages()[0]->getText());
 
+        $this->assertEquals('n param should be more than 1', (new FileSummary())->runTask(new CreateTaskParameters(-10))->getMessages()[0]->getText());
+
         $this->createTask(20);
         sleep(1);
         $this->assertEquals('Such task is already exists', (new FileSummary())->runTask(new CreateTaskParameters(20))->getMessages()[0]->getText());
