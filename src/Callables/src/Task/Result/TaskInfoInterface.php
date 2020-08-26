@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Task\Async\Result;
+namespace rollun\Callables\Task\Result;
 
 use rollun\Callables\Task\ResultInterface;
 use rollun\Callables\Task\Async\Result\Data\TaskInfoInterface as DataTaskInfoInterface;

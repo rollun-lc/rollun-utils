@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace rollun\Callables\Task\Async;
 
 use rollun\Callables\Task\TaskInterface as SyncTaskInterface;
-use rollun\Callables\Task\Async\Result\TaskInfoInterface;
+use rollun\Callables\Task\Result\TaskInfoInterface;
 use rollun\Callables\Task\ResultInterface;
 
 /**

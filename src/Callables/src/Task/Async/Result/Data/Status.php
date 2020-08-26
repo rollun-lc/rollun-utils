@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Task\Async\Result;
+namespace rollun\Callables\Task\Async\Result\Data;
 
 /**
  * Class Status
@@ -16,11 +16,17 @@ class Status implements StatusInterface
     protected $state;
 
     /**
+     * @var string[]
+     */
+    protected $all;
+
+    /**
      * Status constructor.
      */
     public function __construct()
     {
         $this->state = StatusInterface::STATE_PENDING;
+        $this->all = [StatusInterface::STATE_PENDING, StatusInterface::STATE_REJECTED, StatusInterface::STATE_FULFILLED];
     }
 
     /**
@@ -29,6 +35,14 @@ class Status implements StatusInterface
     public function getState(): string
     {
         return $this->state;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAllStates(): array
+    {
+        return $this->all;
     }
 
     /**

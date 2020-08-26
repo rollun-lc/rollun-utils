@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Task;
 
-use rollun\Callables\Task\Async\Result\TaskInfoInterface;
+use rollun\Callables\Task\Async\Result\Data\TaskInfoInterface;
 use rollun\Callables\Task\Result\MessageInterface;
 
 /**

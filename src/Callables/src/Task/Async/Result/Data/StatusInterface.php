@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\Callables\Task\Async\Result;
+namespace rollun\Callables\Task\Async\Result\Data;
 
 /**
  * Interface AsyncStatusInterface
@@ -15,16 +15,29 @@ interface StatusInterface
     const STATE_REJECTED = 'rejected';
 
     /**
+     * Get current state
+     *
      * @return string
      */
     public function getState(): string;
 
     /**
+     * Get allowed states
+     *
+     * @return string[]
+     */
+    public function getAllStates(): array;
+
+    /**
+     * Is current state pending?
+     *
      * @return bool
      */
     public function isPending(): bool;
 
     /**
+     * Is current state reject?
+     *
      * @return bool
      */
     public function isRejected(): bool;
@@ -35,6 +48,8 @@ interface StatusInterface
     public function toReject(): void;
 
     /**
+     * Is current state fulfilled?
+     *
      * @return bool
      */
     public function isFulfilled(): bool;
@@ -45,6 +60,8 @@ interface StatusInterface
     public function toFulfilled(): void;
 
     /**
+     * Get current state
+     *
      * @return string
      */
     public function __toString(): string;

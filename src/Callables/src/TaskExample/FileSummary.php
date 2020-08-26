@@ -3,18 +3,17 @@ declare(strict_types=1);
 
 namespace rollun\Callables\TaskExample;
 
-use rollun\Callables\Task\Async\Result\Status;
-use rollun\Callables\Task\Async\Result\TaskInfoInterface as ResultTaskInfoInterface;
+use rollun\Callables\Task\Async\Result\Data\Stage;
+use rollun\Callables\Task\Async\Result\Data\Status;
+use rollun\Callables\Task\Result\TaskInfoInterface;
 use rollun\Callables\Task\Async\TaskInterface;
-use rollun\Callables\Task\Result;
+use rollun\Callables\Task\Result\TaskInfo as Result;
 use rollun\Callables\Task\Result\Message;
 use rollun\Callables\Task\ResultInterface;
 use rollun\Callables\TaskExample\Model\CreateTaskParameters;
-use rollun\Callables\TaskExample\Result as TaskExampleResult;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryDelete;
-use rollun\Callables\TaskExample\Result\Data\FileSummaryInfo;
-use rollun\Callables\TaskExample\Result\Data\FileSummaryType;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryResult;
+use rollun\Callables\Task\Async\Result\Data\TaskInfo;
 
 /**
  * Class FileSummary
@@ -28,10 +27,10 @@ class FileSummary implements TaskInterface
     /**
      * @inheritDoc
      */
-    public function getTaskInfoById(string $taskId): ResultTaskInfoInterface
+    public function getTaskInfoById(string $taskId): TaskInfoInterface
     {
         if (!file_exists($this->getFilePath((int)$taskId))) {
-            return new TaskExampleResult(null, [new Message('Error', 'No such task')]);
+            return new Result(null, [new Message('Error', 'No such task')]);
         }
 
         $data = $this->getFileData((int)$taskId);
@@ -47,10 +46,11 @@ class FileSummary implements TaskInterface
         $stages[] = 'done';
 
         if (!empty($data['summary'])) {
-            $resultData = new FileSummaryInfo($taskId, new Status(), new FileSummaryType($stages), new Result(new FileSummaryResult((int)$data['summary'])), 'done');
-            $resultData->getStatus()->toFulfilled();
+            // prepare task info
+            $taskInfo = new TaskInfo($taskId, 'FileSummary', 3, new Stage($stages, 'done'), new Status(), new Result(new FileSummaryResult((int)$data['summary'])));
+            $taskInfo->getStatus()->toFulfilled();
 
-            return new TaskExampleResult($resultData);
+            return new Result($taskInfo);
         }
 
         // get current stage
@@ -60,9 +60,10 @@ class FileSummary implements TaskInterface
             $stage = 'summary calculating';
         }
 
-        $resultData = new FileSummaryInfo($taskId, new Status(), new FileSummaryType($stages), new Result(new FileSummaryResult(array_sum($data['numbers']))), $stage);
+        // prepare task info
+        $taskInfo = new TaskInfo($taskId, 'FileSummary', 3, new Stage($stages, $stage), new Status(), new Result(new FileSummaryResult(array_sum($data['numbers']))));
 
-        return new TaskExampleResult($resultData);
+        return new Result($taskInfo);
     }
 
     /**

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace rollun\Callables\Task\Async\Result\Data;
 
 use rollun\Callables\Task\ResultInterface;
-use rollun\Callables\Task\Async\Result\StatusInterface;
 
 /**
  * Interface TaskInfoInterface
@@ -21,18 +20,25 @@ interface TaskInfoInterface
     public function getId(): string;
 
     /**
-     * Get task current stage
+     * Get task type
      *
      * @return string
      */
-    public function getStage(): string;
+    public function getType(): string;
 
     /**
-     * Set task current stage
+     * Get task timeout
      *
-     * @param string $stage
+     * @return int
      */
-    public function setStage(string $stage): void;
+    public function getTimeout(): int;
+
+    /**
+     * Get task current stage
+     *
+     * @return StageInterface
+     */
+    public function getStage(): StageInterface;
 
     /**
      * Get status
@@ -47,13 +53,6 @@ interface TaskInfoInterface
      * @return \DateTime|null UTC DateTime in result
      */
     public function getStartTime(): ?\DateTime;
-
-    /**
-     * Get task type info
-     *
-     * @return TaskTypeInfoInterface
-     */
-    public function getTaskTypeInfo(): TaskTypeInfoInterface;
 
     /**
      * Get task result
