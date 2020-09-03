@@ -96,7 +96,7 @@ class FileSummary implements TaskInterface
         // prepare exec file path
         $execFilePath = 'bin/task-example/create.php';
         if (!file_exists($execFilePath)) {
-            $execFilePath = 'vendor/rollun-com/rollun-openapi/bin/task-example/create.php';
+            $execFilePath = 'vendor/rollun-com/rollun-utils/bin/task-example/create.php';
         }
 
         if (!file_exists($execFilePath)) {
