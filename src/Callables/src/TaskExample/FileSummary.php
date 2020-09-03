@@ -27,8 +27,11 @@ class FileSummary implements TaskInterface
     /**
      * @inheritDoc
      */
-    public function getTaskInfoById(string $taskId): TaskInfoInterface
+    public function getTaskInfoById($id): TaskInfoInterface
     {
+        // prepare task id
+        $taskId = (string)$id;
+
         if (!file_exists($this->getFilePath((int)$taskId))) {
             return new Result(null, [new Message(LogLevel::ERROR, 'No such task')]);
         }
@@ -135,7 +138,7 @@ class FileSummary implements TaskInterface
     /**
      * @inheritDoc
      */
-    public function deleteById(string $id): ResultInterface
+    public function deleteById($id): ResultInterface
     {
         if (!file_exists($this->getFilePath((int)$id))) {
             return new Result(new FileSummaryDelete(false), [new Message(LogLevel::ERROR, 'No such task')]);

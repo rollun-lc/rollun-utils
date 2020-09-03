@@ -13,17 +13,17 @@ use rollun\Callables\Task\Async\Result\Data\TaskInfoInterface;
 class Result extends ErrorResult implements ResultInterface
 {
     /**
-     * @var TaskInfoInterface
+     * @var null|ToArrayForDtoInterface
      */
     protected $data;
 
     /**
      * Result constructor.
      *
-     * @param null|object $data
-     * @param array       $messages
+     * @param null|ToArrayForDtoInterface $data
+     * @param array                       $messages
      */
-    public function __construct($data, array $messages = [])
+    public function __construct(?ToArrayForDtoInterface $data, array $messages = [])
     {
         parent::__construct($messages);
 

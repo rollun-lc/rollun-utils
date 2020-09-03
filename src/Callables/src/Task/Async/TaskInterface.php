@@ -17,11 +17,11 @@ interface TaskInterface extends SyncTaskInterface
     /**
      * Return concreted task info by id
      *
-     * @param string $taskId
+     * @param mixed $id
      *
      * @return TaskInfoInterface
      */
-    public function getTaskInfoById(string $taskId): TaskInfoInterface;
+    public function getTaskInfoById($id): TaskInfoInterface;
 
     /**
      * Create new task
@@ -35,9 +35,9 @@ interface TaskInterface extends SyncTaskInterface
     /**
      * Delete task
      *
-     * @param string $id
+     * @param mixed $id
      *
      * @return ResultInterface
      */
-    public function deleteById(string $id): ResultInterface;
+    public function deleteById($id): ResultInterface;
 }
