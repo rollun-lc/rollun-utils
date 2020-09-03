@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace rollun\test\utils\Callables\TaskExample;
 
 use rollun\Callables\TaskExample\FileSummary;
-use rollun\Callables\TaskExample\Model\CreateTaskParameters;
 
 /**
  * Class FileSummaryTest
@@ -19,11 +18,11 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
     public function getFileSummaryInfoDataProvider(): array
     {
         return [
-            ['1', 'summary calculating', 'pending', 1, 1],
-            ['2', 'done', 'fulfilled', 3, 3],
+            ['1', 'done', 'fulfilled', 1, 1],
+            ['3', 'writing 3', 'pending', 1, 3],
             ['5', 'done', 'fulfilled', 6, 15],
-            ['6', 'writing 4', 'pending', 3, 6],
-            ['7', 'writing 2', 'pending', 1, 1],
+            ['6', 'writing 5', 'pending', 3, 10],
+            ['7', 'writing 3', 'pending', 1, 3],
         ];
     }
 
@@ -44,7 +43,7 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
         sleep($wait);
         $result = (new FileSummary())->getTaskInfoById($n);
 
-        $this->assertEquals($stage, $result->getData()->getStage());
+        $this->assertEquals($stage, (string)$result->getData()->getStage());
         $this->assertEquals($status, (string)$result->getData()->getStatus());
         $this->assertEquals($summary, $result->getData()->getResult()->getData()->getSummary());
     }
@@ -56,11 +55,11 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('No such task', (new FileSummary())->getTaskInfoById('122')->getMessages()[0]->getText());
 
-        $this->assertEquals('n param should be more than 1', (new FileSummary())->runTask(new CreateTaskParameters(-10))->getMessages()[0]->getText());
+        $this->assertEquals('n param should be more than 1', $this->createTask(-10)->getMessages()[0]->getText());
 
         $this->createTask(20);
         sleep(1);
-        $this->assertEquals('Such task is already exists', (new FileSummary())->runTask(new CreateTaskParameters(20))->getMessages()[0]->getText());
+        $this->assertEquals('Such task is already exists', $this->createTask(20)->getMessages()[0]->getText());
     }
 
     /**
@@ -82,11 +81,9 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
      */
     protected function createTask(int $n)
     {
-        $file = FileSummary::DIR_PATH . '/' . $n . '.json';
-        if (file_exists($file)) {
-            unlink($file);
-        }
+        $data = new \stdClass();
+        $data->n = $n;
 
-        exec("php bin/task-example/create.php $n >/dev/null 2>&1 &");
+        return (new FileSummary())->runTask($data);
     }
 }

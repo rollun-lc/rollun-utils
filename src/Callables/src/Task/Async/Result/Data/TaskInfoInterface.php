@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace rollun\Callables\Task\Async\Result\Data;
 
 use rollun\Callables\Task\ResultInterface;
+use rollun\Callables\Task\ToArrayForDtoInterface;
 
 /**
  * Interface TaskInfoInterface
  *
  * @author r.ratsun <r.ratsun.rollun@gmail.com>
  */
-interface TaskInfoInterface
+interface TaskInfoInterface extends ToArrayForDtoInterface
 {
     /**
      * Get task id
@@ -18,13 +19,6 @@ interface TaskInfoInterface
      * @return string
      */
     public function getId(): string;
-
-    /**
-     * Get task type
-     *
-     * @return string
-     */
-    public function getType(): string;
 
     /**
      * Get task timeout

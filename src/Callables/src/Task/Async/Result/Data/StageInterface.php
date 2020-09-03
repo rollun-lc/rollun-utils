@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Task\Async\Result\Data;
 
+use rollun\Callables\Task\ToArrayForDtoInterface;
+
 /**
  * Interface StageInterface
  *
  * @author r.ratsun <r.ratsun.rollun@gmail.com>
  */
-interface StageInterface
+interface StageInterface extends ToArrayForDtoInterface
 {
     /**
      * Get current stage

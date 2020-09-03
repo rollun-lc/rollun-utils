@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Task\Async\Result\Data;
 
+use rollun\Callables\Task\ToArrayForDtoInterface;
+
 /**
  * Interface AsyncStatusInterface
  *
  * @author r.ratsun <r.ratsun.rollun@gmail.com>
  */
-interface StatusInterface
+interface StatusInterface extends ToArrayForDtoInterface
 {
     const STATE_PENDING = 'pending';
     const STATE_FULFILLED = 'fulfilled';

@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Task\Result;
 
+use rollun\Callables\Task\ToArrayForDtoInterface;
+
 /**
  * Interface MessageInterface
  *
  * @author r.ratsun <r.ratsun.rollun@gmail.com>
  */
-interface MessageInterface
+interface MessageInterface extends ToArrayForDtoInterface
 {
     /**
      * Get level of message
