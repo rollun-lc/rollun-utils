@@ -6,9 +6,8 @@ namespace rollun\Callables\TaskExample;
 use Psr\Log\LogLevel;
 use rollun\Callables\Task\Async\Result\Data\Stage;
 use rollun\Callables\Task\Async\Result\Data\Status;
-use rollun\Callables\Task\Result\TaskInfoInterface;
 use rollun\Callables\Task\Async\TaskInterface;
-use rollun\Callables\Task\Result\TaskInfo as Result;
+use rollun\Callables\Task\Result;
 use rollun\Callables\Task\Result\Message;
 use rollun\Callables\Task\ResultInterface;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryDelete;
@@ -27,7 +26,7 @@ class FileSummary implements TaskInterface
     /**
      * @inheritDoc
      */
-    public function getTaskInfoById($id): TaskInfoInterface
+    public function getTaskInfoById($id): ResultInterface
     {
         // prepare task id
         $taskId = (string)$id;
@@ -50,10 +49,10 @@ class FileSummary implements TaskInterface
 
         if (!empty($data['summary'])) {
             // prepare task info
-            $taskInfo = new TaskInfo($taskId, 3, new Stage($stages, 'done'), new Status(), new Result(new FileSummaryResult((int)$data['summary'])));
+            $taskInfo = new TaskInfo($taskId, 3, new Stage($stages, 'done'), new Status(), new Result((new FileSummaryResult((int)$data['summary']))->toArrayForDto()));
             $taskInfo->getStatus()->toFulfilled();
 
-            return new Result($taskInfo);
+            return new Result($taskInfo->toArrayForDto());
         }
 
         // get current stage
@@ -64,9 +63,9 @@ class FileSummary implements TaskInterface
         }
 
         // prepare task info
-        $taskInfo = new TaskInfo($taskId, 3, new Stage($stages, $stage), new Status(), new Result(new FileSummaryResult(array_sum($data['numbers']))));
+        $taskInfo = new TaskInfo($taskId, 3, new Stage($stages, $stage), new Status(), new Result((new FileSummaryResult(array_sum($data['numbers'])))->toArrayForDto()));
 
-        return new Result($taskInfo);
+        return new Result($taskInfo->toArrayForDto());
     }
 
     /**
@@ -141,17 +140,17 @@ class FileSummary implements TaskInterface
     public function deleteById($id): ResultInterface
     {
         if (!file_exists($this->getFilePath((int)$id))) {
-            return new Result(new FileSummaryDelete(false), [new Message(LogLevel::ERROR, 'No such task')]);
+            return new Result((new FileSummaryDelete(false))->toArrayForDto(), [new Message(LogLevel::ERROR, 'No such task')]);
         }
 
         $data = $this->getFileData((int)$id);
         if (empty($data['summary'])) {
-            return new Result(new FileSummaryDelete(false), [new Message(LogLevel::ERROR, 'Task is running and can not be deleted')]);
+            return new Result((new FileSummaryDelete(false))->toArrayForDto(), [new Message(LogLevel::ERROR, 'Task is running and can not be deleted')]);
         }
 
         unlink($this->getFilePath((int)$id));
 
-        return new Result(new FileSummaryDelete(true));
+        return new Result((new FileSummaryDelete(true))->toArrayForDto());
     }
 
     /**

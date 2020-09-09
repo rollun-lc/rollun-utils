@@ -13,7 +13,7 @@ interface ResultInterface extends ErrorResultInterface
     /**
      * Get data
      *
-     * @return mixed
+     * @return array|null
      */
-    public function getData();
+    public function getData(): ?array;
 }

@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace rollun\Callables\Task;
 
-use rollun\Callables\Task\Async\Result\Data\TaskInfoInterface;
-
 /**
  * Class Result
  *
@@ -13,29 +11,37 @@ use rollun\Callables\Task\Async\Result\Data\TaskInfoInterface;
 class Result extends ErrorResult implements ResultInterface
 {
     /**
-     * @var null|ToArrayForDtoInterface
+     * @var array|null
      */
     protected $data;
 
     /**
      * Result constructor.
      *
-     * @param null|ToArrayForDtoInterface $data
-     * @param array                       $messages
+     * @param array|null $data
+     * @param array      $messages
      */
-    public function __construct(?ToArrayForDtoInterface $data, array $messages = [])
+    public function __construct(?array $data, array $messages = [])
     {
         parent::__construct($messages);
 
-        $this->data = $data;
+        $this->setData($data);
     }
 
     /**
      * @inheritDoc
      */
-    public function getData()
+    public function getData(): ?array
     {
         return $this->data;
+    }
+
+    /**
+     * @param array|null $data
+     */
+    public function setData(?array $data): void
+    {
+        $this->data = $data;
     }
 
     /**
@@ -44,7 +50,7 @@ class Result extends ErrorResult implements ResultInterface
     public function toArrayForDto(): array
     {
         $result = parent::toArrayForDto();
-        $result['data'] = !empty($data = $this->getData()) ? $data->toArrayForDto() : null;
+        $result['data'] = $this->getData();
 
         return $result;
     }

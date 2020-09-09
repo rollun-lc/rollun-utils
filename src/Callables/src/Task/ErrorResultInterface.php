@@ -22,9 +22,9 @@ interface ErrorResultInterface extends ToArrayForDtoInterface
     /**
      * Add message
      *
-     * @param MessageInterface $message
+     * @param MessageInterface|array $message
      */
-    public function addMessage(MessageInterface $message): void;
+    public function addMessage($message): void;
 
     /**
      * @return bool

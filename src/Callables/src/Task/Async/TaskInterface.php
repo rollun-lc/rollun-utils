@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace rollun\Callables\Task\Async;
 
 use rollun\Callables\Task\TaskInterface as SyncTaskInterface;
-use rollun\Callables\Task\Result\TaskInfoInterface;
 use rollun\Callables\Task\ResultInterface;
 
 /**
@@ -19,16 +18,16 @@ interface TaskInterface extends SyncTaskInterface
      *
      * @param mixed $id
      *
-     * @return TaskInfoInterface
+     * @return ResultInterface
      */
-    public function getTaskInfoById($id): TaskInfoInterface;
+    public function getTaskInfoById($id): ResultInterface;
 
     /**
      * Create new task
      *
      * @param object $taskParam
      *
-     * @return TaskInfoInterface
+     * @return ResultInterface
      */
     public function runTask(object $taskParam): ResultInterface;
 

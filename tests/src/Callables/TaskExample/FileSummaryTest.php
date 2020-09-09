@@ -43,9 +43,9 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
         sleep($wait);
         $result = (new FileSummary())->getTaskInfoById($n);
 
-        $this->assertEquals($stage, (string)$result->getData()->getStage());
-        $this->assertEquals($status, (string)$result->getData()->getStatus());
-        $this->assertEquals($summary, $result->getData()->getResult()->getData()->getSummary());
+        $this->assertEquals($stage, (string)$result->getData()['stage']['stage']);
+        $this->assertEquals($status, (string)$result->getData()['status']['state']);
+        $this->assertEquals($summary, $result->getData()['result']['data']['summary']);
     }
 
     /**
@@ -69,11 +69,11 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('No such task', (new FileSummary())->deleteById('55')->getMessages()[0]->getText());
 
-        $this->assertEquals(false, (new FileSummary())->deleteById('55')->getData()->getIsDeleted());
+        $this->assertEquals(false, (new FileSummary())->deleteById('55')->getData()['isDeleted']);
 
         $this->createTask(2);
         sleep(3);
-        $this->assertEquals(true, (new FileSummary())->deleteById('2')->getData()->getIsDeleted());
+        $this->assertEquals(true, (new FileSummary())->deleteById('2')->getData()['isDeleted']);
     }
 
     /**

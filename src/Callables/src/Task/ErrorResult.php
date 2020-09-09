@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace rollun\Callables\Task;
 
 use Psr\Log\LogLevel;
+use rollun\Callables\Task\Result\Message;
 use rollun\Callables\Task\Result\MessageInterface;
 
 /**
@@ -25,7 +26,9 @@ class ErrorResult implements ErrorResultInterface
      */
     public function __construct(array $messages = [])
     {
-        $this->messages = $messages;
+        foreach ($messages as $message) {
+            $this->addMessage($message);
+        }
     }
 
     /**
@@ -39,8 +42,17 @@ class ErrorResult implements ErrorResultInterface
     /**
      * @inheritDoc
      */
-    public function addMessage(MessageInterface $message): void
+    public function addMessage($message): void
     {
+        // create message from array
+        if (is_array($message) && !empty($message['level']) && !empty($message['text'])) {
+            $message = new Message($message['level'], $message['text'], empty($message['context']) ? [] : $message['context']);
+        }
+
+        if (!$message instanceof MessageInterface) {
+            throw new \InvalidArgumentException(MessageInterface::class . ' expected');
+        }
+
         $this->messages[] = $message;
     }
 
@@ -63,13 +75,16 @@ class ErrorResult implements ErrorResultInterface
      */
     public function toArrayForDto(): array
     {
-        $messages = [];
-        foreach ($this->getMessages() as $message) {
-            $messages[] = $message->toArrayForDto();
+        // get messages
+        $messages = empty($this->getMessages()) ? [] : $this->getMessages();
+
+        $result = [];
+        foreach ($messages as $message) {
+            $result[] = $message->toArrayForDto();
         }
 
         return [
-            'messages' => $messages,
+            'messages' => $result,
         ];
     }
 }

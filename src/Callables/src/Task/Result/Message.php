@@ -18,7 +18,7 @@ class Message implements MessageInterface
     /**
      * @var string
      */
-    protected $message;
+    protected $text;
 
     /**
      * @var array
@@ -29,13 +29,13 @@ class Message implements MessageInterface
      * Message constructor.
      *
      * @param string $level
-     * @param string $message
+     * @param string $text
      * @param array  $context
      */
-    public function __construct(string $level, string $message, array $context = [])
+    public function __construct(string $level, string $text, array $context = [])
     {
         $this->level = $level;
-        $this->message = $message;
+        $this->text = $text;
         $this->context = $context;
     }
 
@@ -52,7 +52,7 @@ class Message implements MessageInterface
      */
     public function getText(): string
     {
-        return $this->message;
+        return $this->text;
     }
 
     /**
