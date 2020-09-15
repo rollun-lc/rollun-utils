@@ -31,7 +31,7 @@ class Result extends ErrorResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function getData(): ?array
+    public function getData()
     {
         return $this->data;
     }

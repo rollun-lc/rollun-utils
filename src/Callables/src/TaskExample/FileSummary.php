@@ -6,8 +6,9 @@ namespace rollun\Callables\TaskExample;
 use Psr\Log\LogLevel;
 use rollun\Callables\Task\Async\Result\Data\Stage;
 use rollun\Callables\Task\Async\Result\Data\Status;
+use rollun\Callables\Task\Result\TaskInfoInterface;
 use rollun\Callables\Task\Async\TaskInterface;
-use rollun\Callables\Task\Result;
+use rollun\Callables\Task\Result\TaskInfo as Result;
 use rollun\Callables\Task\Result\Message;
 use rollun\Callables\Task\ResultInterface;
 use rollun\Callables\TaskExample\Result\Data\FileSummaryDelete;
@@ -26,7 +27,7 @@ class FileSummary implements TaskInterface
     /**
      * @inheritDoc
      */
-    public function getTaskInfoById($id): ResultInterface
+    public function getTaskInfoById($id): TaskInfoInterface
     {
         // prepare task id
         $taskId = (string)$id;
