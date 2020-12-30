@@ -7,7 +7,6 @@
 * [rollun-callback](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Contents.md#rollun-callback)
 * [rollun-promise](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Contents.md#rollun-promise)
 * [rollun-api](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Contents.md#rollun-api)
-* [rollun-logger](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Contents.md#rollun-logger)
 * [rollun-dic](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Contents.md#rollun-dic)
 * [rollun-utils](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Contents.md#rollun-utils)
 * [rollun-actionrender](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Contents.md#rollun-actionrender)
@@ -44,11 +43,6 @@
 Библиотека предоставляющаа клиент для работы с google api.
 * [rollun-api](https://github.com/rollun-com/rollun-api.git)
     * [docs](https://github.com/rollun-com/rollun-api/blob/master/docs)
-
-##rollun-logger
-Библиотека предоставляющаа логер, а так же exception который умеет логировать ошибки.
-* [rollun-logger](https://github.com/rollun-com/rollun-logger.git)
-    * [docs](https://github.com/rollun-com/rollun-logger/blob/master/docs)
 
 ##rollun-dic
 Dependency Injection Container - позволяет запросить зависимсти по именам параметров конструктора в конструкторе оьтекта, 

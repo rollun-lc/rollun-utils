@@ -13,7 +13,6 @@ $cacheConfig = [
 $aggregator = new ConfigAggregator([
     \Zend\Mail\ConfigProvider::class,
     \Zend\Cache\ConfigProvider::class,
-    \Zend\Log\ConfigProvider::class,
     \Zend\Db\ConfigProvider::class,
     \Zend\Validator\ConfigProvider::class,
     // Include cache configuration
