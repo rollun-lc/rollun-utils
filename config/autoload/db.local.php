@@ -12,16 +12,20 @@ return
         'db' => [
             'adapters' => [
                 'TestDbAdapter' => [
-                    'driver' => 'Pdo_Mysql',
-                    'database' => 'central_db',
-                    'username' => 'root',
-                    'password' => '123qwe321',
+                    'driver' => getenv('DB_DRIVER') ?: 'Pdo_Mysql',
+                    'database' => getenv('DB_NAME'),
+                    'username' => getenv('DB_USER'),
+                    'password' => getenv('DB_PASS'),
+                    'hostname' => getenv('DB_HOST'),
+                    'port' => getenv('DB_PORT') ?: 3306,
                 ],
             ],
-            'driver' => 'Pdo_Mysql',
-            'database' => 'central_db',
-            'username' => 'root',
-            'password' => '123qwe321',
+            'driver' => getenv('DB_DRIVER') ?: 'Pdo_Mysql',
+            'database' => getenv('DB_NAME'),
+            'username' => getenv('DB_USER'),
+            'password' => getenv('DB_PASS'),
+            'hostname' => getenv('DB_HOST'),
+            'port' => getenv('DB_PORT') ?: 3306,
         ],
 
         TableGatewayAbstractFactory::KEY => [
