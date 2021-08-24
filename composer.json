@@ -30,7 +30,9 @@
     "facebook/webdriver": "^1.5",
     "zendframework/zend-cache": "^2.8",
     "zendframework/zend-mail": "^2.10",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-simplexml": "*",
+    "ext-libxml": "*"
   },
   "require-dev": {
     "zendframework/zend-component-installer": "^1.0",
