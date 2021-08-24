@@ -1,6 +1,6 @@
 <?php
 
-namespace Utils\src\Xml;
+namespace rollun\utils\Xml;
 
 use InvalidArgumentException;
 use RuntimeException;
