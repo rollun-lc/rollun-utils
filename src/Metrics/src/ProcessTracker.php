@@ -104,6 +104,9 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
                 ),
                 Gauge::fromValue(static::getFailedProcessesCount(60 * 12))->withLabels(
                     Label::fromNameAndValue('older_than', '12_hour')
+                ),
+                Gauge::fromValue(static::getFailedProcessesCount(0))->withLabels(
+                    Label::fromNameAndValue('older_than', 'now')
                 )
             )
         ];

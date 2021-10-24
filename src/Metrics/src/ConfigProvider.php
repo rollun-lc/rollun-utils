@@ -11,13 +11,6 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            MetricsMiddlewareFactory::KEY => [
-                MetricsMiddleware::class => [
-                    MetricsMiddlewareFactory::KEY_METRIC_PROVIDERS => [
-                        ProcessTracker::class,
-                    ],
-                ],
-            ],
         ];
     }
 
