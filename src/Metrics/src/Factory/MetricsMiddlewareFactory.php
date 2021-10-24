@@ -47,6 +47,8 @@ class MetricsMiddlewareFactory implements FactoryInterface
             $metricProviders[] = $metricProvider;
         }
 
-        return new static::DEFAULT_CLASS($metricProviders);
+        $class = static::DEFAULT_CLASS;
+
+        return new $class($metricProviders);
     }
 }

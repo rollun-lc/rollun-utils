@@ -54,6 +54,7 @@
       "rollun\\utils\\": "src/Utils/src",
       "rollun\\utils\\HtmlParser\\": "src/HtmlParser/src",
       "rollun\\utils\\Cleaner\\": "src/Cleaner/src",
+      "rollun\\utils\\Metrics\\": "src/Metrics/src",
       "rollun\\utils\\WebDriver\\": "src/WebDriver/src",
       "rollun\\tracer\\": "src/Tracer/src",
       "rollun\\Downloader\\": "src/Downloader/src"
