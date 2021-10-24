@@ -32,7 +32,9 @@
     "zendframework/zend-mail": "^2.10",
     "ext-json": "*",
     "ext-simplexml": "*",
-    "ext-libxml": "*"
+    "ext-libxml": "*",
+    "openmetrics-php/exposition-text": "^0.3.1",
+    "psr/http-server-middleware": "^1.0"
   },
   "require-dev": {
     "zendframework/zend-component-installer": "^1.0",
