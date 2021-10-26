@@ -32,7 +32,10 @@
     ```
 2. Вызвать сохранение данных о процессе, передав туда `lifeCycleToken` и `parentLifeCycleToken`:
    ```
-   ProcessTracker::storeProcessData($lifeCycleToken->toString(), $lifeCycleToken->getParentToken());
+   ProcessTracker::storeProcessData(
+      $lifeCycleToken->toString(),
+      $lifeCycleToken->hasParentToken() ? $lifeCycleToken->getParentToken()->toString() : null
+   );
    ```
 3. Добавить `$lifeCycleToken` в контейнер:
    ```
