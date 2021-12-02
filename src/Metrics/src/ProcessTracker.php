@@ -6,6 +6,7 @@ use OpenMetricsPhp\Exposition\Text\Collections\GaugeCollection;
 use OpenMetricsPhp\Exposition\Text\Metrics\Gauge;
 use OpenMetricsPhp\Exposition\Text\Types\Label;
 use OpenMetricsPhp\Exposition\Text\Types\MetricName;
+use rollun\datastore\DataStore\Interfaces\DataStoreInterface;
 
 class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterface
 {
@@ -32,7 +33,7 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
 
         static::$filePath = $dirPath . $lifeCycleToken;
 
-        $requestInfo = 'timestamp: ' . time() . PHP_EOL;
+        $requestInfo = 'date: ' . (new \DateTime())->format('Y-m-d H:i:s') . PHP_EOL;
 
         if (!empty($parentLifeCycleToken)) {
             $requestInfo .= 'parent_lifecycle_token: ' . $parentLifeCycleToken . PHP_EOL;
@@ -112,27 +113,81 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
         ];
     }
 
-    /**
-     * @throws \Exception
-     */
-    protected static function getFailedProcessesCount(int $passedMinutes): int
+    public static function fillDatastore(DataStoreInterface $dataStore)
+    {
+        $dirPath = static::getProcessTrackingDir();
+
+        $filePaths = [];
+
+        exec("find $dirPath -type f", $filePaths);
+
+        foreach ($filePaths as $filePath) {
+            $filePathParts = explode('/', $filePath);
+            if (empty($filePathParts)) {
+                continue;
+            }
+            $lifeCycleToken = $filePathParts[count($filePathParts) - 1];
+            $fileData = file_get_contents($filePath);
+            $parsedData = self::parseFileData($fileData);
+            $parsedData = array_merge($parsedData, [
+                'life_cycle_token' => $lifeCycleToken,
+            ]);
+            $dataStore->create($parsedData);
+        }
+    }
+
+    private static function parseFileData(string $fileData): array
+    {
+        $lines = explode("\n", $fileData);
+
+        if (empty($lines)) {
+            return [];
+        }
+
+        $parsedData = [];
+
+        foreach ($lines as $line) {
+            $lineParts = explode(':', $line);
+
+            if (empty($lineParts) || count($lineParts) < 2) {
+                continue;
+            }
+
+            $parsedData[$lineParts[0]] = trim($lineParts[1]);
+        }
+
+        if (!isset($parsedData['date']) && isset($parsedData['timestamp'])) {
+            $date = new \DateTime();
+            $date->setTimestamp($parsedData['timestamp']);
+            $parsedData['date'] = $date->format('Y-m-d H:i:s');
+        }
+
+        return [
+            'date' => $parsedData['date'] ?? null,
+            'parent_lifecycle_token' => $parsedData['parent_lifecycle_token'] ?? null,
+            'ip' => $parsedData['REMOTE_ADDR'] ?? null,
+            'uri' => $parsedData['REQUEST_URI'] ?? null,
+        ];
+    }
+
+    private static function getFailedProcessesCount(int $passedMinutes): int
     {
         $dirPath = static::getProcessTrackingDir();
 
         $filesCount = exec("find $dirPath -type f -mmin +$passedMinutes | wc -l");
 
         if ($filesCount === false) {
-            throw new \Exception("Can't get files count for dir '$dirPath'");
+            throw new \RuntimeException("Can't get files count for dir '$dirPath'");
         }
 
         if (!is_numeric($filesCount)) {
-            throw new \Exception("Files count must be numeric");
+            throw new \RuntimeException("Files count must be numeric");
         }
 
         return (int)$filesCount;
     }
 
-    protected static function getProcessTrackingDir(): string
+    private static function getProcessTrackingDir(): string
     {
         return self::PROCESS_TRACKING_DIR;
     }
