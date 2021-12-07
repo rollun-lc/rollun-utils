@@ -6,7 +6,6 @@ use OpenMetricsPhp\Exposition\Text\Collections\GaugeCollection;
 use OpenMetricsPhp\Exposition\Text\Metrics\Gauge;
 use OpenMetricsPhp\Exposition\Text\Types\Label;
 use OpenMetricsPhp\Exposition\Text\Types\MetricName;
-use rollun\datastore\DataStore\Interfaces\DataStoreInterface;
 
 class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterface
 {
@@ -33,7 +32,7 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
 
         static::$filePath = $dirPath . $lifeCycleToken;
 
-        $requestInfo = 'date: ' . (new \DateTime())->format('Y-m-d H:i:s') . PHP_EOL;
+        $requestInfo = 'started_at: ' . (new \DateTime())->format(DATE_RFC3339) . PHP_EOL;
 
         if (!empty($parentLifeCycleToken)) {
             $requestInfo .= 'parent_lifecycle_token: ' . $parentLifeCycleToken . PHP_EOL;
@@ -113,8 +112,10 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
         ];
     }
 
-    public static function fillDatastore(DataStoreInterface $dataStore)
+    public static function getAllData(): array
     {
+        $data = [];
+
         $dirPath = static::getProcessTrackingDir();
 
         $filePaths = [];
@@ -130,10 +131,13 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
             $fileData = file_get_contents($filePath);
             $parsedData = self::parseFileData($fileData);
             $parsedData = array_merge($parsedData, [
+                'service_name' => self::getServiceName(),
                 'life_cycle_token' => $lifeCycleToken,
             ]);
-            $dataStore->create($parsedData);
+            $data[] = $parsedData;
         }
+
+        return $data;
     }
 
     private static function parseFileData(string $fileData): array
@@ -147,7 +151,7 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
         $parsedData = [];
 
         foreach ($lines as $line) {
-            $lineParts = explode(':', $line);
+            $lineParts = explode(':', $line, 2);
 
             if (empty($lineParts) || count($lineParts) < 2) {
                 continue;
@@ -156,14 +160,14 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
             $parsedData[$lineParts[0]] = trim($lineParts[1]);
         }
 
-        if (!isset($parsedData['date']) && isset($parsedData['timestamp'])) {
+        if (!isset($parsedData['started_at']) && isset($parsedData['timestamp'])) {
             $date = new \DateTime();
             $date->setTimestamp($parsedData['timestamp']);
-            $parsedData['date'] = $date->format('Y-m-d H:i:s');
+            $parsedData['started_at'] = $date->format(DATE_RFC3339);
         }
 
         return [
-            'date' => $parsedData['date'] ?? null,
+            'started_at' => $parsedData['started_at'] ?? null,
             'parent_lifecycle_token' => $parsedData['parent_lifecycle_token'] ?? null,
             'ip' => $parsedData['REMOTE_ADDR'] ?? null,
             'uri' => $parsedData['REQUEST_URI'] ?? null,
@@ -185,6 +189,23 @@ class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterfac
         }
 
         return (int)$filesCount;
+    }
+
+    private static function getServiceName(): string
+    {
+        $serviceName = exec('hostname');
+
+        if ($serviceName === false) {
+            throw new \RuntimeException("Can't get service name");
+        }
+
+        $serviceNameParts = explode('.', $serviceName);
+
+        if (empty($serviceNameParts)) {
+            throw new \RuntimeException("Can't get service name");
+        }
+
+        return $serviceNameParts[0];
     }
 
     private static function getProcessTrackingDir(): string
