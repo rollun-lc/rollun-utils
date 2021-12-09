@@ -1,18 +1,19 @@
 <?php
 
-namespace rollun\utils\Metrics;
+namespace rollun\utils\FailedProcesses\Service;
 
 use OpenMetricsPhp\Exposition\Text\Collections\GaugeCollection;
 use OpenMetricsPhp\Exposition\Text\Metrics\Gauge;
 use OpenMetricsPhp\Exposition\Text\Types\Label;
 use OpenMetricsPhp\Exposition\Text\Types\MetricName;
+use rollun\utils\Metrics\MetricsProviderInterface;
 
-class ProcessTracker implements ProcessTrackerInterface, MetricsProviderInterface
+class ProcessTracker implements MetricsProviderInterface
 {
     private const PROCESS_TRACKING_DIR = 'data/process-tracking/';
 
     /** @var string */
-    protected static $filePath;
+    private static $filePath;
 
     /**
      * TODO: make $lifeCycleToken optional

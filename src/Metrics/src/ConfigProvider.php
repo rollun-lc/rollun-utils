@@ -2,7 +2,6 @@
 
 namespace rollun\utils\Metrics;
 
-use rollun\utils\Metrics\Callback\ClearOldProcessesDataCallback;
 use rollun\utils\Metrics\Factory\MetricsMiddlewareFactory;
 
 class ConfigProvider
@@ -17,13 +16,6 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'aliases' => [
-                ProcessTrackerInterface::class => ProcessTracker::class,
-            ],
-            'invokables' => [
-                ClearOldProcessesDataCallback::class => ClearOldProcessesDataCallback::class,
-                ProcessTracker::class => ProcessTracker::class,
-            ],
             'factories' => [
                 MetricsMiddleware::class => MetricsMiddlewareFactory::class,
             ],
