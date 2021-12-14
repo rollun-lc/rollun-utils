@@ -4,21 +4,20 @@
 Иногда процессы падают без логов, например, при перерасходе памяти процесс просто убивается OS. Чтобы осталась какая-то информация о таких случаях, было сделано следующее:
 1. при старте приложения создается файл с информацией о процессе,
 2. при успешном завершении он удаляется,
-3. если процесс упал, не дойдя до нормального завершения, то файл соответственно остается, и из него можно получить информацию об упавшем процессе,
-4. количество оставшихся файлов пишется в метрику, которую можно посмотреть в Графане,
-5. устаревшие файлы подчищаются кроном.
+3. если процесс упал, не дойдя до нормального завершения, то файл соответственно остается, и из него можно получить информацию об упавшем процессе.
 
-## Реализация
-
-Был сделан класс `ProcessTracker`, который занимается созданием и удалением файлов и может отдавать метрики. Он реализует интерфейс `ProcessTrackerInterface`, который не привязан к файлам и который можно будет реализовать на чем-то другом (например бд).
+Дополнительные функции:
+* можно подчищать устаревшие файлы по крону,
+* можно писать количество оставшихся файлов в метрику (Infrastructure metrics / Failed processes),
+* можно добавить вывод информации из файлов в датастор на rollun-net: https://rollun.net/FailedProcesses
 
 ## Подключение
 
 Чтобы подключить этот функционал в сервисе нужно:
 1. [Добавить создание и удаление файла](#создание-и-удаление-файла) в `index.php` (или др.),
-2. [Добавить сбор метрики](#настройка-сбора-метрики),
-3. [Добавить крон для удаления старых файлов](#крон-для-удаления-старых-файлов).
-
+2. [Добавить крон для удаления старых файлов](#крон-для-удаления-старых-файлов),
+3. [Сгенерировать openapi](#просмотр-данных-из-файлов-в-датасторе) для просмотра упавших процессов на rollun-net,
+4. [Добавить сбор метрики](#настройка-сбора-метрики).
 ### Создание и удаление файла
 [Пример готового index.php](#пример-indexphp)
 
@@ -32,6 +31,8 @@
     ```
 2. Вызвать сохранение данных о процессе, передав туда `lifeCycleToken` и `parentLifeCycleToken`:
    ```
+   use rollun\utils\FailedProcesses\Service\ProcessTracker;
+   
    ProcessTracker::storeProcessData(
       $lifeCycleToken->toString(),
       $lifeCycleToken->hasParentToken() ? $lifeCycleToken->getParentToken()->toString() : null
@@ -45,43 +46,13 @@
    ```
    ProcessTracker::clearProcessData();
    ```
-
-### Настройка сбора метрики
-
-1. Нужно добавить `ProcessTracker` в список провайдеров метрик в конфиге `MetricsMiddleware`:
-
-```
-use rollun\utils\Metrics\Factory\MetricsMiddlewareFactory;
-use rollun\utils\Metrics\MetricsMiddleware;
-use rollun\utils\Metrics\ProcessTracker;
-
-   MetricsMiddlewareFactory::KEY => [
-        MetricsMiddleware::class => [
-            MetricsMiddlewareFactory::KEY_METRIC_PROVIDERS => [
-                ProcessTracker::class,
-            ],
-        ],
-    ],
-```
-
-2. Нужно добавить роут в `routes.php` для `MetricsMiddleware` (+ добавить его в Прометеусе):
-
-```
-   $app->get(
-        '/metrics',
-        MetricsMiddleware::class,
-        'metrics'
-    );
-```
-
-В данном случае имя сервиса - `MetricsMiddleware::class`, но оно может быть любым (как будет указано в конфиге).
-
+   
 ### Крон для удаления старых файлов
 
 Реализован колбек `ClearOldProcessFilesCallback`, его нужно только подключить в крон.
 
 ```
-use rollun\utils\Metrics\Callback\ClearOldProcessFilesCallback;
+use rollun\utils\FailedProcesses\Callback\ClearOldProcessFilesCallback;
 
 return [
     SerializedCallbackAbstractFactory::class => [
@@ -109,12 +80,53 @@ return [
 ];
 ```
 
+### Просмотр данных из файлов в датасторе
+
+Датастор: https://rollun.net/FailedProcesses
+
+Чтобы выводить информацию в нем, нужно 
+1. Cгенерировать серверную часть openapi https://github.com/rollun-com/openapi-manifests/blob/master/failed_processes__v1.yml ,
+2. Добавить свой сервис в список серверов этого манифеста и запушить в `openapi-manifests`,
+3. Обновить `composer update` в `rollun-net` и выгрузить.
+
+### Настройка сбора метрики
+
+1. Нужно добавить `ProcessTracker` в список провайдеров метрик в конфиге `MetricsMiddleware`:
+
+```
+use rollun\utils\Metrics\Factory\MetricsMiddlewareFactory;
+use rollun\utils\Metrics\MetricsMiddleware;
+use rollun\utils\FailedProcesses\Service\ProcessTracker;
+
+   MetricsMiddlewareFactory::KEY => [
+        MetricsMiddleware::class => [
+            MetricsMiddlewareFactory::KEY_METRIC_PROVIDERS => [
+                ProcessTracker::class,
+            ],
+        ],
+    ],
+```
+
+2. Нужно добавить роут в `routes.php` для `MetricsMiddleware` (+ добавить его в Прометеусе):
+
+```
+   $app->get(
+        '/metrics',
+        MetricsMiddleware::class,
+        'metrics'
+    );
+```
+
+В данном случае имя сервиса - `MetricsMiddleware::class`, но оно может быть любым (как будет указано в конфиге).
+
+
+
 ## Пример index.php
 ```
 <?php
 
 use rollun\logger\LifeCycleToken;
-use rollun\utils\Metrics\ProcessTracker;
+use rollun\utils\FailedProcesses\Service\ProcessTracker;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
 use Zend\ServiceManager\ServiceManager;
@@ -123,7 +135,10 @@ chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
 
 $lifeCycleToken = LifeCycleToken::createFromHeaders();
-ProcessTracker::storeProcessData($lifeCycleToken->toString(), $lifeCycleToken->getParentToken());
+ProcessTracker::storeProcessData(
+      $lifeCycleToken->toString(),
+      $lifeCycleToken->hasParentToken() ? $lifeCycleToken->getParentToken()->toString() : null
+   );
 
 /** @var ServiceManager $container */
 $container = require 'config/container.php';
@@ -148,7 +163,7 @@ ProcessTracker::clearProcessData();
 Название файла - текущий `LifeCycleToken`.
 
 В сам файл записываются такие данные (если они есть):
-* `timestamp`
+* `datetime`
 * `parent_lifecycle_token`
 * `$_SERVER['REMOTE_ADDR']`
 * `$_SERVER['REQUEST_URI']`
