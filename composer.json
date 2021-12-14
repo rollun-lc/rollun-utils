@@ -32,7 +32,9 @@
     "zendframework/zend-mail": "^2.10",
     "ext-json": "*",
     "ext-simplexml": "*",
-    "ext-libxml": "*"
+    "ext-libxml": "*",
+    "openmetrics-php/exposition-text": "^0.3.1",
+    "psr/http-server-middleware": "^1.0"
   },
   "require-dev": {
     "zendframework/zend-component-installer": "^1.0",
@@ -52,6 +54,8 @@
       "rollun\\utils\\": "src/Utils/src",
       "rollun\\utils\\HtmlParser\\": "src/HtmlParser/src",
       "rollun\\utils\\Cleaner\\": "src/Cleaner/src",
+      "rollun\\utils\\FailedProcesses\\": "src/FailedProcesses/src",
+      "rollun\\utils\\Metrics\\": "src/Metrics/src",
       "rollun\\utils\\WebDriver\\": "src/WebDriver/src",
       "rollun\\tracer\\": "src/Tracer/src",
       "rollun\\Downloader\\": "src/Downloader/src"
@@ -60,6 +64,14 @@
   "autoload-dev": {
     "psr-4": {
       "rollun\\test\\utils\\": "tests/src"
+    }
+  },
+  "extra": {
+    "zf": {
+      "config-provider": [
+        "rollun\\utils\\FailedProcesses\\ConfigProvider",
+        "rollun\\utils\\Metrics\\ConfigProvider"
+      ]
     }
   },
   "scripts": {
