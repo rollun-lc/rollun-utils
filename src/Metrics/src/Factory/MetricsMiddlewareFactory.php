@@ -5,8 +5,8 @@ namespace rollun\utils\Metrics\Factory;
 use Interop\Container\ContainerInterface;
 use rollun\utils\Metrics\MetricsProviderInterface;
 use rollun\utils\Metrics\MetricsMiddleware;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class MetricsMiddlewareFactory implements FactoryInterface
 {

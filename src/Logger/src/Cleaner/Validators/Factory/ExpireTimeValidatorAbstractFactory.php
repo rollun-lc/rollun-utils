@@ -8,8 +8,8 @@ use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use rollun\logger\Cleaner\Validators\ExpireTimeValidator;
 use rollun\utils\Cleaner\CleaningValidator\Factory\AbstractCleaningValidatorAbstractFactory;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
 class ExpireTimeValidatorAbstractFactory extends AbstractCleaningValidatorAbstractFactory
 {

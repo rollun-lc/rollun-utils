@@ -9,12 +9,12 @@
 
 namespace rollun\tableGateway\DbSql;
 
-use Zend\Db\Adapter\Driver\DriverInterface;
-use Zend\Db\Adapter\ParameterContainer;
-use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Sql\Exception\InvalidArgumentException;
-use Zend\Db\Sql\Insert;
-use Zend\Db\Sql\Select;
+use Laminas\Db\Adapter\Driver\DriverInterface;
+use Laminas\Db\Adapter\ParameterContainer;
+use Laminas\Db\Adapter\Platform\PlatformInterface;
+use Laminas\Db\Sql\Exception\InvalidArgumentException;
+use Laminas\Db\Sql\Insert;
+use Laminas\Db\Sql\Select;
 
 class MultiInsert extends Insert
 {
@@ -28,7 +28,7 @@ class MultiInsert extends Insert
         if ($values instanceof Select) {
             if ($flag == self::VALUES_MERGE) {
                 throw new InvalidArgumentException(
-                    'A Zend\Db\Sql\Select instance cannot be provided with the merge flag'
+                    'A Laminas\Db\Sql\Select instance cannot be provided with the merge flag'
                 );
             }
             $this->select = $values;
@@ -37,13 +37,13 @@ class MultiInsert extends Insert
 
         if (!is_array($values)) {
             throw new InvalidArgumentException(
-                'values() expects an array of values or Zend\Db\Sql\Select instance'
+                'values() expects an array of values or Laminas\Db\Sql\Select instance'
             );
         }
 
         if ($this->select && $flag == self::VALUES_MERGE) {
             throw new InvalidArgumentException(
-                'An array of values cannot be provided with the merge flag when a Zend\Db\Sql\Select instance already exists as the value source'
+                'An array of values cannot be provided with the merge flag when a Laminas\Db\Sql\Select instance already exists as the value source'
             );
         }
 

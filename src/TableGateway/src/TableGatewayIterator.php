@@ -5,10 +5,10 @@ namespace rollun\tableGateway;
 
 
 use Traversable;
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Metadata\Source\MysqlMetadata;
-use Zend\Db\Sql\Select;
-use Zend\Db\TableGateway\TableGateway;
+use Laminas\Db\Adapter\Adapter;
+use Laminas\Db\Metadata\Source\MysqlMetadata;
+use Laminas\Db\Sql\Select;
+use Laminas\Db\TableGateway\TableGateway;
 
 class TableGatewayIterator implements \IteratorAggregate
 {

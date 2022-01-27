@@ -7,7 +7,7 @@ namespace rollun\cleaner\CleanableList;
 use Traversable;
 use rollun\tableGateway\TableGatewayIterator;
 use rollun\utils\Cleaner\CleanableList\CleanableListInterface;
-use Zend\Db\TableGateway\TableGateway;
+use Laminas\Db\TableGateway\TableGateway;
 
 
 class TableGatewayCleanableList implements CleanableListInterface, \IteratorAggregate

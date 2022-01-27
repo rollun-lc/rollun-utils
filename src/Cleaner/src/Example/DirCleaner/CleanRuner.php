@@ -5,7 +5,7 @@ namespace rollun\utils\Cleaner\Example\DirCleaner;
 use rollun\utils\Cleaner\Cleaner;
 use rollun\utils\Cleaner\Example\DirCleaner\FilesList;
 use rollun\utils\Cleaner\CleaningValidator\ZendValidatorAdapter;
-use Zend\Validator\File\Size as ZendValidatorFileSize;
+use Laminas\Validator\File\Size as ZendValidatorFileSize;
 use rollun\utils\Cleaner\CleaningValidator\CleaningValidatorInterface;
 
 /**

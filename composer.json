@@ -20,30 +20,22 @@
     }
   ],
   "require": {
-    "php": "^7.2",
-    "nicolab/php-ftp-client": "^1.4",
-    "zendframework/zend-db": "^2.9",
-    "zendframework/zend-http": "^2.5",
-    "rollun-com/rollun-installer": "^4.0",
-    "mindplay/jsonfreeze": "0.3.3",
-    "opis/closure": "^2.1.0",
-    "facebook/webdriver": "^1.5",
-    "zendframework/zend-cache": "^2.8",
-    "zendframework/zend-mail": "^2.10",
+    "php": "^8.0",
+    "nicolab/php-ftp-client": "^1.6",
+    "laminas/laminas-db": "^2.13",
+    "laminas/laminas-http": "^2.15",
+    "rollun-com/rollun-installer": "dev-laminas",
+    "mindplay/jsonfreeze": "dev-master",
+    "opis/closure": "4.x-dev",
+    "facebook/webdriver": "^1.1",
+    "laminas/laminas-cache": "3.1.2",
+    "laminas/laminas-mail": "2.16.x-dev",
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-libxml": "*",
-    "openmetrics-php/exposition-text": "^0.3.1",
-    "psr/http-server-middleware": "^1.0"
-  },
-  "require-dev": {
-    "zendframework/zend-component-installer": "^1.0",
-    "zendframework/zend-config-aggregator": "^1.0",
-    "zendframework/zend-stdlib": "^3.1",
-    "zendframework/zend-servicemanager": "^3.3",
-    "phpunit/phpunit": "^6.0.8 || ^5.7.15",
-    "squizlabs/php_codesniffer": "^2.8.1",
-    "zfcampus/zf-development-mode": "^3.1"
+    "openmetrics-php/exposition-text": "dev-master",
+    "psr/http-server-middleware": "1.0.x-dev",
+    "laminas/laminas-cache-storage-adapter-filesystem": "2.1.x-dev"
   },
   "autoload": {
     "psr-4": {
@@ -92,5 +84,24 @@
     "test": "phpunit --colors=always",
     "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
     "upload-coverage": "coveralls -v"
+  },
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "path",
+      "url": "/home/yurii/www/rollun/rollun-installer"
+    },
+    {
+      "type": "path",
+      "url": "/home/yurii/www/rollun/rollun-dic"
+    }
+  ],
+  "config": {
+    "allow-plugins": {
+      "rollun-com/rollun-installer": true
+    }
+  },
+  "replace": {
+
   }
 }

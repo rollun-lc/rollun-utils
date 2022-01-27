@@ -10,9 +10,9 @@
 namespace rollun\tableGateway\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\Db\Metadata\Metadata;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\Db\Metadata\Metadata;
+use Laminas\Db\TableGateway\TableGateway;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
  * Create and return an instance of the TableGateway
@@ -45,7 +45,7 @@ class TableGatewayAbstractFactory implements AbstractFactoryInterface
     protected $tableNames = null;
 
     /*
-     * @var Zend\Db\Adapter\AdapterInterface
+     * @var Laminas\Db\Adapter\AdapterInterface
      */
     protected $db;
 
@@ -57,8 +57,8 @@ class TableGatewayAbstractFactory implements AbstractFactoryInterface
      * For Service manager V3
      * Edit 'use' section if need:
      * Change:
-     * 'use Zend\ServiceManager\AbstractFactoryInterface;' for V2 to
-     * 'use Zend\ServiceManager\Factory\AbstractFactoryInterface;' for V3
+     * 'use Laminas\ServiceManager\AbstractFactoryInterface;' for V2 to
+     * 'use Laminas\ServiceManager\Factory\AbstractFactoryInterface;' for V3
      *
      * @param  ContainerInterface $container
      * @param  string $requestedName
@@ -106,8 +106,8 @@ class TableGatewayAbstractFactory implements AbstractFactoryInterface
     /**
      * Create and return an instance of the TableGateway.
      *
-     * 'use Zend\ServiceManager\AbstractFactoryInterface;' for V2 to
-     * 'use Zend\ServiceManager\Factory\AbstractFactoryInterface;' for V3
+     * 'use Laminas\ServiceManager\AbstractFactoryInterface;' for V2 to
+     * 'use Laminas\ServiceManager\Factory\AbstractFactoryInterface;' for V3
      *
      * @param  ContainerInterface $container
      * @param  string $requestedName
@@ -120,7 +120,7 @@ class TableGatewayAbstractFactory implements AbstractFactoryInterface
     {
         $config = $container->get('config');
 
-        if (isset($config[self::KEY][$requestedName][self::KEY_SQL]) and is_a($config[self::KEY][$requestedName][self::KEY_SQL], 'Zend\Db\Sql\Sql', true)) {
+        if (isset($config[self::KEY][$requestedName][self::KEY_SQL]) and is_a($config[self::KEY][$requestedName][self::KEY_SQL], 'Laminas\Db\Sql\Sql', true)) {
             $sql = new $config[self::KEY][$requestedName][self::KEY_SQL]($this->db, $requestedName);
             return new TableGateway($requestedName, $this->db, null, null, $sql);
         }

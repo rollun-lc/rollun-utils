@@ -7,8 +7,8 @@ namespace rollun\utils\Cleaner\CleanableList\Factory;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use rollun\cleaner\CleanableList\TableGatewayCleanableList;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
 class TableGatewayCleanableListAbstractFactory extends AbstractCleanableListAbstractFactory
 {

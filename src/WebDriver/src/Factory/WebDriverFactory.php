@@ -6,7 +6,7 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Interop\Container\ContainerInterface;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use MongoDB\Driver\Exception\ConnectionException;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class WebDriverFactory implements FactoryInterface
 {

@@ -38,7 +38,7 @@ class Coder
      * @throws JsonException
      * @see http://php.net/manual/ru/function.json-encode.php
      */
-    public static function jsonEncode($data): string
+    public static function jsonEncode($data)
     {
         if (!is_scalar($data) and !is_array($data)) {
             throw new JsonException(
@@ -67,7 +67,7 @@ class Coder
      * @throws Exception
      * @see http://php.net/manual/ru/function.json-decode.php
      */
-    public static function jsonDecode($data): array
+    public static function jsonDecode($data)
     {
         json_encode(null); // Clear json_last_error()
         $result = json_decode((string)$data, self::TYPE_ARRAY); //json_decode($data);

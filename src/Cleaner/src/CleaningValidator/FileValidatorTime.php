@@ -4,7 +4,7 @@
 namespace rollun\utils\Cleaner\CleaningValidator;
 
 
-use Zend\Validator\AbstractValidator;
+use Laminas\Validator\AbstractValidator;
 
 /**
  * Class FileValidatorTime

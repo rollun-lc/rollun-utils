@@ -8,8 +8,8 @@ use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use rollun\utils\Cleaner\CleanableList\CleanableListInterface;
 use rollun\utils\Factory\AbstractAbstractFactory;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
 /**
  * Class AbstractCleanableListAbstractFactory

@@ -8,8 +8,8 @@
 
 namespace rollun\tableGateway\DbSql;
 
-use Zend\Db\Sql\Exception\InvalidArgumentException;
-use Zend\Db\Sql\Sql;
+use Laminas\Db\Sql\Exception\InvalidArgumentException;
+use Laminas\Db\Sql\Sql;
 
 class MultiInsertSql extends Sql
 {

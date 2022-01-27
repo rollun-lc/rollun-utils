@@ -9,8 +9,8 @@ use Interop\Container\Exception\ContainerException;
 use rollun\utils\Cleaner\CleaningValidator\CleaningValidatorInterface;
 use rollun\utils\Cleaner\CleaningValidator\Factory\AbstractCleaningValidatorAbstractFactory;
 use RuntimeException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
 class LevelValidatorAbstractFactory extends AbstractCleaningValidatorAbstractFactory
 {
