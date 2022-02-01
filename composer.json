@@ -28,7 +28,7 @@
     "mindplay/jsonfreeze": "dev-master",
     "opis/closure": "4.x-dev",
     "facebook/webdriver": "^1.1",
-    "laminas/laminas-cache": "3.1.2",
+    "laminas/laminas-cache": "^3.1.2",
     "laminas/laminas-mail": "2.16.x-dev",
     "ext-json": "*",
     "ext-simplexml": "*",
