@@ -49,7 +49,7 @@ trait CallAttemptsTrait
      * @param $method
      * @param mixed ...$data
      *
-     * @return array
+     * @return mixed
      *
      * @throws \Throwable
      */
