@@ -12,6 +12,8 @@ class ProcessTracker implements MetricsProviderInterface
 {
     private const PROCESS_TRACKING_DIR = 'data/process-tracking/';
 
+    private const ENV_TRACK_PROCESSES = 'TRACK_PROCESSES';
+
     /** @var string */
     private static $filePath;
 
@@ -20,6 +22,10 @@ class ProcessTracker implements MetricsProviderInterface
      */
     public static function storeProcessData(string $lifeCycleToken, string $parentLifeCycleToken = null)
     {
+        if (!self::needTrackProcess()) {
+            return;
+        }
+
         $dirPath = static::getProcessTrackingDir();
 
         $dirPath .= (new \DateTime())->format('Y-m-d') . '/';
@@ -52,9 +58,14 @@ class ProcessTracker implements MetricsProviderInterface
 
     public static function clearProcessData()
     {
+        if (!self::needTrackProcess()) {
+            return;
+        }
+
         if (!is_string(static::$filePath)) {
             return;
         }
+
         unlink(static::$filePath);
     }
 
@@ -207,6 +218,11 @@ class ProcessTracker implements MetricsProviderInterface
         }
 
         return $serviceNameParts[0];
+    }
+
+    private static function needTrackProcess(): bool
+    {
+        return getenv(self::ENV_TRACK_PROCESSES) === 'true';
     }
 
     private static function getProcessTrackingDir(): string
