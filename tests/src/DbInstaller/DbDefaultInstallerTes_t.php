@@ -11,7 +11,7 @@ class DbDefaultInstallerTest extends InstallerTestCase
     protected $outputStream;
     protected $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->getContainer();
     }

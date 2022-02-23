@@ -92,7 +92,8 @@ abstract class SerializerTestAbstract extends \PHPUnit\Framework\TestCase
     {
         return array(
             array(
-                imagecreate(1, 1)
+                //imagecreate(1, 1)
+                fopen('/tmp/test', 'w'),
             )
         );
     }
