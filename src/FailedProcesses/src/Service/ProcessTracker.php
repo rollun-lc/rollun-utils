@@ -140,7 +140,10 @@ class ProcessTracker implements MetricsProviderInterface
                 continue;
             }
             $lifeCycleToken = $filePathParts[count($filePathParts) - 1];
-            $fileData = file_get_contents($filePath);
+            $fileData = @file_get_contents($filePath);
+            if ($fileData === false) {
+                continue;
+            }
             $parsedData = self::parseFileData($fileData);
             $parsedData = array_merge($parsedData, [
                 'service_name' => self::getServiceName(),
