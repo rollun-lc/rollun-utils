@@ -63,11 +63,11 @@ class Coder
     /**
      *
      * @param mixed $data
-     * @return array
+     * @return mixed
      * @throws Exception
      * @see http://php.net/manual/ru/function.json-decode.php
      */
-    public static function jsonDecode($data): array
+    public static function jsonDecode($data)
     {
         json_encode(null); // Clear json_last_error()
         $result = json_decode((string)$data, self::TYPE_ARRAY); //json_decode($data);
