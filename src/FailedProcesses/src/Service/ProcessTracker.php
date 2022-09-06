@@ -127,7 +127,7 @@ class ProcessTracker implements MetricsProviderInterface
     public static function getAllData(): array
     {
         $data = [];
-
+        $serviceName = static::getServiceName();
         $dirPath = static::getProcessTrackingDir();
 
         $filePaths = [];
@@ -146,7 +146,7 @@ class ProcessTracker implements MetricsProviderInterface
             }
             $parsedData = self::parseFileData($fileData);
             $parsedData = array_merge($parsedData, [
-                'service_name' => self::getServiceName(),
+                'service_name' => $serviceName,
                 'life_cycle_token' => $lifeCycleToken,
             ]);
             $data[] = $parsedData;
