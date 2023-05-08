@@ -10,6 +10,13 @@
 
 В примерах ниже имя сервиса - `MetricsMiddleware::class`, но оно может быть любым (как будет задано в конфиге). Поэтому возможно создать несколько роутов для отдачи метрик и сконфигурировать для них разные контроллеры с разными метриками.
 
+### ConfigAggregator в config/config.php (додати)
+
+```php
+\rollun\utils\Metrics\ConfigProvider::class,
+\rollun\utils\FailedProcesses\ConfigProvider::class,//Необов'язково, але використовується в прикладі нижче
+```
+
 ### Пример конфига:
 ```
 use rollun\utils\Metrics\Factory\MetricsMiddlewareFactory;
