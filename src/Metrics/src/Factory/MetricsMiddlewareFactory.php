@@ -2,19 +2,31 @@
 
 namespace rollun\utils\Metrics\Factory;
 
-use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+use Psr\Container\ContainerInterface;
 use rollun\utils\Metrics\MetricsProviderInterface;
 use rollun\utils\Metrics\MetricsMiddleware;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
-class MetricsMiddlewareFactory implements FactoryInterface
+class MetricsMiddlewareFactory implements AbstractFactoryInterface
 {
     const KEY = self::class;
 
     const DEFAULT_CLASS = MetricsMiddleware::class;
 
     const KEY_METRIC_PROVIDERS = 'metricProviders';
+
+    public function canCreate(ContainerInterface $container, $requestedName)
+    {
+        $config = $container->get('config')[static::KEY] ?? [];
+
+        if (empty($config[$requestedName])) {
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * @param string $requestedName
