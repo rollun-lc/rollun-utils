@@ -26,9 +26,7 @@ class ProcessTracker implements MetricsProviderInterface
             return;
         }
 
-        $dirPath = static::getProcessTrackingDir();
-
-        $dirPath .= (new \DateTime())->format('Y-m-d') . '/';
+        $dirPath = static::getProcessTrackingDir() . static::getTodayDir();
 
         if (!file_exists($dirPath)) {
             $isDirCreated = mkdir($dirPath, 0777, true);
@@ -114,7 +112,7 @@ class ProcessTracker implements MetricsProviderInterface
                 Gauge::fromValue(static::getFailedProcessesCount(60))->withLabels(
                     Label::fromNameAndValue('older_than', '1_hour')
                 ),
-                Gauge::fromValue(static::getFailedProcessesCount(60 * 12))->withLabels(
+                Gauge::fromValue(static::getFailedProcessesCount(60 * 12, false))->withLabels(
                     Label::fromNameAndValue('older_than', '12_hour')
                 ),
                 Gauge::fromValue(static::getFailedProcessesCount(0))->withLabels(
@@ -127,7 +125,7 @@ class ProcessTracker implements MetricsProviderInterface
     public static function getAllData(): array
     {
         $data = [];
-
+        $serviceName = static::getServiceName();
         $dirPath = static::getProcessTrackingDir();
 
         $filePaths = [];
@@ -140,10 +138,13 @@ class ProcessTracker implements MetricsProviderInterface
                 continue;
             }
             $lifeCycleToken = $filePathParts[count($filePathParts) - 1];
-            $fileData = file_get_contents($filePath);
+            $fileData = @file_get_contents($filePath);
+            if ($fileData === false) {
+                continue;
+            }
             $parsedData = self::parseFileData($fileData);
             $parsedData = array_merge($parsedData, [
-                'service_name' => self::getServiceName(),
+                'service_name' => $serviceName,
                 'life_cycle_token' => $lifeCycleToken,
             ]);
             $data[] = $parsedData;
@@ -186,9 +187,13 @@ class ProcessTracker implements MetricsProviderInterface
         ];
     }
 
-    private static function getFailedProcessesCount(int $passedMinutes): int
+    private static function getFailedProcessesCount(int $passedMinutes, bool $onlyToday = true): int
     {
         $dirPath = static::getProcessTrackingDir();
+
+        if ($onlyToday) {
+            $dirPath .= static::getTodayDir();
+        }
 
         $filesCount = exec("find $dirPath -type f -mmin +$passedMinutes | wc -l");
 
@@ -228,5 +233,10 @@ class ProcessTracker implements MetricsProviderInterface
     private static function getProcessTrackingDir(): string
     {
         return self::PROCESS_TRACKING_DIR;
+    }
+
+    private static function getTodayDir(): string
+    {
+        return (new \DateTime())->format('Y-m-d') . '/';
     }
 }

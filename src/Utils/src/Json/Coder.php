@@ -9,6 +9,7 @@
 
 namespace rollun\utils\Json;
 
+use JsonSerializable;
 use rollun\utils\Json\Exception as JsonException;
 
 /**
@@ -40,7 +41,7 @@ class Coder
      */
     public static function jsonEncode($data)
     {
-        if (!is_scalar($data) and !is_array($data)) {
+        if (!is_scalar($data) and !is_array($data) and !$data instanceof JsonSerializable) {
             throw new JsonException(
                 'Data must be scalar or array,  ' .
                 'but  type ' . gettype($data) . ' given.'

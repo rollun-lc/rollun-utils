@@ -2,6 +2,7 @@
 
 namespace rollun\test\utils\Php;
 
+use JsonSerializable;
 use rollun\utils\Json\Coder as JsonCoder;
 use rollun\utils\Json\Exception as JsonException;
 use rollun\test\utils\Json\SerializerTestAbstract;
@@ -24,6 +25,42 @@ class CoderTest extends SerializerTestAbstract
     }
 
     //==========================================================================
+
+    public function provider_JsonSerializableObjectType(): array
+    {
+        return [
+            [
+                new class implements JsonSerializable {
+                    public function jsonSerialize(): array
+                    {
+                        return [];
+                    }
+                },
+                '[]',
+                []
+            ],
+            [
+                new class implements JsonSerializable {
+                    public function jsonSerialize(): array
+                    {
+                        return [1, 'a', ['array']];
+                    }
+                },
+                '[1,"a",["array"]]',
+                [1, 'a', ['array']]
+            ],
+            [
+                new class implements JsonSerializable {
+                    public function jsonSerialize(): array
+                    {
+                        return ['one' => 1, 'a', 'next' => ['array']];
+                    }
+                },
+                '{"one":1,"0":"a","next":["array"]}',
+                ['one' => 1, 'a', 'next' => ['array']]
+            ],
+        ];
+    }
 
     /**
      * @dataProvider provider_ScalarType
