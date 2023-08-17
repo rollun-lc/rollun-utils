@@ -25,7 +25,6 @@ class ProcessTracker implements MetricsProviderInterface
         if (!self::needTrackProcess()) {
             return;
         }
-
         $dirPath = static::getProcessTrackingDir() . static::getTodayDir();
 
         if (!file_exists($dirPath)) {
