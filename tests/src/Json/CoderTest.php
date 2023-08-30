@@ -96,6 +96,14 @@ class CoderTest extends SerializerTestAbstract
     }
 
     /**
+     * @dataProvider provider_JsonSerializableObjectType
+     */
+    public function testSerialize_JsonSerializableObjectType($in, $jsonString, $out = null)
+    {
+        parent::serialize($in, $jsonString, $out);
+    }
+
+    /**
      * @dataProvider provider_ClosureType
      */
     public function testSerialize_ClosureType($in, $jsonString, $out = null)
