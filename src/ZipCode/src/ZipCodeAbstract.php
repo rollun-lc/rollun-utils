@@ -51,15 +51,15 @@ abstract class ZipCodeAbstract implements JsonSerializable
         return $this->value;
     }
 
-    public function toZip5Code(): \rollun\utils\ZipCode\Zip5Code
-    {
-        return new \rollun\utils\ZipCode\Zip5Code($this->getValue());
-    }
-
     public function jsonSerialize(): array
     {
         return [
-            'vaule' => $this->getValue()
+            'value' => $this->getValue()
         ];
+    }
+
+    public function __toString(): string
+    {
+        return $this->getValue();
     }
 }
