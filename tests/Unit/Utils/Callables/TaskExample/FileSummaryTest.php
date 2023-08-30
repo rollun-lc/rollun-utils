@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace rollun\test\utils\Callables\TaskExample;
+namespace rollun\test\Unit\Utils\Callables\TaskExample;
 
 use rollun\Callables\TaskExample\FileSummary;
 

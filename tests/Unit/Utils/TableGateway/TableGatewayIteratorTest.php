@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\utils\TableGateway;
+namespace rollun\test\Unit\Utils\TableGateway;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\Assert;

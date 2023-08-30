@@ -7,6 +7,7 @@ namespace rollun\ZipCode;
 use InvalidArgumentException;
 use JsonSerializable;
 use rollun\utils\String\StringUtils;
+use rollun\utils\ZipCode\Zip5Code;
 
 abstract class ZipCodeAbstract implements JsonSerializable
 {
@@ -61,5 +62,10 @@ abstract class ZipCodeAbstract implements JsonSerializable
     public function __toString(): string
     {
         return $this->getValue();
+    }
+
+    public function getZip5Code(): string
+    {
+        return mb_substr($this->getValue(), 0, 5);
     }
 }

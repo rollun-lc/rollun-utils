@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\utils\FailedProcesses;
+namespace rollun\test\Unit\Utils\FailedProcesses;
 
 use PHPUnit\Framework\TestCase;
 use rollun\logger\LifeCycleToken;
@@ -15,7 +15,7 @@ class ProcessTrackerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->dirPath = static::getProcessTrackingDir() . static::getTodayDir();
+        $this->dirPath = ProcessTrackerTest . phpstatic::getProcessTrackingDir() . static::getTodayDir();
     }
 
     public function testCreateFileSuccess(): void
@@ -46,6 +46,6 @@ class ProcessTrackerTest extends TestCase
 
     private static function getTodayDir(): string
     {
-        return (new \DateTime())->format('Y-m-d') . '/';
+        return (new \DateTime())->format('Y-m-d') . 'ProcessTrackerTest.php/';
     }
 }
