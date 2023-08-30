@@ -63,6 +63,7 @@
       "rollun\\utils\\Metrics\\": "src/Metrics/src",
       "rollun\\utils\\WebDriver\\": "src/WebDriver/src",
       "rollun\\tracer\\": "src/Tracer/src",
+      "rollun\\ZipCode\\": "src/ZipCode/src",
       "rollun\\Downloader\\": "src/Downloader/src"
     }
   },
@@ -100,7 +101,8 @@
   },
   "config": {
     "allow-plugins": {
-      "rollun-com/rollun-installer": true
+      "rollun-com/rollun-installer": true,
+      "laminas/laminas-component-installer": true
     }
   },
   "replace": {
