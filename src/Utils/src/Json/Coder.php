@@ -64,7 +64,7 @@ class Coder
     /**
      *
      * @param mixed $data
-     * @return array
+     * @return mixed
      * @throws Exception
      * @see http://php.net/manual/ru/function.json-decode.php
      */
