@@ -14,4 +14,10 @@ final class CanadaZipCode extends ZipCodeAbstract
          */
         return (bool)preg_match('/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i', $zipCode);
     }
+
+    protected static function isInvalid(string $zipCode): bool
+    {
+        return !self::isValid($zipCode);
+    }
+
 }

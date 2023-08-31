@@ -18,7 +18,7 @@ abstract class ZipCodeAbstract implements JsonSerializable
     public function __construct(string $value)
     {
         $this->value = self::normalize($value);
-        if (self::isInvalid($this->value)) {
+        if (static::isInvalid($this->value)) {
             throw new InvalidArgumentException('Zip code has invalid format.');
         }
     }
@@ -33,15 +33,7 @@ abstract class ZipCodeAbstract implements JsonSerializable
         return $zip;
     }
 
-    private static function isInvalid(string $zipCode): bool
-    {
-        return !self::isValid($zipCode);
-    }
-
-    public static function isValid(string $zipCode): bool
-    {
-        return static::isValid($zipCode);
-    }
+    abstract public static function isValid(string $zipCode);
 
     /**
      * @return string
@@ -63,4 +55,7 @@ abstract class ZipCodeAbstract implements JsonSerializable
         return $this->getValue();
     }
 
+}
+abstract class Car {
+    abstract public function calcNumMilesOnFullTank();
 }
