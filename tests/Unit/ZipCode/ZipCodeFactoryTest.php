@@ -6,31 +6,42 @@ namespace rollun\test\Unit\ZipCode;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use rollun\ZipCode\CanadaZipCode;
 use rollun\ZipCode\Factory\ZipCodeFactory;
+use rollun\ZipCode\UsaZipCode;
 
-class ZipCodeTest extends TestCase
+class ZipCodeFactoryTest extends TestCase
 {
     public function validZipProvider(): array
     {
         return [
-            'zip5' => ['55416'],
-            'zip5+4' => ['12345-6789'],
-            'Zip5 + 4 no second part' => ['12345-', '12345'],
-            'Zip5 + 2' => ['12345-12'],
-            'ANA-NAN' => ['h2t-1b8'],
-            'ANA NAN' => ['h2z 1b8'],
-            'ANANAN' => ['H2Z1B8'],
+            'zip5' => ['55416', UsaZipCode::class,],
+            'zip5+4' => ['12345-6789', UsaZipCode::class,],
+            'Zip5 + 4 no second part' => ['12345-', UsaZipCode::class, '12345'],
+            'Zip5 + 2' => ['12345-12', UsaZipCode::class,],
+            'ANA-NAN' => ['h2t-1b8', CanadaZipCode::class,],
+            'ANA NAN' => ['h2z 1b8', CanadaZipCode::class,],
+            'ANANAN' => ['H2Z1B8', CanadaZipCode::class,],
         ];
     }
 
     /**
      * @dataProvider validZipProvider
      */
-    public function testValid(string $validZip, ?string $expected = null)
+    public function testValidZip(string $validZip, string $expectedInstance, ?string $expectedZip = null)
     {
         $zipCode = ZipCodeFactory::create($validZip);
         $value = $zipCode->getValue();
-        self::assertEquals($expected ?? $validZip, $value);
+        self::assertEquals($expectedZip ?? $validZip, $value);
+    }
+
+    /**
+     * @dataProvider validZipProvider
+     */
+    public function testValidInstance(string $validZip, string $expectedInstance)
+    {
+        $zipCode = ZipCodeFactory::create($validZip);
+        self::assertEquals($zipCode::class, $expectedInstance);
     }
 
     public function invalidZipProvider(): array
