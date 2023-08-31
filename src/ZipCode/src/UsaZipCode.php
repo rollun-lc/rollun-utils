@@ -20,4 +20,9 @@ final class UsaZipCode extends ZipCodeAbstract
     {
         return mb_substr($this->getValue(), 0, 5);
     }
+
+    protected static function isInvalid(string $zipCode): bool
+    {
+        return !self::isValid($zipCode);
+    }
 }
