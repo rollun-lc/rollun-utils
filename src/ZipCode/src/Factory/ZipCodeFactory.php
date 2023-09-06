@@ -9,7 +9,7 @@ use InvalidArgumentException;
 
 class ZipCodeFactory
 {
-    public static function create(string $zipCode)
+    public static function create(string $zipCode): ZipCodeAbstract
     {
         $objs = [
             UsaZipCode::class,
