@@ -1,10 +1,11 @@
 <?php
 
-namespace rollun\test\tableGateway\TableGateway;
+namespace Unit\Utils\TableGateway;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use rollun\tableGateway\TableManagerMysql;
+use rollun\test\tableGateway\TableGateway\Returner;
 use Zend\Db\Adapter\Adapter;
 
 /**

@@ -1,11 +1,11 @@
 <?php
 
-namespace rollun\test\utils\TableGateway;
+namespace Unit\Utils\TableGateway;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\Assert;
-use rollun\tableGateway\TableGatewayIterator;
 use PHPUnit\Framework\TestCase;
+use rollun\tableGateway\TableGatewayIterator;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\TableGateway\TableGateway;
 

@@ -1,10 +1,11 @@
 <?php
 
-namespace rollun\test\tableGateway\Factory;
+namespace Unit\Utils\TableGateway\Factory;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use rollun\tableGateway\Factory\TableGatewayAbstractFactory;
+use rollun\test\tableGateway\Factory\Returner;
 use Zend\Db\Adapter\Adapter;
 
 /**
