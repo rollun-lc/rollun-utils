@@ -15,4 +15,9 @@ final class UsaZipCode extends ZipCodeAbstract
          */
         return (bool)preg_match('/^[0-9]{5}(-([0-9]{2}|[0-9]{4}))?$/', $zipCode);
     }
+
+    public function getZip5Code(): string
+    {
+        return mb_substr($this->getValue(), 0, 5);
+    }
 }

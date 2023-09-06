@@ -35,13 +35,10 @@ abstract class ZipCodeAbstract implements JsonSerializable
 
     private static function isInvalid(string $zipCode): bool
     {
-        return !self::isValid($zipCode);
+        return !static::isValid($zipCode);
     }
 
-    public static function isValid(string $zipCode): bool
-    {
-        return static::isValid($zipCode);
-    }
+    abstract public static function isValid(string $zipCode): bool;
 
     /**
      * @return string
@@ -62,4 +59,5 @@ abstract class ZipCodeAbstract implements JsonSerializable
     {
         return $this->getValue();
     }
+
 }
