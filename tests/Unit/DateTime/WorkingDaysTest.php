@@ -56,14 +56,10 @@ class WorkingDaysTest extends TestCase
 
     public function testSkipHolidaysAndWeekend()
     {
-        // create with 4 January is (monday) is holiday
-
         $workingDays = new WorkingDays([6, 7]);
 
-        // 1 January 2021 is friday
-        $friday = new \DateTimeImmutable('16-01-2024');
-        $a = $workingDays->isHoliday($friday);
-        // add one working day
+        $friday = new \DateTimeImmutable('19-02-2024');
+
         $result = $workingDays->addWorkingDays($friday, 1);
 
         // assert that result is Tuesday
