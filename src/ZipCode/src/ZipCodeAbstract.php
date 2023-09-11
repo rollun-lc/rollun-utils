@@ -13,27 +13,17 @@ abstract class ZipCodeAbstract implements JsonSerializable
     /**
      * @var string
      */
-    private $value;
+    protected $value;
 
     public function __construct(string $value)
     {
-        $this->value = self::normalize($value);
-        if (self::isInvalid($this->value)) {
+        if (static::isInvalid($value)) {
             throw new InvalidArgumentException('Zip code has invalid format.');
         }
+        $this->value = $value;
     }
 
-    public static function normalize(string $zip): string
-    {
-        $zip = StringUtils::trim(StringUtils::normalizeSpaces($zip));
-        // '12345-' to '12345'
-        if (StringUtils::isEndsWith($zip, '-')) {
-            $zip = substr($zip, 0, -1); // remove last char
-        }
-        return $zip;
-    }
-
-    private static function isInvalid(string $zipCode): bool
+    protected static function isInvalid(string $zipCode): bool
     {
         return !static::isValid($zipCode);
     }
