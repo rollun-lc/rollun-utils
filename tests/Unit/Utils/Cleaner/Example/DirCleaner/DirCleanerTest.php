@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Utils\Cleaner\Example\DirCleaner;
+namespace rollun\test\Unit\Utils\Cleaner\Example\DirCleaner;
 
 use rollun\utils\Cleaner\CleaningValidator\CallableValidator;
 use rollun\utils\Cleaner\CleaningValidator\ZendValidatorAdapter;

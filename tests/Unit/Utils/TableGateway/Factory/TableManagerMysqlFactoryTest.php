@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Utils\TableGateway\Factory;
+namespace rollun\test\Unit\Utils\TableGateway\Factory;
 
 use PHPUnit\Framework\TestCase;
 use rollun\tableGateway\TableManagerMysql;

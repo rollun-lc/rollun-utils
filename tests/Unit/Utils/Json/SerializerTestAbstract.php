@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Utils\Json;
+namespace rollun\test\Unit\Utils\Json;
 
 use rollun\utils\Json\Exception as JsonException;
 
