@@ -19,6 +19,7 @@ final class CanadaZipCode extends ZipCodeAbstract
 
     public static function normalize(string $zip): string
     {
+        $zip = parent::normalize($zip);
         return StringUtils::trim(StringUtils::normalizeSpaces($zip));
     }
 }

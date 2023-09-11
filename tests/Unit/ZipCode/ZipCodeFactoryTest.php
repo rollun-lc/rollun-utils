@@ -41,8 +41,7 @@ class ZipCodeFactoryTest extends TestCase
     public function testValidInstance(string $validZip, string $expectedInstance)
     {
         $zipCode = ZipCodeFactory::create($validZip);
-        /** @var \rollun\ZipCode\ZipCodeAbstract $zipCode */
-        self::assertEquals(get_class($zipCode), $expectedInstance);
+        self::assertInstanceOf($expectedInstance, $zipCode);
     }
 
     public function invalidZipProvider(): array

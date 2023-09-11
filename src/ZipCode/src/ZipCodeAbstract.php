@@ -17,10 +17,16 @@ abstract class ZipCodeAbstract implements JsonSerializable
 
     public function __construct(string $value)
     {
+        $value = static::normalize($value);
         if (static::isInvalid($value)) {
             throw new InvalidArgumentException('Zip code has invalid format.');
         }
         $this->value = $value;
+    }
+
+    public static function normalize(string $zip): string
+    {
+        return StringUtils::trim(StringUtils::normalizeSpaces($zip));
     }
 
     protected static function isInvalid(string $zipCode): bool

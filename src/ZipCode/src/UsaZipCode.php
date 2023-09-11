@@ -6,12 +6,6 @@ use rollun\utils\String\StringUtils;
 
 final class UsaZipCode extends ZipCodeAbstract
 {
-    public function __construct(string $value)
-    {
-        $this->value = self::normalize($value);
-        parent::__construct($value);
-    }
-
     public static function isValid(string $zipCode): bool
     {
         /**
@@ -26,7 +20,7 @@ final class UsaZipCode extends ZipCodeAbstract
 
     public static function normalize(string $zip): string
     {
-        $zip = StringUtils::trim(StringUtils::normalizeSpaces($zip));
+        $zip = parent::normalize($zip);
         // '12345-' to '12345'
         if (StringUtils::isEndsWith($zip, '-')) {
             $zip = substr($zip, 0, -1); // remove last char
