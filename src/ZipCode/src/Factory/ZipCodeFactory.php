@@ -15,10 +15,10 @@ class ZipCodeFactory
             UsaZipCode::class,
             CanadaZipCode::class,
         ];
-        $zipCode = ZipCodeAbstract::normalize($zipCode);
         foreach ($objs as $obj) {
-            if ($obj::isValid($zipCode)) {
-                return new $obj($zipCode);
+            $normalizedZipCode = $obj::normalize($zipCode);
+            if ($obj::isValid($normalizedZipCode)) {
+                return new $obj($normalizedZipCode);
             }
         }
         throw new InvalidArgumentException('Zip code has invalid format.');
