@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  service-utils-nginx:
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/app
+    ports:
+      - 8082:80
+    depends_on:
+      - utils-php-fpm
+
+  utils-php-fpm:
+    container_name: utils-php-fpm
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/app
+    environment:
+      TRACK_PROCESSES: 'true'
+      PHP_IDE_CONFIG: "serverName=php-fpm"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
