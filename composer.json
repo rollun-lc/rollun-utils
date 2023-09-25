@@ -64,6 +64,7 @@
       "rollun\\utils\\WebDriver\\": "src/WebDriver/src",
       "rollun\\tracer\\": "src/Tracer/src",
       "rollun\\ZipCode\\": "src/ZipCode/src",
+      "rollun\\utils\\DateTime\\": "src/DateTime/src",
       "rollun\\Downloader\\": "src/Downloader/src"
     }
   },
