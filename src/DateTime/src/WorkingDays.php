@@ -105,6 +105,7 @@ class WorkingDays
             "MLK Day" => new DateTimeImmutable('Third Monday of January ' . $year),
             "President's Day" => new DateTimeImmutable('Third Monday of February ' . $year),
             "Memorial Day" => new DateTimeImmutable('Last Monday of May ' . $year),
+            "Juneteenth National Independence Day" => $this->getObservedDate(new DateTimeImmutable($year . '-06-19')),
             "Independence Day" => $this->getObservedDate(new DateTimeImmutable($year . '-07-04')),
             "Labor Day" => new DateTimeImmutable('First Monday of September ' . $year),
             "Columbus Day" => new DateTimeImmutable('Second Monday of October ' . $year),
