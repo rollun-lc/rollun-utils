@@ -66,11 +66,11 @@ TRACK_PROCESSES=true
 Реализован колбек `ClearOldProcessFilesCallback`, его нужно только подключить в крон.
 
 ```
-use rollun\utils\FailedProcesses\Callback\ClearOldProcessFilesCallback;
+use rollun\utils\FailedProcesses\Callback\ClearOldProcessesDataCallback;
 
 return [
     SerializedCallbackAbstractFactory::class => [
-        'clearOldProcessFiles' => ClearOldProcessFilesCallback::class,
+        'clearOldProcessFiles' => ClearOldProcessesDataCallback::class,
     ],
     CallbackAbstractFactoryAbstract::KEY => [
         'min_multiplexer' => [
