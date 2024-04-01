@@ -101,7 +101,7 @@ return [
 Чтобы выводить информацию в нем, нужно 
 1. Cгенерировать серверную часть openapi https://github.com/rollun-com/openapi-manifests/blob/master/failed_processes__v1.yml ,
 2. Добавить свой сервис в список серверов этого манифеста и запушить в `openapi-manifests`,
-3. Обновить `composer update` в `rollun-net` и выгрузить.
+3. Обновить библиотеку в сервисе `rollun-net` командой `composer u rollun-com/openapi-manifests` и выгрузить. **(без этого шага не будет работать)**
 
 ### Настройка сбора метрики
 
