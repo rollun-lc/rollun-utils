@@ -4,7 +4,7 @@ use rollun\logger\LifeCycleToken;
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
-/** @var \Interop\Container\ContainerInterface $container */
+/** @var \Laminas\ServiceManager\ServiceManager $container */
 $container = require 'config/container.php';
 \rollun\dic\InsideConstruct::setContainer($container);
 $lifeCycleToken = LifeCycleToken::generateToken();

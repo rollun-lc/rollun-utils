@@ -2,7 +2,7 @@
 
 namespace rollun\test\Unit\Utils\TableGateway\Factory;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use rollun\tableGateway\Factory\TableGatewayAbstractFactory;
 use Laminas\Db\Adapter\Adapter;

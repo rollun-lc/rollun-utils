@@ -1,16 +1,11 @@
 <?php
 
-
 namespace rollun\Downloader\Client\Factory;
 
-
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
+use Psr\Container\ContainerInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use rollun\Downloader\Client\SerializableFtpClient;
-use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 class SerializableFtpClientAbstractFactory implements AbstractFactoryInterface

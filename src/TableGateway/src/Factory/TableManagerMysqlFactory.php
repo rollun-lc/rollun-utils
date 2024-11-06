@@ -9,7 +9,7 @@
 
 namespace rollun\tableGateway\Factory;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use rollun\tableGateway\TableManagerMysql;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 

@@ -5,7 +5,7 @@ use rollun\utils\TelegramClient;
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
-/** @var \Interop\Container\ContainerInterface $container */
+/** @var \Psr\Container\ContainerInterface $container */
 $container = require 'config/container.php';
 \rollun\dic\InsideConstruct::setContainer($container);
 

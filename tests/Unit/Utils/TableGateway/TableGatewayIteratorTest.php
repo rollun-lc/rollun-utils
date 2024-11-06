@@ -2,7 +2,7 @@
 
 namespace rollun\test\Unit\Utils\TableGateway;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use PHPUnit\Framework\Assert;
 use rollun\tableGateway\TableGatewayIterator;
 use PHPUnit\Framework\TestCase;

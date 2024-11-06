@@ -2,7 +2,7 @@
 
 namespace rollun\utils\DateTime\Factory;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use rollun\utils\DateTime\WorkingDays;
 use laminas\ServiceManager\Factory\FactoryInterface;
 

@@ -9,7 +9,7 @@
 
 namespace rollun\tableGateway\Factory;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Db\Metadata\Metadata;
 use Laminas\Db\TableGateway\TableGateway;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
