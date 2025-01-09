@@ -20,7 +20,7 @@ docker-build:
 	docker-compose build
 
 composer-install:
-	docker-compose exec -T utils-php-fpm composer install
+	docker-compose exec -T php-fpm composer install
 
 composer-test:
-	docker-compose exec -T utils-php-fpm composer test
+	docker-compose exec -T php-fpm composer test

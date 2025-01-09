@@ -10,9 +10,9 @@ services:
     ports:
       - 8082:80
     depends_on:
-      - utils-php-fpm
+      - php-fpm
 
-  utils-php-fpm:
+  php-fpm:
     image: maxrollundev/php-fpm-dev-8.0
     volumes:
       - ./:/var/www/app
