@@ -2,7 +2,6 @@
 
 namespace rollun\test\Unit\Utils\Php;
 
-use rollun\test\utils\Php\SerializerTestAbstract;
 use rollun\utils\Php\Serializer as PhpSerializer;
 
 class SerializerTest extends SerializerTestAbstract

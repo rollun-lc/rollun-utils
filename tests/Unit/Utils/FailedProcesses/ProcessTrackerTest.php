@@ -3,7 +3,7 @@
 namespace rollun\test\Unit\Utils\FailedProcesses;
 
 use PHPUnit\Framework\TestCase;
-use rollun\logger\LifeCycleToken;
+use rollun\dic\InsideConstruct;
 use rollun\utils\FailedProcesses\Service\ProcessTracker;
 
 class ProcessTrackerTest extends TestCase
@@ -11,19 +11,17 @@ class ProcessTrackerTest extends TestCase
     protected string $dirPath;
     private const PROCESS_TRACKING_DIR = 'data/process-tracking/';
 
-    private const ENV_TRACK_PROCESSES = 'TRACK_PROCESSES';
-
     protected function setUp(): void
     {
-        $this->dirPath = ProcessTrackerTest . phpstatic::getProcessTrackingDir() . static::getTodayDir();
+        $this->dirPath = static::getProcessTrackingDir() . static::getTodayDir();
     }
 
     public function testCreateFileSuccess(): void
     {
         global $container;
         $obj = new ProcessTracker();
-        \rollun\dic\InsideConstruct::setContainer($container);
-        $lifeCycleToken = LifeCycleToken::generateToken();
+        InsideConstruct::setContainer($container);
+        $lifeCycleToken = self::generateLifeCycleToken();
         $obj::storeProcessData($lifeCycleToken);
 
         $this->assertFileExists($this->dirPath . $lifeCycleToken);
@@ -32,8 +30,8 @@ class ProcessTrackerTest extends TestCase
     {
         global $container;
         $obj = new ProcessTracker();
-        \rollun\dic\InsideConstruct::setContainer($container);
-        $lifeCycleToken = LifeCycleToken::generateToken();
+        InsideConstruct::setContainer($container);
+        $lifeCycleToken = self::generateLifeCycleToken();
         $obj::storeProcessData($lifeCycleToken);
 
         $this->assertFileDoesNotExist($this->dirPath . 'randomFileName');
@@ -46,6 +44,23 @@ class ProcessTrackerTest extends TestCase
 
     private static function getTodayDir(): string
     {
-        return (new \DateTime())->format('Y-m-d') . 'ProcessTrackerTest.php/';
+        return (new \DateTime())->format('Y-m-d') . '/';
+    }
+
+    public static function generateLifeCycleToken(int $nums = 30)
+    {
+        $idCharSet = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789";
+
+        $id = [];
+        $idCharSetArray = str_split($idCharSet);
+        $charArrayCount = count($idCharSetArray) - 1;
+
+        for ($i = 0; $i < $nums; $i++) {
+            $id[$i] = $idCharSetArray[random_int(0, $charArrayCount)];
+        }
+
+        $id = implode("", $id);
+
+        return $id;
     }
 }

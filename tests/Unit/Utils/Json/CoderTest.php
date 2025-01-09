@@ -5,7 +5,6 @@ namespace rollun\test\Unit\Utils\Json;
 use JsonSerializable;
 use rollun\utils\Json\Coder as JsonCoder;
 use rollun\utils\Json\Exception as JsonException;
-use rollun\test\utils\Json\SerializerTestAbstract;
 
 class CoderTest extends SerializerTestAbstract
 {
