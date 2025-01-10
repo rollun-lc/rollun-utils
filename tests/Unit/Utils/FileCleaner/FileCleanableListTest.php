@@ -14,7 +14,7 @@ class FileCleanableListTest extends TestCase
 
     protected $dir;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $dir = 'data' . DIRECTORY_SEPARATOR . 'list';
         if (!file_exists($dir)) {
@@ -25,7 +25,7 @@ class FileCleanableListTest extends TestCase
         $this->createTempDirs($dir);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->removeTempFiles($this->dir);
     }

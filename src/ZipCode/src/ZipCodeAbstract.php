@@ -10,10 +10,7 @@ use rollun\utils\String\StringUtils;
 
 abstract class ZipCodeAbstract implements JsonSerializable
 {
-    /**
-     * @var string
-     */
-    protected $value;
+    protected string $value;
 
     public function __construct(string $value)
     {
@@ -36,9 +33,6 @@ abstract class ZipCodeAbstract implements JsonSerializable
 
     abstract public static function isValid(string $zipCode): bool;
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;

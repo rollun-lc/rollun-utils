@@ -4,8 +4,8 @@
 namespace rollun\utils\Factory;
 
 
-use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Psr\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
  * Class AbstractAbstractFactory

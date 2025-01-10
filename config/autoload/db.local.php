@@ -6,7 +6,7 @@ return
     [
         'dependencies' => [
             'aliases' => [
-                'db' => 'Zend\Db\Adapter\AdapterInterface',
+                'db' => 'Laminas\Db\Adapter\AdapterInterface',
             ],
         ],
         'db' => [

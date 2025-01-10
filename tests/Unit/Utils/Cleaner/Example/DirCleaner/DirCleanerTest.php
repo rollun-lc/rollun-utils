@@ -2,10 +2,10 @@
 
 namespace rollun\test\Unit\Utils\Cleaner\Example\DirCleaner;
 
+use rollun\utils\Cleaner\Example\DirCleaner\CleanRuner;
 use rollun\utils\Cleaner\CleaningValidator\CallableValidator;
 use rollun\utils\Cleaner\CleaningValidator\ZendValidatorAdapter;
-use rollun\utils\Cleaner\Example\DirCleaner\CleanRuner;
-use Zend\Validator\File\Size as ZendValidatorFileSize;
+use Laminas\Validator\File\Size as ZendValidatorFileSize;
 
 class DirCleanerTest extends \PHPUnit\Framework\TestCase
 {
@@ -26,7 +26,7 @@ class DirCleanerTest extends \PHPUnit\Framework\TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new CleanRuner;
         //5 files with size 1 ,3 ,5 ,7 and 9 bytes have made in folder 'data/cleanIt'
@@ -39,7 +39,7 @@ class DirCleanerTest extends \PHPUnit\Framework\TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         //max file size - 3 bytes
         //only 1.txt and 3.txt now exist

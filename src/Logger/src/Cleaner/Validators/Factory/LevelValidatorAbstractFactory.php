@@ -1,16 +1,12 @@
 <?php
 
-
 namespace rollun\logger\Cleaner\Validators;
 
-
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use rollun\utils\Cleaner\CleaningValidator\CleaningValidatorInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 use rollun\utils\Cleaner\CleaningValidator\Factory\AbstractCleaningValidatorAbstractFactory;
-use RuntimeException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
 class LevelValidatorAbstractFactory extends AbstractCleaningValidatorAbstractFactory
 {
@@ -28,7 +24,7 @@ class LevelValidatorAbstractFactory extends AbstractCleaningValidatorAbstractFac
      * @throws ServiceNotFoundException if unable to resolve the service.
      * @throws ServiceNotCreatedException if an exception is raised when
      *     creating a service.
-     * @throws ContainerException if any other error occurs
+     * @throws ContainerExceptionInterface if any other error occurs
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {

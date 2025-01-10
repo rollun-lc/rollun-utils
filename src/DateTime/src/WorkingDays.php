@@ -53,6 +53,7 @@ class WorkingDays
      *
      * @param DateTimeImmutable $dateTime
      * @return DateTimeImmutable
+     * @throws \Exception
      */
     public function toWorkingDay(DateTimeImmutable $dateTime): DateTimeImmutable
     {

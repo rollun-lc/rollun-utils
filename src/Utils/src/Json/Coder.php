@@ -39,7 +39,7 @@ class Coder
      * @throws JsonException
      * @see http://php.net/manual/ru/function.json-encode.php
      */
-    public static function jsonEncode($data): string
+    public static function jsonEncode($data)
     {
         if (!is_scalar($data) and !is_array($data) and !$data instanceof JsonSerializable) {
             throw new JsonException(

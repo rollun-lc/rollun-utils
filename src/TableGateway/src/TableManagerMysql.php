@@ -10,14 +10,14 @@
 namespace rollun\tableGateway;
 
 use InvalidArgumentException;
-use Zend\Db\Adapter;
-use Zend\Db\Metadata\Source;
-use Zend\Db\Metadata\Source\Factory;
-use Zend\Db\Sql;
-use Zend\Db\Sql\Ddl\AlterTable;
-use Zend\Db\Sql\Ddl\Constraint;
-use Zend\Db\Sql\Ddl\Constraint\UniqueKey;
-use Zend\Db\Sql\Ddl\CreateTable;
+use Laminas\Db\Adapter;
+use Laminas\Db\Metadata\Source;
+use Laminas\Db\Metadata\Source\Factory;
+use Laminas\Db\Sql;
+use Laminas\Db\Sql\Ddl\AlterTable;
+use Laminas\Db\Sql\Ddl\Constraint;
+use Laminas\Db\Sql\Ddl\Constraint\UniqueKey;
+use Laminas\Db\Sql\Ddl\CreateTable;
 
 /**
  * Creates table and gets its info
@@ -104,7 +104,7 @@ class TableManagerMysql
 
     /**
      *
-     * @var \Zend\Db\Adapter\Adapter
+     * @var \Laminas\Db\Adapter\Adapter
      */
     protected $db;
 
@@ -239,7 +239,7 @@ class TableManagerMysql
         $result .= '    With constraints: ' . PHP_EOL;
 
         foreach ($metadata->getConstraints($tableName) as $constraint) {
-            /** @var $constraint \Zend\Db\Metadata\Object\ConstraintObject */
+            /** @var $constraint \Laminas\Db\Metadata\Object\ConstraintObject */
             $result .= '        ' . $constraint->getName()
                 . ' -> ' . $constraint->getType()
                 . PHP_EOL;
@@ -323,7 +323,7 @@ class TableManagerMysql
      *
      * @param $tableName
      * @param $tableConfig
-     * @return Adapter\Driver\StatementInterface|\Zend\Db\ResultSet\ResultSet
+     * @return Adapter\Driver\StatementInterface|\Laminas\Db\ResultSet\ResultSet
      * @throws \ReflectionException
      */
     protected function create($tableName, $tableConfig = null)
@@ -344,7 +344,7 @@ class TableManagerMysql
             $fieldType = $fieldData[self::FIELD_TYPE];
             $fieldParams = $this->getFieldParams($fieldData, $fieldType);
             array_unshift($fieldParams, $fieldName);
-            $fieldClass = '\\Zend\\Db\\Sql\\Ddl\\Column\\' . $fieldType;
+            $fieldClass = '\\Laminas\\Db\\Sql\\Ddl\\Column\\' . $fieldType;
             $reflectionObject = new \ReflectionClass($fieldClass);
             $fieldInstance = $reflectionObject->newInstanceArgs($fieldParams); // it' like new class($callParamsArray[1], $callParamsArray[2]...)
             $table->addColumn($fieldInstance);
@@ -394,7 +394,7 @@ class TableManagerMysql
         $sqlStringAlter = $sql->buildSqlString($alterTable);
 
         $sqlString = $sqlStringCreate . ';' . PHP_EOL . $sqlStringAlter . ';';
-        return $this->db->query($sqlString, \Zend\Db\Adapter\Adapter::QUERY_MODE_EXECUTE);
+        return $this->db->query($sqlString, \Laminas\Db\Adapter\Adapter::QUERY_MODE_EXECUTE);
     }
 
     /**

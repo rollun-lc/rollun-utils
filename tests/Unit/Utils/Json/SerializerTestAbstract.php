@@ -2,9 +2,10 @@
 
 namespace rollun\test\Unit\Utils\Json;
 
+use PHPUnit\Framework\TestCase;
 use rollun\utils\Json\Exception as JsonException;
 
-abstract class SerializerTestAbstract extends \PHPUnit\Framework\TestCase
+abstract class SerializerTestAbstract extends TestCase
 {
 
     /**
@@ -111,7 +112,8 @@ abstract class SerializerTestAbstract extends \PHPUnit\Framework\TestCase
     {
         return array(
             array(
-                imagecreate(1, 1), ''
+                //imagecreate(1, 1), ''
+                fopen('/tmp/test', 'w'), ''
             )
         );
     }

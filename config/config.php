@@ -1,8 +1,9 @@
 <?php
 
-use Zend\ConfigAggregator\ArrayProvider;
-use Zend\ConfigAggregator\ConfigAggregator;
-use Zend\ConfigAggregator\PhpFileProvider;
+use Laminas\ConfigAggregator\ArrayProvider;
+use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregator\PhpFileProvider;
+use Symfony\Component\Dotenv\Dotenv;
 
 // To enable or disable caching, set the `ConfigAggregator::ENABLE_CACHE` boolean in
 // `config/autoload/local.php`.
@@ -10,11 +11,15 @@ $cacheConfig = [
     'config_cache_path' => 'data/config-cache.php',
 ];
 
+if (is_file('.env')) {
+    (new Dotenv())->usePutenv(true)->load('.env');
+}
+
 $aggregator = new ConfigAggregator([
-    \Zend\Mail\ConfigProvider::class,
-    \Zend\Cache\ConfigProvider::class,
-    \Zend\Db\ConfigProvider::class,
-    \Zend\Validator\ConfigProvider::class,
+    \Laminas\Mail\ConfigProvider::class,
+    \Laminas\Cache\ConfigProvider::class,
+    \Laminas\Db\ConfigProvider::class,
+    \Laminas\Validator\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 

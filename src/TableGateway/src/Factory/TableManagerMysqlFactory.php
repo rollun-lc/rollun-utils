@@ -9,9 +9,9 @@
 
 namespace rollun\tableGateway\Factory;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use rollun\tableGateway\TableManagerMysql;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Create and return an instance of the TableManagerMysql
@@ -30,8 +30,8 @@ class TableManagerMysqlFactory implements FactoryInterface
     /**
      * Create and return an instance of the TableGateway.
      *
-     * 'use Zend\ServiceManager\AbstractFactoryInterface;' for V2 to
-     * 'use Zend\ServiceManager\Factory\AbstractFactoryInterface;' for V3
+     * 'use Laminas\ServiceManager\AbstractFactoryInterface;' for V2 to
+     * 'use Laminas\ServiceManager\Factory\AbstractFactoryInterface;' for V3
      *
      * @param  ContainerInterface $container
      * @param  string $requestedName

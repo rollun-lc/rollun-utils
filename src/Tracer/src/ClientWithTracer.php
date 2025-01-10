@@ -13,9 +13,9 @@ use Jaeger\Tag\StringTag;
 use Jaeger\Tracer\Tracer;
 use rollun\dic\InsideConstruct;
 use rollun\utils\Json\Serializer;
-use Zend\Http\Client;
-use Zend\Http\Headers;
-use Zend\Http\Request;
+use Laminas\Http\Client;
+use Laminas\Http\Headers;
+use Laminas\Http\Request;
 
 class ClientWithTracer extends Client
 {

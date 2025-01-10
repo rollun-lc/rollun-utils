@@ -4,7 +4,7 @@
 namespace rollun\utils;
 
 
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * Class PluginManager

@@ -10,8 +10,8 @@ namespace rollun\utils;
 
 use Psr\Container\ContainerExceptionInterface;
 use rollun\installer\Install\InstallerAbstract;
-use Zend\Db\Adapter\AdapterAbstractServiceFactory;
-use Zend\Db\Adapter\AdapterInterface;
+use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
+use Laminas\Db\Adapter\AdapterInterface;
 
 class DbInstaller extends InstallerAbstract
 {

@@ -2,12 +2,12 @@
 
 namespace rollun\test\Unit\Utils\TableGateway;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\TestCase;
 use rollun\tableGateway\TableGatewayIterator;
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\TableGateway\TableGateway;
+use PHPUnit\Framework\TestCase;
+use Laminas\Db\Adapter\Adapter;
+use Laminas\Db\TableGateway\TableGateway;
 
 class TableGatewayIteratorTest extends TestCase
 {
@@ -21,9 +21,9 @@ class TableGatewayIteratorTest extends TestCase
     private $tableGateway;
 
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->markTestIncomplete('Zend\ServiceManager\Exception\ServiceNotFoundException : Unable to resolve service "tbl_iterable" to a factory; are you certain you provided it during configuration?');
+        $this->markTestIncomplete('Laminas\ServiceManager\Exception\ServiceNotFoundException : Unable to resolve service "tbl_iterable" to a factory; are you certain you provided it during configuration?');
         $this->container = include './config/container.php';
         $this->adapter = $this->container->get('db');
 

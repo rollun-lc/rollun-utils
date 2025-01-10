@@ -11,7 +11,7 @@ class FileValidatorTimeTest extends TestCase
 {
     protected $file;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $file = 'data' . DIRECTORY_SEPARATOR . 'test_file';
         touch($file);
@@ -19,7 +19,7 @@ class FileValidatorTimeTest extends TestCase
         file_put_contents($this->file, 'test');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unlink($this->file);
     }

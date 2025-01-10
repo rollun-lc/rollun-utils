@@ -708,8 +708,8 @@ if (is_object($debug_object)) {
 // Notice the \[ starting the attbute?  and the @? following?  This implies that an attribute can begin with an @ sign that is not captured.
 // This implies that an html attribute specifier may start with an @ sign that is NOT captured by the expression.
 // farther study is required to determine of this should be documented or removed.
-//		$pattern = "/([\w-:\*]*)(?:\#([\w-]+)|\.([\w-]+))?(?:\[@?(!?[\w-]+)(?:([!*^$]?=)[\"']?(.*?)[\"']?)?\])?([\/, ]+)/is";
-$pattern = "/([\w-:\*]*)(?:\#([\w-]+)|\.([\w-]+))?(?:\[@?(!?[\w-:]+)(?:([!*^$]?=)[\"']?(.*?)[\"']?)?\])?([\/, ]+)/is";
+//		$pattern = "/([\w\-:\*]*)(?:\#([\w-]+)|\.([\w-]+))?(?:\[@?(!?[\w-]+)(?:([!*^$]?=)[\"']?(.*?)[\"']?)?\])?([\/, ]+)/is";
+$pattern = "/([\w\-:*]*)(?:#([\w-]+)|\.([\w-]+))?(?:\[@?(!?[\w\-:]+)(?:([!*^$]?=)[\"']?(.*?)[\"']?)?])?([\/, ]+)/is";
 preg_match_all($pattern, trim($selector_string) . ' ', $matches, PREG_SET_ORDER);
 if (is_object($debug_object)) {
     $debug_object->debug_log(2, "Matches Array: ", $matches);
@@ -1164,7 +1164,7 @@ global $debug_object;
 // prepare
 $this->prepare($str, $lowercase, $stripRN, $defaultBRText, $defaultSpanText);
 // strip out cdata
-$this->remove_noise("'<!\[CDATA\[(.*?)\]\]>'is", true);
+$this->remove_noise("'<!\[CDATA\[(.*?)]]>'is", true);
 // strip out comments
 $this->remove_noise("'<!--(.*?)-->'is");
 // Per sourceforge http://sourceforge.net/tracker/?func=detail&aid=2949097&group_id=218559&atid=1044037
@@ -1176,11 +1176,11 @@ $this->remove_noise("'<\s*script\s*>(.*?)<\s*/\s*script\s*>'is");
 $this->remove_noise("'<\s*style[^>]*[^/]>(.*?)<\s*/\s*style\s*>'is");
 $this->remove_noise("'<\s*style\s*>(.*?)<\s*/\s*style\s*>'is");
 // strip out preformatted tags
-$this->remove_noise("'<\s*(?:code)[^>]*>(.*?)<\s*/\s*(?:code)\s*>'is");
+$this->remove_noise("'<\s*code[^>]*>(.*?)<\s*/\s*code\s*>'is");
 // strip out server side scripts
 $this->remove_noise("'(<\?)(.*?)(\?>)'s", true);
 // strip smarty scripts
-$this->remove_noise("'(\{\w)(.*?)(\})'s", true);
+$this->remove_noise("'(\{\w)(.*?)(})'s", true);
 
 // parsing
 while ($this->parse());
@@ -1492,7 +1492,7 @@ if ($pos = strpos($tag, '<') !== false) {
     return true;
 }
 
-if (!preg_match("/^[\w-:]+$/", $tag)) {
+if (!preg_match("/^[\w\-:]+$/", $tag)) {
     $node->_[HDOM_INFO_TEXT] = '<' . $tag . $this->copy_until('<>');
     if ($this->char === '<') {
         $this->link_nodes($node, false);

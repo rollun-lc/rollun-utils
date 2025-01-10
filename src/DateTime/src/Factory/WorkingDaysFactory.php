@@ -2,9 +2,9 @@
 
 namespace rollun\utils\DateTime\Factory;
 
-use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 use rollun\utils\DateTime\WorkingDays;
-use Zend\ServiceManager\Factory\FactoryInterface;
 
 class WorkingDaysFactory implements FactoryInterface
 {

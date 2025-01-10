@@ -4,12 +4,9 @@
 namespace rollun\utils\Cleaner\CleaningValidator\Factory;
 
 
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
+use Psr\Container\ContainerInterface;
 use rollun\utils\Cleaner\CleaningValidator\CleaningValidatorInterface;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
  * Class AbstractCleaningValidatorAbstractFactory

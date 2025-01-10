@@ -1,8 +1,6 @@
 <?php
 
-
 namespace rollun\test\Unit\Utils\FileCleaner;
-
 
 use PHPUnit\Framework\TestCase;
 use rollun\utils\Cleaner\CleanableList\FileCleanableList;
@@ -17,7 +15,7 @@ class CleanFileTest extends TestCase
 
     protected $dir;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $dir = 'data' . DIRECTORY_SEPARATOR . 'list';
         if (!file_exists($dir)) {
@@ -27,7 +25,7 @@ class CleanFileTest extends TestCase
         $this->createTempFiles($dir);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->removeTempFiles($this->dir);
     }

@@ -5,7 +5,7 @@ namespace rollun\utils;
 
 
 use rollun\dic\InsideConstruct;
-use Zend\Http\Client;
+use Laminas\Http\Client;
 
 class TelegramClient
 {

@@ -2,7 +2,7 @@
 
 namespace rollun\utils\Cleaner\CleaningValidator;
 
-use Zend\Validator\ValidatorInterface;
+use Laminas\Validator\ValidatorInterface;
 use rollun\utils\Cleaner\CleaningValidator\CleaningValidatorInterface;
 
 class ZendValidatorAdapter implements CleaningValidatorInterface

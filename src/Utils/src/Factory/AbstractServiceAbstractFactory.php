@@ -2,11 +2,11 @@
 
 namespace rollun\utils\Factory;
 
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 use ReflectionClass;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
 /**
  * Class AbstractServiceAbstractFactory
@@ -80,7 +80,7 @@ class AbstractServiceAbstractFactory extends AbstractAbstractFactory
      * @throws ServiceNotFoundException if unable to resolve the service.
      * @throws ServiceNotCreatedException if an exception is raised when
      *     creating a service.
-     * @throws ContainerException if any other error occurs
+     * @throws ContainerExceptionInterface if any other error occurs
      * @throws \ReflectionException
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
@@ -183,7 +183,7 @@ class AbstractServiceAbstractFactory extends AbstractAbstractFactory
                 return $container->get($dependency);
                 break;
             case is_null($dependency):
-            case is_integer($dependency):
+            case is_int($dependency):
             case is_float($dependency):
             case is_bool($dependency):
             case is_object($dependency):
