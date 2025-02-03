@@ -21,7 +21,30 @@ class WorkingDays
      */
     public function __construct(array $weekendDays = [6, 7])
     {
+        $this->validateWeekendDays($weekendDays);
         $this->weekendDays = $weekendDays;
+    }
+
+    /**
+     * Validation for input weekendDays
+     *
+     * @param int[] $weekendDays
+     * @throws \InvalidArgumentException
+     */
+    public function validateWeekendDays(array $weekendDays): void
+    {
+        if ($weekendDays !== array_unique($weekendDays))
+        {
+            throw new \InvalidArgumentException('Weekend days have duplicated values');
+        }
+        foreach ($weekendDays as $day) {
+            if (!is_int($day) || $day < 1 || $day > 7) {
+                throw new \InvalidArgumentException('Weekend days must be integer between 1 and 7');
+            }
+        }
+        if (count($weekendDays) === 7) {
+            throw new \InvalidArgumentException("All days of the week cannot be days off");
+        }
     }
 
     /**
