@@ -33,7 +33,7 @@ class WorkingDays
      */
     public function validateWeekendDays(array $weekendDays): void
     {
-        if ($weekendDays !== array_unique($weekendDays))
+        if ($weekendDays != array_unique($weekendDays))
         {
             throw new \InvalidArgumentException('Weekend days have duplicated values');
         }
