@@ -65,4 +65,49 @@ class WorkingDaysTest extends TestCase
         // assert that result is Tuesday
         $this->assertEquals(2, $result->format('N'));
     }
+
+    public function validWeekendDaysDataProvider(): array
+    {
+        return [
+            'weekendDays4_5_6' => [
+                [4, 5, 6]
+            ],
+            'weekendDays4_7' => [
+                [4, 7]
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider  validWeekendDaysDataProvider
+     */
+    public function testValidateWeekendDaysCorrect(array $weekendDays): void
+    {
+        new WorkingDays($weekendDays);
+        $this->assertTrue(true);
+    }
+
+    public function invalidWeekendDaysDataProvider(): array
+    {
+        return [
+            'weekendDays6_5_6' => [
+                [6, 5, 6]
+            ],
+            'weekendDays4_7' => [
+                [4, '7']
+            ],
+            'weekendDays4_8' => [
+                [4, 8]
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider  invalidWeekendDaysDataProvider
+     */
+    public function testValidateWeekendDaysIncorrect(array $weekendDays): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new WorkingDays($weekendDays);
+    }
 }
