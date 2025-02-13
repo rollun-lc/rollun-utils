@@ -16,13 +16,13 @@ class WorkingDaysTest extends TestCase
         $workingDays = new WorkingDays([6, 7]);
 
         // friday date
-        $friday = new \DateTimeImmutable('friday');
+        $friday = new \DateTimeImmutable('2025-02-07');
 
         // add one working day
         $result = $workingDays->addWorkingDays($friday, 1);
 
         // assert that result is Monday
-        $this->assertEquals(1, $result->format('N'));
+        $this->assertEquals('2025-02-10', $result->format('Y-m-d'));
     }
 
     public function testStartInWeekendAddOneDay()
@@ -31,13 +31,13 @@ class WorkingDaysTest extends TestCase
         $workingDays = new WorkingDays([6, 7]);
 
         // Saturday date
-        $friday = new \DateTimeImmutable('saturday');
+        $friday = new \DateTimeImmutable('2025-02-08');
 
         // add one working day
         $result = $workingDays->addWorkingDays($friday, 1);
 
         // assert that result is Monday
-        $this->assertEquals(1, $result->format('N'));
+        $this->assertEquals('2025-02-10', $result->format('Y-m-d'));
     }
 
     public function testSkipHolidays()
