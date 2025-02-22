@@ -70,7 +70,11 @@
   "autoload-dev": {
     "psr-4": {
       "rollun\\test\\": "tests/"
-    }
+    },
+    "files": [
+      "src/DateTime/src/usa-working-days.php",
+      "src/DateTime/src/working-days.php"
+    ]
   },
   "extra": {
     "zf": {

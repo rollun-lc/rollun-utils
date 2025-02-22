@@ -48,53 +48,28 @@ class WorkingDays
 
     /**
      * Added only working days to date.
-     *
-     * @param DateTimeImmutable $dateTime
-     * @param int $days
-     * @return DateTimeImmutable
      */
     public function addWorkingDays(DateTimeImmutable $dateTime, int $days): DateTimeImmutable
     {
-        if ($days === 0) {
-            return $this->toWorkingDay($dateTime);
-        }
-
-        $addedDays = 0;
-        while ($addedDays < $days) {
-            $dateTime = $this->addDay($dateTime);
-            if ($this->isWorkingDay($dateTime)) {
-                $addedDays++;
-            }
-        }
-
-        return $dateTime;
+        return add_working_days($dateTime, $days, [$this, 'isWorkingDay']);
     }
 
     /**
      * Move date to working day
      *
-     * @param DateTimeImmutable $dateTime
-     * @return DateTimeImmutable
      * @throws \Exception
      */
     public function toWorkingDay(DateTimeImmutable $dateTime): DateTimeImmutable
     {
-        while (!$this->isWorkingDay($dateTime)) {
-            $dateTime = $this->addDay($dateTime);
-        }
-
-        return $dateTime;
+        return to_working_day($dateTime, [$this, 'isWorkingDay']);
     }
 
     /**
-     * Add 1 day to date
-     *
-     * @param DateTimeImmutable $dateTime
-     * @return DateTimeImmutable
+     * @throws \Exception
      */
-    protected function addDay(DateTimeImmutable $dateTime): DateTimeImmutable
+    public function isWorkingDay(DateTimeImmutable $dateTime): bool
     {
-        return $dateTime->add(new DateInterval("P1D"));
+        return !$this->isWeekendDay($dateTime) && !$this->isHoliday($dateTime);
     }
 
     public function isWeekendDay(DateTimeImmutable $dateTime): bool
@@ -107,14 +82,7 @@ class WorkingDays
      */
     public function isHoliday(DateTimeImmutable $dateTime): bool
     {
-        $year = $dateTime->format("Y");
-        $holidays = $this->getHolidaysByYear($year);
-        foreach ($holidays as $holiday) {
-            if ($holiday->format('Y-m-d') === $dateTime->format('Y-m-d')) {
-                return true;
-            }
-        }
-        return false;
+        return is_usa_holiday($dateTime);
     }
 
     /**
@@ -122,39 +90,6 @@ class WorkingDays
      */
     protected function getHolidaysByYear(string $year): array
     {
-        return [
-            "New Year's Day" => $this->getObservedDate(new DateTimeImmutable($year . '-01-01')),
-            "MLK Day" => new DateTimeImmutable('Third Monday of January ' . $year),
-            "President's Day" => new DateTimeImmutable('Third Monday of February ' . $year),
-            "Memorial Day" => new DateTimeImmutable('Last Monday of May ' . $year),
-            "Juneteenth National Independence Day" => $this->getObservedDate(new DateTimeImmutable($year . '-06-19')),
-            "Independence Day" => $this->getObservedDate(new DateTimeImmutable($year . '-07-04')),
-            "Labor Day" => new DateTimeImmutable('First Monday of September ' . $year),
-            "Columbus Day" => new DateTimeImmutable('Second Monday of October ' . $year),
-            "Veterans Day" => $this->getObservedDate(new DateTimeImmutable($year . '-11-11')),
-            "Thanksgiving" => new DateTimeImmutable('Fourth Thursday of November ' . $year),
-            "Christmas Day" => $this->getObservedDate(new DateTimeImmutable($year . '-12-25'))
-        ];
-    }
-
-    private function getObservedDate(DateTimeImmutable $holidayDate): DateTimeImmutable
-    {
-        $dayOfWeek = $holidayDate->format('N');
-
-        if ($dayOfWeek == 6) {
-            $holidayDate = $holidayDate->modify('- 1 day'); //saturday moves to friday
-        } else if ($dayOfWeek == 7) {
-            $holidayDate = $holidayDate->modify('+ 1 day');;  //sunday moves monday
-        }
-
-        return $holidayDate;
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function isWorkingDay(DateTimeImmutable $dateTime): bool
-    {
-        return !$this->isWeekendDay($dateTime) && !$this->isHoliday($dateTime);
+        return get_usa_holidays_by_year($year);
     }
 }
