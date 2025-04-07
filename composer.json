@@ -22,15 +22,15 @@
   ],
   "require": {
     "php": "^8.0",
-    "nicolab/php-ftp-client": "^1.6",
+    "ext-json": "*",
+    "ext-libxml": "*",
+    "ext-simplexml": "*",
     "laminas/laminas-db": "^2.13",
     "laminas/laminas-http": "^2.15",
     "mindplay/jsonfreeze": "^0.3.3",
-    "opis/closure": "^3.6.3",
-    "ext-json": "*",
-    "ext-simplexml": "*",
-    "ext-libxml": "*",
+    "nicolab/php-ftp-client": "^1.6",
     "openmetrics-php/exposition-text": "^0.3.1",
+    "opis/closure": "^3.6.3",
     "psr/http-server-middleware": "^1.0",
     "rollun-com/rollun-dic": "^4.1",
     "rollun-com/rollun-installer": "^5.1"
@@ -98,7 +98,8 @@
     "allow-plugins": {
       "rollun-com/rollun-installer": true,
       "laminas/laminas-component-installer": true
-    }
+    },
+    "sort-packages": true
   },
   "replace": {
 
