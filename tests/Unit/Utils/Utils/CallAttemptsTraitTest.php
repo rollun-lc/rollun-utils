@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\Unit\Utils\Utils;
+namespace Rollun\Test\Unit\Utils\Utils;
 
 use PHPUnit\Framework\TestCase;
 use rollun\utils\CallAttemptsTrait;

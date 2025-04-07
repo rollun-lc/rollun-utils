@@ -69,7 +69,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "rollun\\test\\": "tests/"
+      "Rollun\\Test\\": "tests/"
     }
   },
   "extra": {

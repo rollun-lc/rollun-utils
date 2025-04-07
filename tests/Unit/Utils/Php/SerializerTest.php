@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\Unit\Utils\Php;
+namespace Rollun\Test\Unit\Utils\Php;
 
 use rollun\utils\Php\Serializer as PhpSerializer;
 

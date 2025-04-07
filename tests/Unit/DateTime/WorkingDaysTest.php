@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\Unit\DateTime;
+namespace Rollun\Test\Unit\DateTime;
 
 use PHPUnit\Framework\TestCase;
 use rollun\utils\DateTime\WorkingDays;

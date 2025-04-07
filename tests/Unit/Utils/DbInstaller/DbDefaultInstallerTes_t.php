@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\Unit\Utils\DbInstaller;
+namespace Rollun\Test\Unit\Utils\DbInstaller;
 
 use rollun\installer\TestCase\InstallerTestCase;
 use rollun\utils\DbInstaller\DbDefaultInstaller;

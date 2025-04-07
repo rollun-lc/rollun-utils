@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\Unit\Utils\FailedProcesses;
+namespace Rollun\Test\Unit\Utils\FailedProcesses;
 
 use PHPUnit\Framework\TestCase;
 use rollun\dic\InsideConstruct;

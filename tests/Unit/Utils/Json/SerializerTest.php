@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\Unit\Utils\Json;
+namespace Rollun\Test\Unit\Utils\Json;
 
 use rollun\utils\Json\Exception as JsonException;
 use rollun\utils\Json\Serializer as JsonSerializer;

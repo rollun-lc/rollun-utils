@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\Unit\Utils\Json;
+namespace Rollun\Test\Unit\Utils\Json;
 
 use JsonSerializable;
 use rollun\utils\Json\Coder as JsonCoder;

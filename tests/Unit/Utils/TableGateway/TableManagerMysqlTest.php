@@ -1,6 +1,6 @@
 <?php
 
-namespace rollun\test\Unit\Utils\TableGateway;
+namespace Rollun\Test\Unit\Utils\TableGateway;
 
 use Psr\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;

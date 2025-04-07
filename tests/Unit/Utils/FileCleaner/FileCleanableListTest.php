@@ -1,7 +1,7 @@
 <?php
 
 
-namespace rollun\test\Unit\Utils\FileCleaner;
+namespace Rollun\Test\Unit\Utils\FileCleaner;
 
 
 use PHPUnit\Framework\TestCase;

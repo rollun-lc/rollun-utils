@@ -7,7 +7,7 @@
  * Time: 1:57 PM
  */
 
-namespace rollun\test\Unit\Utils;
+namespace Rollun\Test\Unit\Utils;
 
 class TestEnvTest extends \PHPUnit\Framework\TestCase
 {

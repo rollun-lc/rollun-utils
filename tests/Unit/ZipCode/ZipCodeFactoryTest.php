@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace rollun\test\Unit\ZipCode;
+namespace Rollun\Test\Unit\ZipCode;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
