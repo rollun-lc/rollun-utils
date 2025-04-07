@@ -16,7 +16,6 @@ if (is_file('.env')) {
 }
 
 $aggregator = new ConfigAggregator([
-    \Laminas\Mail\ConfigProvider::class,
     \Laminas\Db\ConfigProvider::class,
     \Laminas\Validator\ConfigProvider::class,
     // Include cache configuration
