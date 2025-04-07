@@ -60,7 +60,6 @@
       "rollun\\utils\\Cleaner\\": "src/Cleaner/src",
       "rollun\\utils\\FailedProcesses\\": "src/FailedProcesses/src",
       "rollun\\utils\\Metrics\\": "src/Metrics/src",
-      "rollun\\utils\\WebDriver\\": "src/WebDriver/src",
       "rollun\\utils\\DateTime\\": "src/DateTime/src",
       "rollun\\tracer\\": "src/Tracer/src",
       "rollun\\ZipCode\\": "src/ZipCode/src",
