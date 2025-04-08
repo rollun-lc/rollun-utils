@@ -15,17 +15,11 @@ use RuntimeException;
 class ExpireTimeValidator implements CleaningValidatorInterface
 {
     /**
-     * @var int
-     */
-    private $secondUntilExpire;
-
-    /**
      * ExpireTimeValidator constructor.
      * @param int $secondUntilExpire
      */
-    public function __construct(int $secondUntilExpire)
+    public function __construct(private int $secondUntilExpire)
     {
-        $this->secondUntilExpire = $secondUntilExpire;
     }
 
     /**

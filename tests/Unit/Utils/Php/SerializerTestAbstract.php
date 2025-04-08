@@ -10,92 +10,92 @@ abstract class SerializerTestAbstract extends \PHPUnit\Framework\TestCase
 
     public function provider_ScalarType()
     {
-        return array(
-            array(false),
-            array(true),
+        return [
+            [false],
+            [true],
             //
-            array(-30001),
-            array(-1),
-            array(0),
-            array(1),
-            array(30001),
+            [-30001],
+            [-1],
+            [0],
+            [1],
+            [30001],
             //
-            array(-30001.00001),
-            array(0.0),
-            array(30001.00001)
-        );
+            [-30001.00001],
+            [0.0],
+            [30001.00001]
+        ];
     }
 
     public function provider_StringType()
     {
-        return array(
+        return [
             //
-            array('-30001'),
-            array('0'),
-            array('30001.0001'),
+            ['-30001'],
+            ['0'],
+            ['30001.0001'],
             //
-            array(
+            [
                 'String строка !"№;%:?*(ХхЁ'
-            )
-        );
+            ]
+        ];
     }
 
     public function provider_ArrayType()
     {
-        return array(
+        return [
             //
-            array(
+            [
                 []
-            ),
-            array(
+            ],
+            [
                 [1, 'a', ['array']],
-            ),
-            array(
+            ],
+            [
                 ['one' => 1, 'a', 'next' => ['array']],
-            )
-        );
+            ]
+        ];
     }
 
     public function provider_ObjectType()
     {
-        return array(
-            array(
+        return [
+            [
                 (object) []  // new \stdClass();
-            ),
-            array(
+            ],
+            [
                 (object) ['prop' => 1]  //$stdClass = new \stdClass(); $stdClass->prop = 1
-            ),
-            array(
+            ],
+            [
                 new \Exception('Exception', 1, null)
-            ),
-            array(
+            ],
+            [
                 new JsonException('Exception', 1, new \Exception('subException', 1))
-            ),
-        );
+            ],
+        ];
     }
 
     public function provider_ClosureType()
     {
         $obj = new \stdClass();
-        return array(
-            array(
+        return [
+            [
                 function ($val) use ($obj) {
                     $obj->prop = $val;
                     return $obj;
                 }
                 , ''
-            )
-        );
+            ]
+        ];
     }
 
     public function provider_ResourceType()
     {
-        return array(
-            array(
+        return [
+            [
                 //imagecreate(1, 1)
                 fopen('/tmp/test', 'w'),
-            )
-        );
+            ]
+        ];
     }
 
     //==========================================================================

@@ -62,9 +62,7 @@ class DirCleanerTest extends \PHPUnit\Framework\TestCase
     public function test_DirCleaner_CallableValidator()
     {
 
-        $callable = function ($filename) {
-            return filesize($filename) <= $this->maxSizeInBytes;
-        };
+        $callable = (fn($filename) => filesize($filename) <= $this->maxSizeInBytes);
         //make CallableValidator from function
         $callableValidator = new CallableValidator($callable);
         $this->object->run($callableValidator);

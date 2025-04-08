@@ -14,12 +14,8 @@ class SerializerTest extends SerializerTestAbstract
      */
     protected function setUp(): void
     {
-        $this->encoder = function ($value) {
-            return call_user_func([JsonSerializer::class, 'jsonSerialize'], $value);
-        };
-        $this->decoder = function ($value) {
-            return call_user_func([JsonSerializer::class, 'jsonUnserialize'], $value);
-        };
+        $this->encoder = (fn($value) => call_user_func([JsonSerializer::class, 'jsonSerialize'], $value));
+        $this->decoder = (fn($value) => call_user_func([JsonSerializer::class, 'jsonUnserialize'], $value));
     }
 
     //==========================================================================

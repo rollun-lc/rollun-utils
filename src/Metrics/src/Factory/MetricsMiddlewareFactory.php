@@ -37,7 +37,7 @@ class MetricsMiddlewareFactory implements AbstractFactoryInterface
 
         try {
             $serviceConfig = $config[static::KEY][$requestedName];
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             throw new ServiceNotCreatedException("Missing config for '$requestedName' service");
         }
 

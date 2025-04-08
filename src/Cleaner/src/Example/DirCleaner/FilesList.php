@@ -7,12 +7,7 @@ use rollun\utils\Cleaner\CleanableList\CleanableListInterface;
 class FilesList implements \IteratorAggregate, CleanableListInterface
 {
 
-    protected $dirName;
-
-    public function __construct($dirName)
-    {
-        $this->dirName = $dirName;
-    }
+    public function __construct(protected $dirName) {}
 
     public function deleteItem($fileName)
     {

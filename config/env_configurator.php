@@ -15,7 +15,7 @@ $nameEnvVars = [
     'HOST',
 ];
 
-$configurator = function () use ($nameEnvVars, $config, $argv) {
+$configurator = function () use ($nameEnvVars, $config, $argv): void {
 
     $argvAppEnv = function () use ($argv) {
         $match = [];
@@ -30,7 +30,7 @@ $configurator = function () use ($nameEnvVars, $config, $argv) {
     };
 
     foreach ($nameEnvVars as $key) {
-        $value = getenv($key) ? getenv($key) : null;
+        $value = getenv($key) ?: null;
 
         if (!isset($value)) {
             if (isset($config[$key])) {
@@ -41,9 +41,9 @@ $configurator = function () use ($nameEnvVars, $config, $argv) {
         }
 
         if ($key === 'APP_ENV' && $value === 'dev') {
-            $value = isset($_SERVER['HTTP_APP_ENV']) ? $_SERVER['HTTP_APP_ENV'] : $value;
+            $value = $_SERVER['HTTP_APP_ENV'] ?? $value;
             $argvAppEnv = $argvAppEnv();
-            $value = isset($argvAppEnv) ? $argvAppEnv : $value;
+            $value = $argvAppEnv ?? $value;
         }
 
         if (!defined($key)) {
@@ -52,7 +52,7 @@ $configurator = function () use ($nameEnvVars, $config, $argv) {
         unset($config[$key]);
     }
     foreach ($config as $key => $value) {
-        $value = getenv($key) ? getenv($key) : $value;
+        $value = getenv($key) ?: $value;
         if (!defined($key)) {
             define($key, $value);
         }

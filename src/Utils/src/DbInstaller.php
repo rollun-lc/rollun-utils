@@ -66,12 +66,10 @@ class DbInstaller extends InstallerAbstract
             $config = $this->container->get("config");
             $adapters = $config["db"]["adapters"] ?? $config["db"] ?? [];
             if (!$isAll) {
-                $adapters = array_filter($adapters, function ($adapter) {
-                    return (isset($adapter[static::class]) && $adapter[static::class]);
-                });
+                $adapters = array_filter($adapters, fn($adapter) => isset($adapter[static::class]) && $adapter[static::class]);
             }
             return $adapters;
-        } catch (ContainerExceptionInterface $exception) {
+        } catch (ContainerExceptionInterface) {
             return [];
         }
     }
@@ -135,13 +133,10 @@ class DbInstaller extends InstallerAbstract
      */
     public function getDescription($lang = "en")
     {
-        switch ($lang) {
-            case "ru":
-                $description = "Позволяет представить таблицу в DB в качестве хранилища.";
-                break;
-            default:
-                $description = "Does not exist.";
-        }
+        $description = match ($lang) {
+            "ru" => "Позволяет представить таблицу в DB в качестве хранилища.",
+            default => "Does not exist.",
+        };
         return $description;
     }
 }

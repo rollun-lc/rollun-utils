@@ -85,7 +85,7 @@ class TableGatewayAbstractFactoryTest extends TestCase
             $result = $this->object->__invoke($this->container, $requestedName);
         }
         $this->assertSame(
-                'Zend\Db\TableGateway\TableGateway', get_class($result)
+                'Zend\Db\TableGateway\TableGateway', $result::class
         );
         $createStatementStr = 'DROP TABLE IF EXISTS tbl_name_which_exist';
         $createStatement = $this->adapter->query($createStatementStr);

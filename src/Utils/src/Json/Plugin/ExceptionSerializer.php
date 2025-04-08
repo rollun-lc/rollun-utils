@@ -24,14 +24,14 @@ class ExceptionSerializer
 
     public static function exceptionSerialize(\Exception $exception)
     {
-        $data = array(
-            JsonSerializer::TYPE => get_class($exception),
+        $data = [
+            JsonSerializer::TYPE => $exception::class,
             /*"message" => $exception->getMessage(),*/
             /*"code" => $exception->getCode(),*/
             "line" => $exception->getLine(),
             "file" => $exception->getFile(),
             "prev" => $exception->getPrevious(),
-        );
+        ];
         $refClassExc = new \ReflectionClass($exception);
         /** @var \ReflectionProperty $property */
         foreach ($refClassExc->getProperties() as $property) {
@@ -107,8 +107,8 @@ class ExceptionSerializer
             }
             $typesAndObjects['objects'][] = $subject;
             //We collect unique class names
-            if (!in_array(get_class($subject), $typesAndObjects['class'])) {
-                $typesAndObjects['class'][] = get_class($subject);
+            if (!in_array($subject::class, $typesAndObjects['class'])) {
+                $typesAndObjects['class'][] = $subject::class;
             }
             $propsArray = static::getClassProperties($subject);
             //Recursion
@@ -128,10 +128,10 @@ class ExceptionSerializer
      */
     protected static function getClassProperties($object, $className = null)
     {
-        $className = $className ? $className : get_class($object);
+        $className = $className ?: $object::class;
         $ref = new \ReflectionClass($className);
         $props = $ref->getProperties();
-        $props_arr = array();
+        $props_arr = [];
         foreach ($props as $prop) {
             $propName = $prop->getName();
 
@@ -162,8 +162,8 @@ class ExceptionSerializer
             if (is_a($className, 'Exception', true)) {
                 $serializer->defineSerialization(
                     $className
-                    , [get_class(), 'exceptionSerialize']
-                    , [get_class(), 'exceptionUnserialize']
+                    , [self::class, 'exceptionSerialize']
+                    , [self::class, 'exceptionUnserialize']
                 );
             }
         }
@@ -196,8 +196,8 @@ class ExceptionSerializer
     protected static function getClassesFromString($subject)
     {
         $pattern = '/"#type": "([\w\x5c]+)"/';
-        $match = array();
-        $types = array();
+        $match = [];
+        $types = [];
 
         if (preg_match_all($pattern, $subject, $match)) {
             if (count($match) > 1) {

@@ -10,28 +10,22 @@ class FtpDownloader
     protected $ftpClient;
 
     /**
-     * Target remote file which be downloaded
-     * @var string
-     */
-    protected $targetFilePath;
-
-    /**
-     * File path were data will be stored
-     * @var string
-     */
-    protected $destinationFilePath;
-
-    /**
      * FtpDownloader constructor.
      * @param FtpClient $ftpClient client is already connected & loggined
      * @param $destinationFilePath
      * @param $targetFilePath
+     * @param string $targetFilePath
+     * @param string $destinationFilePath
      */
-    public function __construct(FtpClient $ftpClient, $targetFilePath, $destinationFilePath)
+    public function __construct(FtpClient $ftpClient, /**
+     * Target remote file which be downloaded
+     */
+    protected $targetFilePath, /**
+     * File path were data will be stored
+     */
+    protected $destinationFilePath)
     {
         $this->ftpClient = $ftpClient;
-        $this->targetFilePath = $targetFilePath;
-        $this->destinationFilePath = $destinationFilePath;
     }
 
     /**

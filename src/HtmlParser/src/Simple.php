@@ -60,7 +60,7 @@ class Simple extends simple_html_dom
     {
         $dashesName = $this->fromCamelCase($name);
         if (method_exists($this, $dashesName))
-            return call_user_func_array(array(&$this, $dashesName), $params);
+            return call_user_func_array([&$this, $dashesName], $params);
         throw new \RuntimeException('Wrong method name: ' . $dashesName);
     }
 

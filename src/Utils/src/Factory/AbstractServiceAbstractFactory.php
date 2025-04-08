@@ -87,11 +87,11 @@ class AbstractServiceAbstractFactory extends AbstractAbstractFactory
     {
         $serviceConfig = $options ?? $this->getServiceConfig($container, $requestedName);
 
-        $class = isset($serviceConfig[static::KEY_CLASS]) ? $serviceConfig[static::KEY_CLASS] : $requestedName;
+        $class = $serviceConfig[static::KEY_CLASS] ?? $requestedName;
         if (!class_exists($class)) {
             throw new ServiceNotCreatedException("Class $class not existed.");
         }
-        $dependencies = isset($serviceConfig[static::KEY_DEPENDENCIES]) ? $serviceConfig[static::KEY_DEPENDENCIES] : $serviceConfig;
+        $dependencies = $serviceConfig[static::KEY_DEPENDENCIES] ?? $serviceConfig;
 
         $serviceDependencies = [];
         foreach ($dependencies as $parameterName => $dependency) {
@@ -163,13 +163,9 @@ class AbstractServiceAbstractFactory extends AbstractAbstractFactory
             case is_array($dependency):
                 switch ($dependency[static::KEY_TYPE]) {
                     case static::TYPE_SERVICES_LIST:
-                        return array_map(function ($dependency) use ($container) {
-                            return $container->get($dependency);
-                        }, $dependency[static::KEY_VALUE]);
+                        return array_map(fn($dependency) => $container->get($dependency), $dependency[static::KEY_VALUE]);
                     case static::TYPE_SERVICES_LIST_WITH_KEY:
-                        $deps = array_map(function ($key, $dependency) use ($container) {
-                            return ['key' => $key, 'dep' => $container->get($dependency)];
-                        }, array_keys($dependency[static::KEY_VALUE]), array_values($dependency[static::KEY_VALUE]));
+                        $deps = array_map(fn($key, $dependency) => ['key' => $key, 'dep' => $container->get($dependency)], array_keys($dependency[static::KEY_VALUE]), array_values($dependency[static::KEY_VALUE]));
                         return array_combine(array_column($deps, 'key'), array_column($deps, 'dep'));
                     case static::TYPE_SERVICE:
                         return $container->get($dependency[static::KEY_VALUE]);

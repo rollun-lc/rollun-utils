@@ -1,12 +1,13 @@
 <?php
 
+use Laminas\Db\Adapter\AdapterInterface;
 use rollun\tableGateway\Factory\TableGatewayAbstractFactory;
 
 return
     [
         'dependencies' => [
             'aliases' => [
-                'db' => 'Laminas\Db\Adapter\AdapterInterface',
+                'db' => AdapterInterface::class,
             ],
         ],
         'db' => [

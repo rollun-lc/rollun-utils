@@ -112,12 +112,6 @@ class TableManagerMysql
      *
      * @var array
      */
-    protected $config;
-
-    /**
-     *
-     * @var array
-     */
     protected $fieldClasses = [
         'Column' => ['BigInteger', 'Boolean', 'Date', 'Datetime', 'Integer', 'Time', 'Timestamp'],
         'LengthColumn' => ['Binary', 'Blob', 'Char', 'Text', 'Varbinary', 'Varchar'],
@@ -141,10 +135,9 @@ class TableManagerMysql
      * @param null $config
      * @throws \ReflectionException
      */
-    public function __construct(Adapter\Adapter $db, $config = null)
+    public function __construct(Adapter\Adapter $db, protected $config = null)
     {
         $this->db = $db;
-        $this->config = $config;
 
         if (!isset($this->config[self::KEY_AUTOCREATE_TABLES])) {
             return;
@@ -249,7 +242,7 @@ class TableManagerMysql
 
             $result .= '            column: ' . implode(', ', $constraint->getColumns());
             if ($constraint->isForeignKey()) {
-                $fkCols = array();
+                $fkCols = [];
                 foreach ($constraint->getReferencedColumns() as $refColumn) {
                     $fkCols[] = $constraint->getReferencedTableName() . '.' . $refColumn;
                 }
@@ -359,10 +352,8 @@ class TableManagerMysql
             if (isset($fieldData[self::FOREIGN_KEY])) {
                 $foreignKeyConstraintName = !isset($fieldData[self::FOREIGN_KEY]['name']) ?
                     'ForeignKey_' . $tableName . '_' . $fieldName : $fieldData[self::FOREIGN_KEY]['name'];
-                $onDeleteRule = isset($fieldData[self::FOREIGN_KEY]['onDeleteRule']) ?
-                    $fieldData[self::FOREIGN_KEY]['onDeleteRule'] : null;
-                $onUpdateRule = isset($fieldData[self::FOREIGN_KEY]['onUpdateRule']) ?
-                    $fieldData[self::FOREIGN_KEY]['onUpdateRule'] : null;
+                $onDeleteRule = $fieldData[self::FOREIGN_KEY]['onDeleteRule'] ?? null;
+                $onUpdateRule = $fieldData[self::FOREIGN_KEY]['onUpdateRule'] ?? null;
                 $foreignKeyInstance = new Constraint\ForeignKey(
                     $foreignKeyConstraintName
                     , [$fieldName]
@@ -404,22 +395,15 @@ class TableManagerMysql
      */
     protected function getFieldParams($fieldData, $fieldType)
     {
-        switch (true) {
-            case in_array($fieldType, $this->fieldClasses['Column']):
-                $fieldParamsDefault = $this->parameters['Column'];
-                break;
-            case in_array($fieldType, $this->fieldClasses['LengthColumn']):
-                $fieldParamsDefault = $this->parameters['LengthColumn'];
-                break;
-            case in_array($fieldType, $this->fieldClasses['PrecisionColumn']):
-                $fieldParamsDefault = $this->parameters['PrecisionColumn'];
-                break;
-            default:
-                throw new InvalidArgumentException('Unknown field type:' . $fieldType);
-        }
+        $fieldParamsDefault = match (true) {
+            in_array($fieldType, $this->fieldClasses['Column']) => $this->parameters['Column'],
+            in_array($fieldType, $this->fieldClasses['LengthColumn']) => $this->parameters['LengthColumn'],
+            in_array($fieldType, $this->fieldClasses['PrecisionColumn']) => $this->parameters['PrecisionColumn'],
+            default => throw new InvalidArgumentException('Unknown field type:' . $fieldType),
+        };
         $fieldParams = [];
         foreach ($fieldParamsDefault as $key => $value) {
-            if (isset($fieldData[self::FIELD_PARAMS]) && key_exists($key, $fieldData[self::FIELD_PARAMS])) {
+            if (isset($fieldData[self::FIELD_PARAMS]) && array_key_exists($key, $fieldData[self::FIELD_PARAMS])) {
                 $fieldParams[] = $fieldData[self::FIELD_PARAMS][$key];
             } else {
                 $fieldParams[] = $value;

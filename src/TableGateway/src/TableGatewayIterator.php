@@ -13,24 +13,12 @@ use Laminas\Db\TableGateway\TableGateway;
 class TableGatewayIterator implements \IteratorAggregate
 {
     /**
-     * @var TableGateway
-     */
-    private $tableGateway;
-
-    /**
-     * @var string
-     */
-    private $primaryKeyName;
-
-    /**
      * TableGatewayIterator constructor.
      * @param TableGateway $tableGateway
      * @param string $primaryKeyName
      */
-    public function __construct(TableGateway $tableGateway, string $primaryKeyName = "id")
+    public function __construct(private TableGateway $tableGateway, private string $primaryKeyName = "id")
     {
-        $this->tableGateway = $tableGateway;
-        $this->primaryKeyName = $primaryKeyName;
     }
 
     /**

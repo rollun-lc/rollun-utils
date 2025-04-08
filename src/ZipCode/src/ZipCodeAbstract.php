@@ -8,7 +8,7 @@ use InvalidArgumentException;
 use JsonSerializable;
 use rollun\utils\String\StringUtils;
 
-abstract class ZipCodeAbstract implements JsonSerializable
+abstract class ZipCodeAbstract implements JsonSerializable, \Stringable
 {
     protected string $value;
 

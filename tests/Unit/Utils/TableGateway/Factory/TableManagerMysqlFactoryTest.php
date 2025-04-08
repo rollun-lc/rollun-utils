@@ -51,7 +51,7 @@ class TableManagerMysqlFactoryTest extends TestCase
         $this->markTestIncomplete('Laminas\ServiceManager\Exception\ServiceNotFoundException : Unable to resolve service "TableManagerMysql" to a factory; are you certain you provided it during configuration?');
         $this->object = $this->container->get('TableManagerMysql');
         $this->assertSame(
-            get_class($this->object), TableManagerMysql::class
+            $this->object::class, TableManagerMysql::class
         );
     }
 

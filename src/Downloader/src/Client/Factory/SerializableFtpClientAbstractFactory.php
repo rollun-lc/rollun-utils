@@ -29,9 +29,7 @@ class SerializableFtpClientAbstractFactory implements AbstractFactoryInterface
     {
         try {
             $config = $container->get("config");
-        } catch (NotFoundExceptionInterface $e) {
-            return false;
-        } catch (ContainerExceptionInterface $e) {
+        } catch (NotFoundExceptionInterface|ContainerExceptionInterface) {
             return false;
         }
         return (

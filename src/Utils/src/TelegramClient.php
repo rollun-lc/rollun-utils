@@ -11,26 +11,15 @@ class TelegramClient
 {
 
     /**
-     * @var Client
-     */
-    private $client;
-
-    /**
-     * @var string
-     */
-    private $token;
-
-    /**
      * TelegramClient constructor.
      * @param $token
      * @param Client|null $client
      * @throws \ReflectionException
+     * @param string $token
      */
-    public function __construct($token, Client $client = null)
+    public function __construct(private $token, private ?\Laminas\Http\Client $client = null)
     {
         InsideConstruct::setConstructParams(["client" => Client::class]);
-        $this->client = $client;
-        $this->token = $token;
     }
 
     /**

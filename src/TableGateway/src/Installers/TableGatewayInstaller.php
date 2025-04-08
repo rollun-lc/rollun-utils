@@ -51,13 +51,10 @@ class TableGatewayInstaller extends InstallerAbstract
      */
     public function getDescription($lang = "en")
     {
-        switch ($lang) {
-            case "ru":
-                $description = "Позволяет представить таблицу в DB в качестве TableGateway.";
-                break;
-            default:
-                $description = "Does not exist.";
-        }
+        $description = match ($lang) {
+            "ru" => "Позволяет представить таблицу в DB в качестве TableGateway.",
+            default => "Does not exist.",
+        };
         return $description;
     }
 

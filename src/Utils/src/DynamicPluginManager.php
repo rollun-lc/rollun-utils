@@ -21,12 +21,9 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class DynamicPluginManager extends AbstractPluginManager
 {
-    private $configDataSource;
-
-    public function __construct($configDataSource, string $instanceOf, $configInstanceOrParentLocator = null, array $config = [])
+    public function __construct(private $configDataSource, string $instanceOf, $configInstanceOrParentLocator = null, array $config = [])
     {
         parent::__construct($configInstanceOrParentLocator, $config);
-        $this->configDataSource = $configDataSource;
         $this->instanceOf = $instanceOf;
     }
 

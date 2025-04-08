@@ -39,13 +39,10 @@ class AggregatorValidatorInstaller extends InstallerAbstract
      */
     public function getDescription($lang = "en")
     {
-        switch ($lang) {
-            case "ru":
-                $description = "Предоставляет сервис для очистки DS.";
-                break;
-            default:
-                $description = "Does not exist.";
-        }
+        $description = match ($lang) {
+            "ru" => "Предоставляет сервис для очистки DS.",
+            default => "Does not exist.",
+        };
         return $description;
     }
 

@@ -10,17 +10,11 @@ namespace rollun\utils\Cleaner\CleanableList;
 class FileCleanableList implements \IteratorAggregate, CleanableListInterface
 {
     /**
-     * @var string
-     */
-    protected $dirName;
-
-    /**
      * FileCleanableList constructor.
      * @param string $dirName
      */
-    public function __construct($dirName)
+    public function __construct(protected $dirName)
     {
-        $this->dirName = $dirName;
     }
 
     /**

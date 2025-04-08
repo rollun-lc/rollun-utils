@@ -11,24 +11,13 @@ namespace rollun\utils;
 class IdGenerator
 {
     /**
-     * @var string
-     */
-    protected $idCharSet = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789";
-
-    /**
-     * @var integer
-     */
-    protected $length;
-
-    /**
      * IdGenerator constructor.
      * @param $length
      * @param string $idCharSet
+     * @param int $length
      */
-    public function __construct($length, $idCharSet = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789")
+    public function __construct(protected $length, protected $idCharSet = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789")
     {
-        $this->length = $length;
-        $this->idCharSet = $idCharSet;
     }
 
     /**

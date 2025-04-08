@@ -2,6 +2,7 @@ init: docker-down-clear docker-pull docker-build docker-up composer-install
 up: docker-up
 down: docker-down
 restart: docker-down docker-up
+check: composer-rector test
 test: composer-test
 
 docker-up:
@@ -37,3 +38,6 @@ composer-install:
 
 composer-test:
 	docker compose exec -T php-fpm composer test
+
+composer-rector:
+	docker compose exec php-fpm composer rector

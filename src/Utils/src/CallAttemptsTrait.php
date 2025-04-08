@@ -21,26 +21,26 @@ trait CallAttemptsTrait
      * @param bool $createIfAbsent
      *
      * @return mixed
-     *
-     * @throws \Throwable
-     * @todo move to utils
-     *
      */
     public static function callAttemptsCallable($attempts, $interval, callable $callback, ...$data)
     {
-        $counter = 0;
-
-        while ($counter <= $attempts) {
-            $counter++;
-
-            try {
-                return $callback(...$data);
-            } catch (\Throwable $exception) {
-                usleep($interval + random_int(100000, 200000));
-            }
+        if ($attempts <= 0) {
+            throw new \InvalidArgumentException('Number of attempts must be greater than zero.');
         }
 
-        throw $exception;
+        $counter = 1;
+        do {
+            try {
+                return $callback(...$data);
+            } catch (\Throwable $e) {
+                if ($counter >= $attempts) {
+                    throw $e;
+                } else {
+                    $counter++;
+                    usleep($interval + random_int(100000, 200000));
+                }
+            }
+        } while (true);
     }
 
     /**
@@ -58,7 +58,7 @@ trait CallAttemptsTrait
             return self::callAttemptsCallable(4, 500000, [$this, $method], ...$data);
         }
 
-        throw new \Exception('method ' . $method . ' not found in ' . get_called_class() . ' class');
+        throw new \Exception('method ' . $method . ' not found in ' . static::class . ' class');
     }
 
     /**

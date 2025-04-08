@@ -27,11 +27,11 @@ class StringUtils
 
     public static function isStartsWith(string $haystack, string $needle): bool
     {
-        return 0 === strncmp($haystack, $needle, \strlen($needle));
+        return str_starts_with($haystack, $needle);
     }
 
     public static function isEndsWith(string $haystack, string $needle): bool
     {
-        return $needle === '' || ($haystack !== '' && substr_compare($haystack, $needle, -\strlen($needle)) === 0);
+        return $needle === '' || ($haystack !== '' && str_ends_with($haystack, $needle));
     }
 }

@@ -13,11 +13,6 @@ use Laminas\Db\TableGateway\TableGateway;
 class TableGatewayCleanableList implements CleanableListInterface, \IteratorAggregate
 {
     /**
-     * @var TableGateway
-     */
-    private $tableGateway;
-
-    /**
      * @var string
      */
     private $primaryKeyName;
@@ -26,9 +21,8 @@ class TableGatewayCleanableList implements CleanableListInterface, \IteratorAggr
      * TableGatewayCleanableList constructor.
      * @param TableGateway $tableGateway
      */
-    public function __construct(TableGateway $tableGateway)
+    public function __construct(private TableGateway $tableGateway)
     {
-        $this->tableGateway = $tableGateway;
         $this->primaryKeyName = "id";
     }
 

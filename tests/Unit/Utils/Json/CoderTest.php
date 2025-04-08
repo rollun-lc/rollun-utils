@@ -15,12 +15,8 @@ class CoderTest extends SerializerTestAbstract
      */
     protected function setUp(): void
     {
-        $this->encoder = function ($value) {
-            return call_user_func([JsonCoder::class, 'jsonEncode'], $value);
-        };
-        $this->decoder = function ($value) {
-            return call_user_func([JsonCoder::class, 'jsonDecode'], $value);
-        };
+        $this->encoder = (fn($value) => call_user_func([JsonCoder::class, 'jsonEncode'], $value));
+        $this->decoder = (fn($value) => call_user_func([JsonCoder::class, 'jsonDecode'], $value));
     }
 
     //==========================================================================
