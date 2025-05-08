@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Rollun\Test\Unit\Utils\Callables\TaskExample;
@@ -38,13 +39,13 @@ class FileSummaryTest extends \PHPUnit\Framework\TestCase
     public function testFileSummaryInfo(string $n, string $stage, string $status, int $wait, int $summary)
     {
         // create task
-        $this->createTask((int)$n);
+        $this->createTask((int) $n);
 
         sleep($wait);
         $result = (new FileSummary())->getTaskInfoById($n);
 
-        $this->assertEquals($stage, (string)$result->getData()['stage']['stage']);
-        $this->assertEquals($status, (string)$result->getData()['status']['state']);
+        $this->assertEquals($stage, (string) $result->getData()['stage']['stage']);
+        $this->assertEquals($status, (string) $result->getData()['status']['state']);
         $this->assertEquals($summary, $result->getData()['result']['data']['summary']);
     }
 

@@ -12,7 +12,6 @@ use Laminas\Db\Adapter\Adapter;
  */
 class TableGatewayAbstractFactoryTest extends TestCase
 {
-
     /**
      * @var Returner
      */
@@ -44,17 +43,15 @@ class TableGatewayAbstractFactoryTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown(): void
-    {
-
-    }
+    protected function tearDown(): void {}
 
     public function testTableGatewayAbstractFactory__canCreateIfTableAbsent()
     {
         $requestedName = 'the_name_of_table_which_absent';
         $result = $this->object->canCreate($this->container, $requestedName);
         $this->assertSame(
-                false, $result
+            false,
+            $result
         );
     }
 
@@ -67,7 +64,8 @@ class TableGatewayAbstractFactoryTest extends TestCase
         $requestedName = 'tbl_name_which_exist';
         $result = $this->object->canCreate($this->container, $requestedName);
         $this->assertSame(
-                true, $result
+            true,
+            $result
         );
         $createStatementStr = 'DROP TABLE IF EXISTS tbl_name_which_exist';
         $createStatement = $this->adapter->query($createStatementStr);
@@ -85,7 +83,8 @@ class TableGatewayAbstractFactoryTest extends TestCase
             $result = $this->object->__invoke($this->container, $requestedName);
         }
         $this->assertSame(
-                'Zend\Db\TableGateway\TableGateway', $result::class
+            'Zend\Db\TableGateway\TableGateway',
+            $result::class
         );
         $createStatementStr = 'DROP TABLE IF EXISTS tbl_name_which_exist';
         $createStatement = $this->adapter->query($createStatementStr);

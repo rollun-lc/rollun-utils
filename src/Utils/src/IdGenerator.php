@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: root
@@ -16,9 +17,7 @@ class IdGenerator
      * @param string $idCharSet
      * @param int $length
      */
-    public function __construct(protected $length, protected $idCharSet = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789")
-    {
-    }
+    public function __construct(protected $length, protected $idCharSet = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789") {}
 
     /**
      * @param $idCharSet

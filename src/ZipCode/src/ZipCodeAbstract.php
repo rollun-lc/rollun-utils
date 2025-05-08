@@ -41,7 +41,7 @@ abstract class ZipCodeAbstract implements JsonSerializable, \Stringable
     public function jsonSerialize(): array
     {
         return [
-            'value' => $this->getValue()
+            'value' => $this->getValue(),
         ];
     }
 

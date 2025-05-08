@@ -1,8 +1,6 @@
 <?php
 
-
 namespace rollun\utils;
-
 
 /**
  * Trait CallAttemptsTrait
@@ -53,7 +51,8 @@ trait CallAttemptsTrait
      *
      * @throws \Throwable
      */
-    public function callAttemptsMethod($method, ...$data) {
+    public function callAttemptsMethod($method, ...$data)
+    {
         if (method_exists($this, $method)) {
             return self::callAttemptsCallable(4, 500000, [$this, $method], ...$data);
         }
@@ -72,7 +71,8 @@ trait CallAttemptsTrait
      *
      * @throws \Throwable
      */
-    public function callAttempts($callable, ...$data) {
+    public function callAttempts($callable, ...$data)
+    {
         if (is_callable($callable)) {
             return self::callAttemptsCallable(4, 500000, $callable, ...$data);
         }

@@ -32,19 +32,20 @@ class TableGatewayIteratorTest extends TestCase
         $deleteStatement = $this->adapter->query($dropTableStr);
         $deleteStatement->execute();
 
-        $createStatementStr = 'CREATE TABLE IF NOT EXISTS '.$tableName.' (id INT, surname VARCHAR(255))';
+        $createStatementStr = 'CREATE TABLE IF NOT EXISTS ' . $tableName . ' (id INT, surname VARCHAR(255))';
         $createStatement = $this->adapter->query($createStatementStr);
         $createStatement->execute();
 
         $this->tableGateway = $this->container->get($tableName);
     }
 
-    public function testIterator() {
+    public function testIterator()
+    {
         $expectedItems = [];
         for ($i = 0; $i < 10; $i++) {
             $item = [
                 "id" => $i,
-                "surname" => "asd$i"
+                "surname" => "asd$i",
             ];
             $this->tableGateway->insert($item);
             $expectedItems[] = $item;

@@ -11,11 +11,11 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class MetricsMiddlewareFactory implements AbstractFactoryInterface
 {
-    const KEY = self::class;
+    public const KEY = self::class;
 
-    const DEFAULT_CLASS = MetricsMiddleware::class;
+    public const DEFAULT_CLASS = MetricsMiddleware::class;
 
-    const KEY_METRIC_PROVIDERS = 'metricProviders';
+    public const KEY_METRIC_PROVIDERS = 'metricProviders';
 
     public function canCreate(ContainerInterface $container, $requestedName)
     {

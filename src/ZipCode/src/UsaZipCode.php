@@ -15,7 +15,7 @@ final class UsaZipCode extends ZipCodeAbstract
          * 12345-
          * 12345
          */
-        return (bool)preg_match('/^[0-9]{5}(-([0-9]{2}|[0-9]{4}))?$/', $zipCode);
+        return (bool) preg_match('/^[0-9]{5}(-([0-9]{2}|[0-9]{4}))?$/', $zipCode);
     }
 
     public static function normalize(string $zip): string

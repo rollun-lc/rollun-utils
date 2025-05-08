@@ -1,8 +1,6 @@
 <?php
 
-
 namespace rollun\utils\Factory;
-
 
 use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
@@ -17,15 +15,15 @@ abstract class AbstractAbstractFactory implements AbstractFactoryInterface
      * need to override
      * Factory config key
      */
-    const KEY = null;
+    public const KEY = null;
 
     /**
      * Factory child class name
      * need to override
      */
-    const DEFAULT_CLASS = null;
+    public const DEFAULT_CLASS = null;
 
-    const KEY_CLASS = "class";
+    public const KEY_CLASS = "class";
 
     /**
      * Can the factory create an instance for the service?

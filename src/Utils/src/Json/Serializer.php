@@ -22,7 +22,6 @@ use rollun\utils\Json\Exception as JsonException;
  */
 class Serializer
 {
-
     /**
      * @param $value
      * @return string

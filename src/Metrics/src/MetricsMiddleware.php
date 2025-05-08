@@ -38,7 +38,7 @@ class MetricsMiddleware implements MiddlewareInterface
                 $metrics = array_merge($metrics, $metricsProvider->getMetrics());
             } catch (\Throwable $e) {
                 $this->logger->warning("Can't get metrics", [
-                    'exception' => $e
+                    'exception' => $e,
                 ]);
                 continue;
             }
@@ -49,7 +49,7 @@ class MetricsMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        return HttpResponse::fromMetricCollections( ...$metrics )
-            ->withHeader( 'Content-Type', 'text/plain; charset=utf-8' );
+        return HttpResponse::fromMetricCollections(...$metrics)
+            ->withHeader('Content-Type', 'text/plain; charset=utf-8');
     }
 }

@@ -29,15 +29,14 @@ use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
  */
 class TableGatewayAbstractFactory implements AbstractFactoryInterface
 {
+    public const KEY = self::KEY_TABLE_GATEWAY;
 
-    const KEY = self::KEY_TABLE_GATEWAY;
-
-    const KEY_SQL = 'sql';
+    public const KEY_SQL = 'sql';
 
     /**
      * @deprecated
      */
-    const KEY_TABLE_GATEWAY = 'tableGateway';
+    public const KEY_TABLE_GATEWAY = 'tableGateway';
     /*
      * @var array cache of tables names in db
      */
@@ -49,7 +48,7 @@ class TableGatewayAbstractFactory implements AbstractFactoryInterface
      */
     protected $db;
 
-    const KEY_ADAPTER = 'adapter';
+    public const KEY_ADAPTER = 'adapter';
 
     /**
      * Can the factory create an instance for the service?
@@ -77,7 +76,7 @@ class TableGatewayAbstractFactory implements AbstractFactoryInterface
         }
         if ($this->setDbAdapter($container, $requestedName)) {
             $dbMetadata = new Metadata($this->db);
-            $this->tableNames = array_merge($dbMetadata->getTableNames(),  $dbMetadata->getViewNames());
+            $this->tableNames = array_merge($dbMetadata->getTableNames(), $dbMetadata->getViewNames());
         }
         return is_array($this->tableNames) && in_array($requestedName, $this->tableNames, true);
     }
@@ -100,7 +99,7 @@ class TableGatewayAbstractFactory implements AbstractFactoryInterface
         } else {
             $this->db = $container->has('db') ? $container->get('db') : false;
         }
-        return (bool)$this->db;
+        return (bool) $this->db;
     }
 
     /**

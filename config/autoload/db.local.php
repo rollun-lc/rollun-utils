@@ -31,6 +31,6 @@ return
 
         TableGatewayAbstractFactory::KEY => [
             "tbl_name_which_exist" => [],
-            "tbl_iterable" => []
-        ]
+            "tbl_iterable" => [],
+        ],
     ];

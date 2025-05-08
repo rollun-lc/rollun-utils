@@ -15,7 +15,4 @@ namespace rollun\utils\Json;
  * @category   utils
  * @package    zaboy
  */
-class Exception extends \Exception
-{
-
-}
+class Exception extends \Exception {}

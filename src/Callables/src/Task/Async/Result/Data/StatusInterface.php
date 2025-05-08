@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace rollun\Callables\Task\Async\Result\Data;
@@ -12,9 +13,9 @@ use rollun\Callables\Task\ToArrayForDtoInterface;
  */
 interface StatusInterface extends ToArrayForDtoInterface
 {
-    const STATE_PENDING = 'pending';
-    const STATE_FULFILLED = 'fulfilled';
-    const STATE_REJECTED = 'rejected';
+    public const STATE_PENDING = 'pending';
+    public const STATE_FULFILLED = 'fulfilled';
+    public const STATE_REJECTED = 'rejected';
 
     /**
      * Get current state

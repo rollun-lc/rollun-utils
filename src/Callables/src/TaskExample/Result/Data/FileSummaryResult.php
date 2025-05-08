@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace rollun\Callables\TaskExample\Result\Data;
@@ -41,7 +42,7 @@ class FileSummaryResult implements ToArrayForDtoInterface
     public function toArrayForDto(): array
     {
         return [
-            'summary' => $this->getSummary()
+            'summary' => $this->getSummary(),
         ];
     }
 }

@@ -23,14 +23,13 @@ use rollun\utils\Json\Exception as JsonException;
  */
 class Coder
 {
-
     /**
      * How objects should be encoded -- arrays or as stdClass. TYPE_ARRAY is 1
      * so that it is a boolean true value, allowing it to be used with
      * ext/json's functions.
      */
-    const TYPE_ARRAY = 1;
-    const TYPE_OBJECT = 0; // not used
+    public const TYPE_ARRAY = 1;
+    public const TYPE_OBJECT = 0; // not used
 
     /**
      *
@@ -71,7 +70,7 @@ class Coder
     public static function jsonDecode($data)
     {
         json_encode(null); // Clear json_last_error()
-        $result = json_decode((string)$data, self::TYPE_ARRAY); //json_decode($data);
+        $result = json_decode((string) $data, self::TYPE_ARRAY); //json_decode($data);
         if (JSON_ERROR_NONE !== json_last_error()) {
             $jsonErrorMsg = json_last_error_msg();
             json_encode(null);  // Clear json_last_error()

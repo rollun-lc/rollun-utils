@@ -133,7 +133,7 @@ class WorkingDays
             "Columbus Day" => new DateTimeImmutable('Second Monday of October ' . $year),
             "Veterans Day" => $this->getObservedDate(new DateTimeImmutable($year . '-11-11')),
             "Thanksgiving" => new DateTimeImmutable('Fourth Thursday of November ' . $year),
-            "Christmas Day" => $this->getObservedDate(new DateTimeImmutable($year . '-12-25'))
+            "Christmas Day" => $this->getObservedDate(new DateTimeImmutable($year . '-12-25')),
         ];
     }
 
@@ -143,8 +143,9 @@ class WorkingDays
 
         if ($dayOfWeek == 6) {
             $holidayDate = $holidayDate->modify('- 1 day'); //saturday moves to friday
-        } else if ($dayOfWeek == 7) {
-            $holidayDate = $holidayDate->modify('+ 1 day');;  //sunday moves monday
+        } elseif ($dayOfWeek == 7) {
+            $holidayDate = $holidayDate->modify('+ 1 day');
+            ;  //sunday moves monday
         }
 
         return $holidayDate;

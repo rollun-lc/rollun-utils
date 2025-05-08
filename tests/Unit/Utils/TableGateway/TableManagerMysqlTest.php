@@ -12,7 +12,6 @@ use Laminas\Db\Adapter\Adapter;
  */
 class TableManagerMysqlTest extends TestCase
 {
-
     /**
      * @var Returner
      */
@@ -45,41 +44,41 @@ class TableManagerMysqlTest extends TestCase
                 'id' => [
                     'field_type' => 'Integer',
                     'field_params' => [
-                        'options' => ['autoincrement' => true]
-                    ]
+                        'options' => ['autoincrement' => true],
+                    ],
                 ],
                 'name' => [
                     'field_type' => 'Varchar',
                     'field_params' => [
                         'length' => 10,
                         'nullable' => true,
-                        'default' => 'what?'
+                        'default' => 'what?',
                     ],
-                    'field_unique_key' => true // or Constraint Name
-                ]
+                    'field_unique_key' => true, // or Constraint Name
+                ],
             ],
             'test_config_table_mastet' => [
                 'id' => [
                     'field_type' => 'Integer',
                     'field_params' => [
-                        'options' => ['autoincrement' => true]
-                    ]
+                        'options' => ['autoincrement' => true],
+                    ],
                 ],
                 'name' => [
                     'field_type' => 'Varchar',
                     'field_params' => [
                         'length' => 10,
                         'nullable' => true,
-                        'default' => 'what?'
+                        'default' => 'what?',
                     ],
                     'field_foreign_key' => [
                         'referenceTable' => 'table_slave',
                         'referenceColumn' => 'id',
                         'onDeleteRule' => 'cascade',
                         'onUpdateRule' => null,
-                        'name' => null
-                    ]
-                ]
+                        'name' => null,
+                    ],
+                ],
             ],
             'test_config_table_slave' => [
                 'id' => [
@@ -87,11 +86,11 @@ class TableManagerMysqlTest extends TestCase
                     'field_params' => [
                         'length' => 10,
                         'nullable' => true,
-                        'default' => 'what?'
+                        'default' => 'what?',
                     ],
                 ],
             ],
-        ]
+        ],
     ];
 
     /**
@@ -121,25 +120,22 @@ class TableManagerMysqlTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown(): void
-    {
-
-    }
+    protected function tearDown(): void {}
 
     public function testTableManagerMysql_Create()
     {
         $this->object->createTable($this->tableName, 'test_config_table');
 
         $this->assertSame(
-                '    With columns: ' . PHP_EOL .
+            '    With columns: ' . PHP_EOL .
                 '        id -> int' . PHP_EOL .
                 '        name -> varchar' . PHP_EOL . PHP_EOL .
                 '    With constraints: ' . PHP_EOL .
                 '        _laminas_test_create_table_PRIMARY -> PRIMARY KEY' . PHP_EOL .
                 '            column: id' . PHP_EOL .
                 '        _laminas_test_create_table_UniqueKey_test_create_table_name -> UNIQUE' . PHP_EOL .
-                '            column: name' . PHP_EOL
-                , $this->object->getTableInfoStr($this->tableName)
+                '            column: name' . PHP_EOL,
+            $this->object->getTableInfoStr($this->tableName)
         );
     }
 
@@ -148,7 +144,7 @@ class TableManagerMysqlTest extends TestCase
         $this->object->rewriteTable('table_slave', 'test_config_table_slave');
         $this->object->rewriteTable('table_master', 'test_config_table_mastet');
         $this->assertSame(
-                '    With columns: ' . PHP_EOL .
+            '    With columns: ' . PHP_EOL .
                 '        id -> int' . PHP_EOL .
                 '        name -> varchar' . PHP_EOL .
                 PHP_EOL .
@@ -158,8 +154,8 @@ class TableManagerMysqlTest extends TestCase
                 '        ForeignKey_table_master_name -> FOREIGN KEY' . PHP_EOL .
                 '            column: name => table_slave.id' . PHP_EOL .
                 '            OnDeleteRule: CASCADE' . PHP_EOL .
-                '            OnUpdateRule: NO ACTION' . PHP_EOL
-                , $this->object->getTableInfoStr('table_master')
+                '            OnUpdateRule: NO ACTION' . PHP_EOL,
+            $this->object->getTableInfoStr('table_master')
         );
     }
 

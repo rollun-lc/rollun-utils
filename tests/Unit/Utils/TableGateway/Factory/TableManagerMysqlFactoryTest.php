@@ -12,7 +12,6 @@ use Laminas\Db\Adapter\Adapter;
  */
 class TableManagerMysqlFactoryTest extends TestCase
 {
-
     /**
      * @var Returner
      */
@@ -41,17 +40,15 @@ class TableManagerMysqlFactoryTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown(): void
-    {
-
-    }
+    protected function tearDown(): void {}
 
     public function testTableGatewayAbstractFactory__canCreateIfTableAbsent()
     {
         $this->markTestIncomplete('Laminas\ServiceManager\Exception\ServiceNotFoundException : Unable to resolve service "TableManagerMysql" to a factory; are you certain you provided it during configuration?');
         $this->object = $this->container->get('TableManagerMysql');
         $this->assertSame(
-            $this->object::class, TableManagerMysql::class
+            $this->object::class,
+            TableManagerMysql::class
         );
     }
 

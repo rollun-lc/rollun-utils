@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace rollun\Callables\TaskExample;
@@ -22,7 +23,7 @@ use rollun\Callables\Task\Async\Result\Data\TaskInfo;
  */
 class FileSummary implements TaskInterface
 {
-    const DIR_PATH = 'data/file-summary';
+    public const DIR_PATH = 'data/file-summary';
 
     /**
      * @inheritDoc
@@ -30,18 +31,18 @@ class FileSummary implements TaskInterface
     public function getTaskInfoById($id): TaskInfoInterface
     {
         // prepare task id
-        $taskId = (string)$id;
+        $taskId = (string) $id;
 
-        if (!file_exists($this->getFilePath((int)$taskId))) {
+        if (!file_exists($this->getFilePath((int) $taskId))) {
             return new Result(null, [new Message(LogLevel::ERROR, 'No such task')]);
         }
 
-        $data = $this->getFileData((int)$taskId);
+        $data = $this->getFileData((int) $taskId);
 
         // prepare all stages
         $stages = [];
         $i = 1;
-        while ($i <= (int)$taskId) {
+        while ($i <= (int) $taskId) {
             $stages[] = 'writing ' . $i;
             $i++;
         }
@@ -50,7 +51,7 @@ class FileSummary implements TaskInterface
 
         if (!empty($data['summary'])) {
             // prepare task info
-            $taskInfo = new TaskInfo($taskId, 3, new Stage($stages, 'done'), new Status(), new Result((new FileSummaryResult((int)$data['summary']))->toArrayForDto()));
+            $taskInfo = new TaskInfo($taskId, 3, new Stage($stages, 'done'), new Status(), new Result((new FileSummaryResult((int) $data['summary']))->toArrayForDto()));
             $taskInfo->getStatus()->toFulfilled();
 
             return new Result($taskInfo->toArrayForDto());
@@ -79,7 +80,7 @@ class FileSummary implements TaskInterface
     public function runTask(object $taskParam): ResultInterface
     {
         // prepare n
-        $n = (int)$taskParam->n;
+        $n = (int) $taskParam->n;
 
         if (empty($n)) {
             throw new \InvalidArgumentException("Parameter 'n' is required");
@@ -110,7 +111,7 @@ class FileSummary implements TaskInterface
         exec("php $execFilePath $n >/dev/null 2>&1 &");
         sleep(1);
 
-        return $this->getTaskInfoById((string)$n);
+        return $this->getTaskInfoById((string) $n);
     }
 
     /**
@@ -140,16 +141,16 @@ class FileSummary implements TaskInterface
      */
     public function deleteById($id): ResultInterface
     {
-        if (!file_exists($this->getFilePath((int)$id))) {
+        if (!file_exists($this->getFilePath((int) $id))) {
             return new Result((new FileSummaryDelete(false))->toArrayForDto(), [new Message(LogLevel::ERROR, 'No such task')]);
         }
 
-        $data = $this->getFileData((int)$id);
+        $data = $this->getFileData((int) $id);
         if (empty($data['summary'])) {
             return new Result((new FileSummaryDelete(false))->toArrayForDto(), [new Message(LogLevel::ERROR, 'Task is running and can not be deleted')]);
         }
 
-        unlink($this->getFilePath((int)$id));
+        unlink($this->getFilePath((int) $id));
 
         return new Result((new FileSummaryDelete(true))->toArrayForDto());
     }
@@ -163,7 +164,7 @@ class FileSummary implements TaskInterface
     {
         // create dir if not exists
         if (!file_exists(self::DIR_PATH)) {
-            mkdir(self::DIR_PATH, 0777, true);
+            mkdir(self::DIR_PATH, 0o777, true);
             sleep(1);
         }
 
@@ -189,7 +190,7 @@ class FileSummary implements TaskInterface
     {
         return [
             'numbers' => [],
-            'summary' => null
+            'summary' => null,
         ];
     }
 

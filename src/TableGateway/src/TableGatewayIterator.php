@@ -1,8 +1,6 @@
 <?php
 
-
 namespace rollun\tableGateway;
-
 
 use Traversable;
 use Laminas\Db\Adapter\Adapter;
@@ -17,9 +15,7 @@ class TableGatewayIterator implements \IteratorAggregate
      * @param TableGateway $tableGateway
      * @param string $primaryKeyName
      */
-    public function __construct(private TableGateway $tableGateway, private string $primaryKeyName = "id")
-    {
-    }
+    public function __construct(private TableGateway $tableGateway, private string $primaryKeyName = "id") {}
 
     /**
      * @param string $primaryKey
@@ -33,7 +29,7 @@ class TableGatewayIterator implements \IteratorAggregate
         $select->order($this->primaryKeyName . ' ' . Select::ORDER_ASCENDING);
         $select->columns(['*']);
         if (isset($primaryKey)) {
-            $select->where("(".
+            $select->where("(" .
                 "{$this->tableGateway->getAdapter()->getPlatform()->quoteIdentifier($this->primaryKeyName)}" .
                 ">" .
                 (is_numeric($primaryKey) ? "$primaryKey" : "{$this->tableGateway->getAdapter()->getPlatform()->quoteValue($primaryKey)}") .

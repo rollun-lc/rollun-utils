@@ -8,7 +8,6 @@ use rollun\utils\Json\Exception as JsonException;
 
 class CoderTest extends SerializerTestAbstract
 {
-
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed
@@ -32,7 +31,7 @@ class CoderTest extends SerializerTestAbstract
                     }
                 },
                 '[]',
-                []
+                [],
             ],
             [
                 new class implements JsonSerializable {
@@ -42,7 +41,7 @@ class CoderTest extends SerializerTestAbstract
                     }
                 },
                 '[1,"a",["array"]]',
-                [1, 'a', ['array']]
+                [1, 'a', ['array']],
             ],
             [
                 new class implements JsonSerializable {
@@ -52,7 +51,7 @@ class CoderTest extends SerializerTestAbstract
                     }
                 },
                 '{"one":1,"0":"a","next":["array"]}',
-                ['one' => 1, 'a', 'next' => ['array']]
+                ['one' => 1, 'a', 'next' => ['array']],
             ],
         ];
     }

@@ -21,7 +21,6 @@ use rollun\utils\Json\Serializer;
  */
 class ExceptionSerializer
 {
-
     public static function exceptionSerialize(\Exception $exception)
     {
         $data = [
@@ -52,8 +51,11 @@ class ExceptionSerializer
         try {
             $exc = new $data[JsonSerializer::TYPE]($data["message"], $data["code"], $prev);
         } catch (\Exception $exc) {
-            $exc = new \RuntimeException('Can not Unserialize Exception '
-                . $data[JsonSerializer::TYPE], 0, $exc
+            $exc = new \RuntimeException(
+                'Can not Unserialize Exception '
+                . $data[JsonSerializer::TYPE],
+                0,
+                $exc
             );
         }
 
@@ -161,9 +163,9 @@ class ExceptionSerializer
 
             if (is_a($className, 'Exception', true)) {
                 $serializer->defineSerialization(
-                    $className
-                    , [self::class, 'exceptionSerialize']
-                    , [self::class, 'exceptionUnserialize']
+                    $className,
+                    [self::class, 'exceptionSerialize'],
+                    [self::class, 'exceptionUnserialize']
                 );
             }
         }

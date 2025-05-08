@@ -40,7 +40,7 @@ class Coder
 
         // Add root element cause json_encode ignores it
         return [
-            $object->getName() => $array
+            $object->getName() => $array,
         ];
     }
 }

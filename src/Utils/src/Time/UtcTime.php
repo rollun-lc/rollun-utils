@@ -8,10 +8,9 @@ namespace rollun\utils\Time;
  */
 abstract class UtcTime
 {
-
-    const WITHOUT_MICROSECONDS = 0;
-    const WITH_TENTHS = 1; //0.1
-    const WITH_HUNDREDTHS = 2; //0.01
+    public const WITHOUT_MICROSECONDS = 0;
+    public const WITH_TENTHS = 1; //0.1
+    public const WITH_HUNDREDTHS = 2; //0.01
 
     /**
      *

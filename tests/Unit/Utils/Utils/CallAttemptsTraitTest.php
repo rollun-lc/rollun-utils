@@ -9,16 +9,14 @@ class CallAttemptsTraitTest extends TestCase
 {
     public function testCallAttempts()
     {
-        $object = new class() {
+        $object = new class {
             use CallAttemptsTrait;
 
-            public function test($data) {
-
-            }
+            public function test($data) {}
         };
 
         $param = 'world';
-        $result = $object->callAttempts(function($param) {
+        $result = $object->callAttempts(function ($param) {
             static $count = 0;
             $count++;
             if ($count < 3) {

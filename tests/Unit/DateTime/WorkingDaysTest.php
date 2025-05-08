@@ -7,9 +7,7 @@ use rollun\utils\DateTime\WorkingDays;
 
 class WorkingDaysTest extends TestCase
 {
-    protected function setUp(): void
-    {
-    }
+    protected function setUp(): void {}
     public function testSkipWeekend()
     {
         // create with Saturday and Sunday is weekend
@@ -70,10 +68,10 @@ class WorkingDaysTest extends TestCase
     {
         return [
             'weekendDays4_5_6' => [
-                [4, 5, 6]
+                [4, 5, 6],
             ],
             'weekendDays4_7' => [
-                [4, 7]
+                [4, 7],
             ],
         ];
     }
@@ -91,13 +89,13 @@ class WorkingDaysTest extends TestCase
     {
         return [
             'weekendDays6_5_6' => [
-                [6, 5, 6]
+                [6, 5, 6],
             ],
             'weekendDays4_7' => [
-                [4, '7']
+                [4, '7'],
             ],
             'weekendDays4_8' => [
-                [4, 8]
+                [4, 8],
             ],
         ];
     }

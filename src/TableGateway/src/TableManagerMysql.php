@@ -91,16 +91,15 @@ use Laminas\Db\Sql\Ddl\CreateTable;
  */
 class TableManagerMysql
 {
-
-    const FIELD_TYPE = 'field_type';
-    const FIELD_PARAMS = 'field_params';
-    const FOREIGN_KEY = 'field_foreign_key';
-    const UNIQUE_KEY = 'field_unique_key';
-    const PRIMARY_KEY = 'field_primary_key';
+    public const FIELD_TYPE = 'field_type';
+    public const FIELD_PARAMS = 'field_params';
+    public const FOREIGN_KEY = 'field_foreign_key';
+    public const UNIQUE_KEY = 'field_unique_key';
+    public const PRIMARY_KEY = 'field_primary_key';
     //
-    const KEY_IN_CONFIG = 'tableManagerMysql';
-    const KEY_TABLES_CONFIGS = 'tablesConfigs';
-    const KEY_AUTOCREATE_TABLES = 'autocreateTables';
+    public const KEY_IN_CONFIG = 'tableManagerMysql';
+    public const KEY_TABLES_CONFIGS = 'tablesConfigs';
+    public const KEY_AUTOCREATE_TABLES = 'autocreateTables';
 
     /**
      *
@@ -115,7 +114,7 @@ class TableManagerMysql
     protected $fieldClasses = [
         'Column' => ['BigInteger', 'Boolean', 'Date', 'Datetime', 'Integer', 'Time', 'Timestamp'],
         'LengthColumn' => ['Binary', 'Blob', 'Char', 'Text', 'Varbinary', 'Varchar'],
-        'PrecisionColumn' => ['Decimal', 'Float', 'Floating']
+        'PrecisionColumn' => ['Decimal', 'Float', 'Floating'],
     ];
 
     /**
@@ -125,7 +124,7 @@ class TableManagerMysql
     protected $parameters = [
         'Column' => ['nullable' => false, 'default' => null, 'options' => []],
         'LengthColumn' => ['length' => null, 'nullable' => false, 'default' => null, 'options' => []],
-        'PrecisionColumn' => ['digits' => null, 'decimal' => null, 'nullable' => false, 'default' => null, 'options' => []]
+        'PrecisionColumn' => ['digits' => null, 'decimal' => null, 'nullable' => false, 'default' => null, 'options' => []],
     ];
 
     /**
@@ -330,7 +329,7 @@ class TableManagerMysql
         $isPrimaryKeySet = false;
         $primaryKeys = [];
         foreach ($tableConfigArray as $fieldName => $fieldData) {
-            if(isset($fieldData[static::PRIMARY_KEY])) {
+            if (isset($fieldData[static::PRIMARY_KEY])) {
                 $primaryKeys[] = $fieldName;
                 $isPrimaryKeySet = true;
             }
@@ -355,17 +354,17 @@ class TableManagerMysql
                 $onDeleteRule = $fieldData[self::FOREIGN_KEY]['onDeleteRule'] ?? null;
                 $onUpdateRule = $fieldData[self::FOREIGN_KEY]['onUpdateRule'] ?? null;
                 $foreignKeyInstance = new Constraint\ForeignKey(
-                    $foreignKeyConstraintName
-                    , [$fieldName]
-                    , $fieldData[self::FOREIGN_KEY]['referenceTable']
-                    , $fieldData[self::FOREIGN_KEY]['referenceColumn']
-                    , $onDeleteRule
-                    , $onUpdateRule
+                    $foreignKeyConstraintName,
+                    [$fieldName],
+                    $fieldData[self::FOREIGN_KEY]['referenceTable'],
+                    $fieldData[self::FOREIGN_KEY]['referenceColumn'],
+                    $onDeleteRule,
+                    $onUpdateRule
                 );
                 $alterTable->addConstraint($foreignKeyInstance);
             }
         }
-        if($isPrimaryKeySet) {
+        if ($isPrimaryKeySet) {
             $table->addConstraint(new Constraint\PrimaryKey(...$primaryKeys));
         } else {
             $table->addConstraint(new Constraint\PrimaryKey('id'));

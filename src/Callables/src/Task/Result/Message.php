@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace rollun\Callables\Task\Result;
@@ -71,7 +72,7 @@ class Message implements MessageInterface
         return [
             'level'   => $this->getLevel(),
             'text'    => $this->getText(),
-            'context' => $this->getContext()
+            'context' => $this->getContext(),
         ];
     }
 }

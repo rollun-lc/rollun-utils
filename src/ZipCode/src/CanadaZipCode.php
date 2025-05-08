@@ -12,6 +12,6 @@ final class CanadaZipCode extends ZipCodeAbstract
          * h2z 1b8
          * H2Z1B8
          */
-        return (bool)preg_match('/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i', $zipCode);
+        return (bool) preg_match('/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i', $zipCode);
     }
 }

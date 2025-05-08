@@ -49,7 +49,7 @@ class TableManagerMysqlFactory implements FactoryInterface
             //throw new RestException('There is not "tableManager" key in config');
             $tableManagerConfig = [
                 TableManagerMysql::KEY_AUTOCREATE_TABLES => [],
-                TableManagerMysql::KEY_TABLES_CONFIGS => []
+                TableManagerMysql::KEY_TABLES_CONFIGS => [],
             ];
         } else {
             $tableManagerConfig = $config[TableManagerMysql::KEY_IN_CONFIG];

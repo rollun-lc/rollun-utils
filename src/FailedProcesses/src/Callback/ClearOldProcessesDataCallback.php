@@ -1,8 +1,6 @@
 <?php
 
-
 namespace rollun\utils\FailedProcesses\Callback;
-
 
 use rollun\dic\InsideConstruct;
 use rollun\utils\FailedProcesses\Service\ProcessTracker;
@@ -26,7 +24,8 @@ class ClearOldProcessesDataCallback
         ]);
     }
 
-    public function __sleep() {
+    public function __sleep()
+    {
         return [];
     }
 

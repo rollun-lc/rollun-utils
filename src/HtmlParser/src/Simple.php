@@ -9,7 +9,6 @@ namespace rollun\utils\HtmlParser;
  */
 class Simple extends simple_html_dom
 {
-
     /**
      *
      * @var simple_html_dom
@@ -59,8 +58,9 @@ class Simple extends simple_html_dom
     public function __call($name, array $params)
     {
         $dashesName = $this->fromCamelCase($name);
-        if (method_exists($this, $dashesName))
+        if (method_exists($this, $dashesName)) {
             return call_user_func_array([&$this, $dashesName], $params);
+        }
         throw new \RuntimeException('Wrong method name: ' . $dashesName);
     }
 

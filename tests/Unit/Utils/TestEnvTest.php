@@ -11,7 +11,6 @@ namespace Rollun\Test\Unit\Utils;
 
 class TestEnvTest extends \PHPUnit\Framework\TestCase
 {
-
     protected $nameEnvVars = [
         'APP_ENV',
         'MACHINE_NAME',

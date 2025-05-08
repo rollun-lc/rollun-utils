@@ -29,7 +29,7 @@ class ProcessTracker implements MetricsProviderInterface
         $dirPath = static::getProcessTrackingDir() . static::getTodayDir();
 
         if (!file_exists($dirPath)) {
-            $isDirCreated = mkdir($dirPath, 0777, true);
+            $isDirCreated = mkdir($dirPath, 0o777, true);
             if (!$isDirCreated) {
                 return;
             }
@@ -118,7 +118,7 @@ class ProcessTracker implements MetricsProviderInterface
                 Gauge::fromValue(static::getFailedProcessesCount(0))->withLabels(
                     Label::fromNameAndValue('older_than', 'now')
                 )
-            )
+            ),
         ];
     }
 
@@ -205,7 +205,7 @@ class ProcessTracker implements MetricsProviderInterface
             throw new \RuntimeException("Files count must be numeric");
         }
 
-        return (int)$filesCount;
+        return (int) $filesCount;
     }
 
     private static function getServiceName(): string

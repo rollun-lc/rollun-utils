@@ -60,7 +60,7 @@ class ZipCodeFactoryTest extends TestCase
             'Invalid character in the start' => ['I2345'],
             'Leading Z' => ['Z2T 1B8'],
             'Contains O' => ['H2T 1O3'],
-            'Invalid format' => ['H2Z A8B']
+            'Invalid format' => ['H2Z A8B'],
         ];
     }
 

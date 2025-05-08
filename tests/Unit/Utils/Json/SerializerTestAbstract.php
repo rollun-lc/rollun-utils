@@ -7,7 +7,6 @@ use rollun\utils\Json\Exception as JsonException;
 
 abstract class SerializerTestAbstract extends TestCase
 {
-
     /**
      * @var callable
      */
@@ -33,7 +32,7 @@ abstract class SerializerTestAbstract extends TestCase
             //
             [-30001.00001, '-30001.00001'],
             [0.0, '0', 0], //we get 0 - not 0.0
-            [30001.00001, '30001.00001']
+            [30001.00001, '30001.00001'],
         ];
     }
 
@@ -48,10 +47,10 @@ abstract class SerializerTestAbstract extends TestCase
             [
                 'String строка !"№;%:?*(ХхЁ',
                 //if use json_encode($data);
-                '"String \u0441\u0442\u0440\u043e\u043a\u0430 !\"\u2116;%:?*(\u0425\u0445\u0401"'
-            //if use json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES | SON_HEX_APOS);
-//              '"String \u0441\u0442\u0440\u043e\u043a\u0430 !\u0022\u2116;%:?*(\u0425\u0445\u0401\r\n"' - if Json\Coder
-            ]
+                '"String \u0441\u0442\u0440\u043e\u043a\u0430 !\"\u2116;%:?*(\u0425\u0445\u0401"',
+                //if use json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES | SON_HEX_APOS);
+                //              '"String \u0441\u0442\u0440\u043e\u043a\u0430 !\u0022\u2116;%:?*(\u0425\u0445\u0401\r\n"' - if Json\Coder
+            ],
         ];
     }
 
@@ -61,16 +60,16 @@ abstract class SerializerTestAbstract extends TestCase
             //
             [
                 [],
-                '[]'
+                '[]',
             ],
             [
                 [1, 'a', ['array']],
-                '[1,"a",["array"]]'
+                '[1,"a",["array"]]',
             ],
             [
                 ['one' => 1, 'a', 'next' => ['array']],
-                '{"one":1,"0":"a","next":["array"]}'
-            ]
+                '{"one":1,"0":"a","next":["array"]}',
+            ],
         ];
     }
 
@@ -79,19 +78,17 @@ abstract class SerializerTestAbstract extends TestCase
         return [
             [
                 (object) []  // new \stdClass();
-                , '{"#type":"stdClass"}'
+                , '{"#type":"stdClass"}',
             ],
             [
                 (object) ['prop' => 1]  //$stdClass = new \stdClass(); $stdClass->prop = 1
-                , '{"prop":1,"#type":"stdClass"}'
+                , '{"prop":1,"#type":"stdClass"}',
             ],
             [
-                new \Exception('Exception', 1)
-                , null
+                new \Exception('Exception', 1), null,
             ],
             [
-                new JsonException('JsonException', 1, new \Exception('Exception', 1))
-                , null
+                new JsonException('JsonException', 1, new \Exception('Exception', 1)), null,
             ],
         ];
     }
@@ -100,9 +97,8 @@ abstract class SerializerTestAbstract extends TestCase
     {
         return [
             [
-                fn($val) => $val
-                , ''
-            ]
+                fn($val) => $val, '',
+            ],
         ];
     }
 
@@ -111,8 +107,8 @@ abstract class SerializerTestAbstract extends TestCase
         return [
             [
                 //imagecreate(1, 1), ''
-                fopen('/tmp/test', 'w'), ''
-            ]
+                fopen('/tmp/test', 'w'), '',
+            ],
         ];
     }
 
@@ -128,11 +124,13 @@ abstract class SerializerTestAbstract extends TestCase
             $jsonStringCopressed = str_replace(chr(13), '', str_replace(chr(10), '', str_replace(' ', '', $jsonString)));
             $expectedJsonStringCopressed = str_replace(chr(13), '', str_replace(chr(10), '', str_replace(' ', '', $expectedJsonString)));
             $this->assertSame(
-                    $expectedJsonStringCopressed, $jsonStringCopressed
+                $expectedJsonStringCopressed,
+                $jsonStringCopressed
             );
         }
         $this->assertEquals(
-                $expectedValue, $decodedValue
+            $expectedValue,
+            $decodedValue
         );
     }
 

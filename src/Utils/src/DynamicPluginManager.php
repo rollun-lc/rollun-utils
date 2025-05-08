@@ -1,8 +1,6 @@
 <?php
 
-
 namespace rollun\utils;
-
 
 use Laminas\ServiceManager\AbstractPluginManager;
 

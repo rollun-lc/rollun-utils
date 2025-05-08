@@ -14,30 +14,30 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
  */
 class AbstractServiceAbstractFactory extends AbstractAbstractFactory
 {
-    const KEY = AbstractServiceAbstractFactory::class;
+    public const KEY = AbstractServiceAbstractFactory::class;
 
     /**
      * service dependencies
      */
-    const KEY_DEPENDENCIES = "dependencies";
+    public const KEY_DEPENDENCIES = "dependencies";
 
-    const TYPE_SERVICE = "service";
+    public const TYPE_SERVICE = "service";
 
-    const TYPE_SERVICES_LIST = "services_list";
+    public const TYPE_SERVICES_LIST = "services_list";
 
-    const TYPE_SERVICES_LIST_WITH_KEY = "services_list_with_key";
+    public const TYPE_SERVICES_LIST_WITH_KEY = "services_list_with_key";
 
-    const TYPE_SIMPLE = "simple";
+    public const TYPE_SIMPLE = "simple";
 
-    const KEY_VALUE_EXPAND = 'value_expand';
+    public const KEY_VALUE_EXPAND = 'value_expand';
 
-    const KEY_VALUE = "value";
+    public const KEY_VALUE = "value";
 
-    const KEY_TYPE = "type";
+    public const KEY_TYPE = "type";
 
-    const KEY_WITH_SERVICE_NAME = 'with_service_name';
+    public const KEY_WITH_SERVICE_NAME = 'with_service_name';
 
-    const DEFAULT_SERVICE_NAME_PARAM = 'name';
+    public const DEFAULT_SERVICE_NAME_PARAM = 'name';
 
     /**
      * Create an object
