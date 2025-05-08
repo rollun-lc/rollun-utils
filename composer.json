@@ -28,7 +28,6 @@
     "laminas/laminas-db": "^2.13",
     "laminas/laminas-http": "^2.15",
     "mindplay/jsonfreeze": "^0.3.3",
-    "nicolab/php-ftp-client": "^1.6",
     "openmetrics-php/exposition-text": "^0.3.1",
     "opis/closure": "^3.6.3",
     "psr/http-server-middleware": "^1.0",
@@ -59,8 +58,7 @@
       "rollun\\utils\\Metrics\\": "src/Metrics/src",
       "rollun\\utils\\DateTime\\": "src/DateTime/src",
       "rollun\\tracer\\": "src/Tracer/src",
-      "rollun\\ZipCode\\": "src/ZipCode/src",
-      "rollun\\Downloader\\": "src/Downloader/src"
+      "rollun\\ZipCode\\": "src/ZipCode/src"
     }
   },
   "autoload-dev": {
