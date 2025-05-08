@@ -1,10 +1,10 @@
-name: Check PHP 8.1
+name: Test PHP 8.0
 
 on:
   push:
-    branches: [ master, 10.x ]
+    branches: [ master, 10.x  ]
   pull_request:
-    branches: [ master, 10.x ]
+    branches: [ master, 10.x  ]
 
 jobs:
   tests:
@@ -15,5 +15,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check project
-        run: make init check down
+      - name: Run tests
+        run: make init-8.0 test-8.0
