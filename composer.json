@@ -30,8 +30,7 @@
     "mindplay/jsonfreeze": "^0.3.3",
     "openmetrics-php/exposition-text": "^0.3.1",
     "psr/http-server-middleware": "^1.0",
-    "rollun-com/rollun-dic": "^4.1",
-    "rollun-com/rollun-installer": "^5.1"
+    "rollun-com/rollun-dic": "^4.1"
   },
   "require-dev": {
     "ext-gd": "*",
