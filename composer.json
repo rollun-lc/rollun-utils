@@ -35,10 +35,7 @@
   "require-dev": {
     "ext-gd": "*",
     "laminas/laminas-config-aggregator": "^1.7",
-    "laminas/laminas-diactoros": "^2.8.0",
     "laminas/laminas-servicemanager": "^3.10.0",
-    "laminas/laminas-stratigility": "^3.5.0",
-    "mezzio/mezzio": "^3.9",
     "phpunit/phpunit": "^9.5.10",
     "rector/rector": "^2.0",
     "symfony/dotenv": "^6.0.3"
