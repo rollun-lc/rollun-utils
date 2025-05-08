@@ -47,13 +47,11 @@
   },
   "autoload": {
     "psr-4": {
-      "rollun\\logger\\": "src/Logger/src",
       "rollun\\Callables\\": "src/Callables/src",
       "rollun\\Marketplace\\": "src/Marketplace/src",
       "rollun\\tableGateway\\": "src/TableGateway/src",
       "rollun\\utils\\": "src/Utils/src",
       "rollun\\utils\\HtmlParser\\": "src/HtmlParser/src",
-      "rollun\\utils\\Cleaner\\": "src/Cleaner/src",
       "rollun\\utils\\FailedProcesses\\": "src/FailedProcesses/src",
       "rollun\\utils\\Metrics\\": "src/Metrics/src",
       "rollun\\utils\\DateTime\\": "src/DateTime/src",
