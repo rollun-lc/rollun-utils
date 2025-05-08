@@ -26,7 +26,6 @@
     "ext-libxml": "*",
     "ext-simplexml": "*",
     "laminas/laminas-db": "^2.13",
-    "laminas/laminas-http": "^2.15",
     "mindplay/jsonfreeze": "^0.3.3",
     "openmetrics-php/exposition-text": "^0.3.1",
     "psr/http-server-middleware": "^1.0",
@@ -54,7 +53,6 @@
       "rollun\\utils\\FailedProcesses\\": "src/FailedProcesses/src",
       "rollun\\utils\\Metrics\\": "src/Metrics/src",
       "rollun\\utils\\DateTime\\": "src/DateTime/src",
-      "rollun\\tracer\\": "src/Tracer/src",
       "rollun\\ZipCode\\": "src/ZipCode/src"
     }
   },

@@ -17,7 +17,6 @@ if (is_file('.env')) {
 
 $aggregator = new ConfigAggregator([
     \Laminas\Db\ConfigProvider::class,
-    \Laminas\Validator\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 

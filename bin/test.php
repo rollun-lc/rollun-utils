@@ -1,7 +1,6 @@
 <?php
 
 use Psr\Log\LoggerInterface;
-use rollun\utils\TelegramClient;
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
