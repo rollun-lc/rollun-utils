@@ -164,7 +164,7 @@ class FileSummary implements TaskInterface
     {
         // create dir if not exists
         if (!file_exists(self::DIR_PATH)) {
-            mkdir(self::DIR_PATH, 0o777, true);
+            mkdir(self::DIR_PATH, 0777, true);
             sleep(1);
         }
 

@@ -29,7 +29,7 @@ class ProcessTracker implements MetricsProviderInterface
         $dirPath = static::getProcessTrackingDir() . static::getTodayDir();
 
         if (!file_exists($dirPath)) {
-            $isDirCreated = mkdir($dirPath, 0o777, true);
+            $isDirCreated = mkdir($dirPath, 0777, true);
             if (!$isDirCreated) {
                 return;
             }
