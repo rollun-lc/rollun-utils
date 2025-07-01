@@ -10,12 +10,12 @@ use rollun\utils\Metrics\MetricsProviderInterface;
 
 class ProcessTracker implements MetricsProviderInterface
 {
-    private const PROCESS_TRACKING_DIR = 'data/process-tracking/';
+    protected const PROCESS_TRACKING_DIR = 'data/process-tracking/';
 
-    private const ENV_TRACK_PROCESSES = 'TRACK_PROCESSES';
+    protected const ENV_TRACK_PROCESSES = 'TRACK_PROCESSES';
 
     /** @var string */
-    private static $filePath;
+    protected static $filePath;
 
     /**
      * TODO: make $lifeCycleToken optional
@@ -153,7 +153,7 @@ class ProcessTracker implements MetricsProviderInterface
         return $data;
     }
 
-    private static function parseFileData(string $fileData): array
+    protected static function parseFileData(string $fileData): array
     {
         $lines = explode("\n", $fileData);
 
@@ -187,7 +187,7 @@ class ProcessTracker implements MetricsProviderInterface
         ];
     }
 
-    private static function getFailedProcessesCount(int $passedMinutes, bool $onlyToday = true): int
+    protected static function getFailedProcessesCount(int $passedMinutes, bool $onlyToday = true): int
     {
         $dirPath = static::getProcessTrackingDir();
 
@@ -208,7 +208,7 @@ class ProcessTracker implements MetricsProviderInterface
         return (int)$filesCount;
     }
 
-    private static function getServiceName(): string
+    protected static function getServiceName(): string
     {
         $serviceName = exec('hostname');
 
@@ -225,17 +225,17 @@ class ProcessTracker implements MetricsProviderInterface
         return $serviceNameParts[0];
     }
 
-    private static function needTrackProcess(): bool
+    protected static function needTrackProcess(): bool
     {
         return getenv(self::ENV_TRACK_PROCESSES) === 'true';
     }
 
-    private static function getProcessTrackingDir(): string
+    protected static function getProcessTrackingDir(): string
     {
         return self::PROCESS_TRACKING_DIR;
     }
 
-    private static function getTodayDir(): string
+    protected static function getTodayDir(): string
     {
         return (new \DateTime())->format('Y-m-d') . '/';
     }
