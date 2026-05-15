@@ -8,7 +8,7 @@ use OpenMetricsPhp\Exposition\Text\Types\Label;
 use OpenMetricsPhp\Exposition\Text\Types\MetricName;
 use rollun\utils\Metrics\MetricsProviderInterface;
 
-class ProcessTracker implements MetricsProviderInterface
+class ProcessTracker implements MetricsProviderInterface, ProcessTrackerInterface
 {
     private const PROCESS_TRACKING_DIR = 'data/process-tracking/';
 
