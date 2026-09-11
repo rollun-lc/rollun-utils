@@ -128,7 +128,7 @@ class WorkingDays
             "President's Day" => new DateTimeImmutable('Third Monday of February ' . $year),
             "Memorial Day" => new DateTimeImmutable('Last Monday of May ' . $year),
             "Juneteenth National Independence Day" => $this->getObservedDate(new DateTimeImmutable($year . '-06-19')),
-            "Independence Day" => new DateTimeImmutable($year . '-07-04'),
+            "Independence Day" => $this->getSundayObservedDate(new DateTimeImmutable($year . '-07-04')),
             "Labor Day" => new DateTimeImmutable('First Monday of September ' . $year),
             "Columbus Day" => new DateTimeImmutable('Second Monday of October ' . $year),
             "Veterans Day" => $this->getObservedDate(new DateTimeImmutable($year . '-11-11')),
@@ -146,6 +146,19 @@ class WorkingDays
         } elseif ($dayOfWeek == 7) {
             $holidayDate = $holidayDate->modify('+ 1 day');
             ;  //sunday moves monday
+        }
+
+        return $holidayDate;
+    }
+
+    /**
+     * USPS keeps a Saturday holiday on Saturday (post offices stay open on Friday)
+     * and observes a Sunday one on Monday.
+     */
+    private function getSundayObservedDate(DateTimeImmutable $holidayDate): DateTimeImmutable
+    {
+        if ((int) $holidayDate->format('N') === 7) {
+            return $holidayDate->modify('+ 1 day');
         }
 
         return $holidayDate;

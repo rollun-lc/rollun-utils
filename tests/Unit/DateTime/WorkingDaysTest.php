@@ -72,6 +72,13 @@ class WorkingDaysTest extends TestCase
         $this->assertTrue($workingDays->isHoliday(new \DateTimeImmutable('2026-07-04')));
     }
 
+    public function testIndependenceDayIsObservedOnMondayWhenItFallsOnSunday(): void
+    {
+        $workingDays = new WorkingDays([]);
+
+        $this->assertTrue($workingDays->isHoliday(new \DateTimeImmutable('2027-07-05')));
+    }
+
     public function validWeekendDaysDataProvider(): array
     {
         return [
